@@ -1,6 +1,7 @@
-#include "configurator.hpp"
+#include "replacer.hpp"
 
-int main(int argc, char** argv)
+
+int main(/*int argc, char** argv*/)
 {
 
 

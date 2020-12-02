@@ -4,6 +4,7 @@ project(everypixel_test)
 
 set(CMAKE_CXX_STANDART 17)
 set(CMAKE_CXX_STANDART_REQUIRED True)
+set(CMAKE_BUILD_TYPE Debug)
 
 add_compile_options(
         -Wall

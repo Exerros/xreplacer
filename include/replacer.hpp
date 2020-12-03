@@ -3,22 +3,20 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
-#include <fstream>
 #include <cstdint>
 #include <string>
 #include <regex>
 #include <iostream>
 
 #include "functions.hpp"
+#include "exception.hpp"
 
 namespace epx_test {
     using std::unordered_map;
-    using std::ifstream;
-    using std::ofstream;
     using std::string;
     using std::regex;
-    using std::pair;
     using std::smatch;
+    using std::pair;
     using std::move;
     using std::regex_search;
     using std::regex_replace;
@@ -26,6 +24,7 @@ namespace epx_test {
     using std::cout;
     using std::flush;
     using epx_func::get_buffer_from;
+    using epx_func::write_buffer_to_file;
 
     const string FIRST_REGULAR_STRING =
                  "replace[[:blank:]]*=[^<>]*<{1}([^<>]*)>{1}",

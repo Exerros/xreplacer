@@ -9,12 +9,12 @@ namespace epx_test {
 
         if(regex_search(fileBuf, match, reg)) {
             rootDirectory = match[1];
-        }
+        } else { throw Config_Error(); }
 
         reg = regex(STREAMS_REGULAR_STRING);
         if(regex_search(fileBuf, match, reg)) {
             maxStreamCount = std::atoi(match[1].str().data());
-        }
+        } else { throw Config_Error(); }
 
     }
 

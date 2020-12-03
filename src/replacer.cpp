@@ -18,9 +18,10 @@ namespace epx_test {
         //Здесь происходит поиск необходимого блока информации для его
         //дальнейшего парсинга и подмена регулярного выражения для дальнейшего
         //поиска необходимой информации уже в этом блоке информации.
-        regex_search(fileBuf, match, reg);
-        reg = regex(SECOND_REGULAR_STRING);
-        fileBuf = match[1].str();
+        if(regex_search(fileBuf, match, reg)) {
+            reg = regex(SECOND_REGULAR_STRING);
+            fileBuf = match[1].str();
+        } else { throw Config_Error(); }
 
         //В данном блоке происходит парсинг информации уже до вида пар "что" и
         //"на что" которые будут использоваться для замен.
@@ -60,9 +61,7 @@ namespace epx_test {
                 p.second
             );
         }
-        ofstream output_file(filePath);
-        output_file << fileBuf;
-        output_file.close();
+        write_buffer_to_file(move(fileBuf), filePath);
 
         //Результатом работы не случайно выбрана пара из пути и числа замен
         //Это будет использовано для информирования пользователя
@@ -113,10 +112,7 @@ namespace epx_test {
             }
             i = next(i);
         }
-
-        ofstream output_file(filePath);
-        output_file << fileBuf;
-        output_file.close();
+        write_buffer_to_file(move(fileBuf), filePath);
 
         return make_pair(replaceCount, move(filePath));
     }

@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "functions.hpp"
+#include "exception.hpp"
 
 namespace epx_test {
     using std::string;

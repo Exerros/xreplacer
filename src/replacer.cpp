@@ -2,70 +2,31 @@
 
 namespace epx_test {
 
-//Конструктор класса, при создании объекта "заменителя", сразу выполняет
-//разбор пар для замены из файла, переданного в виде пути.
-    Replacer::Replacer(const string& filePath)
-        :maxSearchSize()
-    {
-        //Создаем все необходимые переменные. Инициализируем класс регулярных
-        //выражений от первого выражения, которое ищет необходимый блок
-        //информации. Буфер файла создается на основе переданного из функции
-        // get_buf_and_close rvalue char* буфера.
-        string fileBuf(move(get_buffer_from(filePath)));
-        regex reg(FIRST_REGULAR_STRING);
-        smatch match;
+    Replacer::Replacer(Configurator& config)
+        :pairs(std::move(config.pairs))
+        ,searchSymbols(std::move(config.searchSymbols))
+        ,maxSearchSize(std::move(config.maxSearchSize))
+        ,outputStream(std::move(config.outputStream))
+        { }
 
-        //Здесь происходит поиск необходимого блока информации для его
-        //дальнейшего парсинга и подмена регулярного выражения для дальнейшего
-        //поиска необходимой информации уже в этом блоке информации.
-        if(regex_search(fileBuf, match, reg)) {
-            reg = regex(SECOND_REGULAR_STRING);
-            fileBuf = match[1].str();
-        } else { throw Config_Error(); }
+    void Replacer::replace_in(const path& filePath) const {
+        notify_started(filePath);
 
-        //В данном блоке происходит парсинг информации уже до вида пар "что" и
-        //"на что" которые будут использоваться для замен.
-        //Дополнительно в данном блоке происходит вычисление самой длинной
-        //заменяемой строки и запоминаются все первые символы лексем. Это
-        //позже будет использовано в функции fast_replace_in
-        while(true == regex_search(fileBuf, match, reg)) {
-            if(match[1].str().size() > maxSearchSize)
-                maxSearchSize = match[1].str().length();
+        string fileBuf(get_buffer_from(filePath));
 
-            searchSymbols.insert(match[1].str()[0]);
-            pairs.insert(make_pair(move(match[1]), move(match[3])));
-            fileBuf = match.suffix();
-        }
-    }
-
-    //Данная функция как и fast_replace_in занимается заменой лексем в
-    //переданных в виде пути файлах. В данной вариации функции применен более
-    //медленный, но при том более легкочитаемый вариант кода.
-    pair<uint32_t, string> Replacer::replace_in(const string& filePath) const {
-        uint32_t replaceCount = 0;
-        string fileBuf(move(get_buffer_from(filePath)));
-
-        //проверяем весь файл на наличие лексем. Контроль за заменами полностью
-        //передан классу regex
-        for(const auto& p : pairs) {
-            regex reg(p.first);
-
-            //.begin указывается дважды, потому что в первый раз он используется
-            //как output_iterator, т.е. как итератор позиции записи измененного
-            //значения
+        for(const auto& [oldValue, newValue] : pairs) {
             regex_replace(
                 fileBuf.begin(),
                 fileBuf.begin(),
                 fileBuf.end(),
-                reg,
-                p.second
+                regex(oldValue),
+                newValue
             );
         }
-        write_buffer_to_file(move(fileBuf), filePath);
 
-        //Результатом работы не случайно выбрана пара из пути и числа замен
-        //Это будет использовано для информирования пользователя
-        return make_pair(replaceCount, move(filePath));
+        write_buffer_to_file(fileBuf, filePath);
+
+        notify_finished(filePath);
     }
 
     //Более быстрый и менее читаемый вариант replace_in
@@ -78,10 +39,10 @@ namespace epx_test {
     //лексему. После этого происходит проверка замены и если замена была
     //произведена, то итератор i сдвигается на следующую позицию после лексемы
     //пропуская часть ненужных проверок.
-    pair<uint32_t, string>
-    Replacer::fast_replace_in(const string& filePath) const {
-        uint32_t replaceCount = 0;
-        string fileBuf(std::move(get_buffer_from(filePath)));
+    void Replacer::fast_replace_in(const path& filePath) const {
+        notify_started(filePath);
+        string fileBuf(get_buffer_from(filePath));
+        unsigned long replaceCount = 0;
         auto i = fileBuf.begin();
 
         //пока буфер не пуст
@@ -90,40 +51,28 @@ namespace epx_test {
             for(const auto& ch : searchSymbols) {
                 if(*i == ch) {
                     //пытаемся заменить
-                    for(const auto& p : pairs) {
-                        regex reg(p.first);
+                    for(const auto& [oldValue, newValue] : pairs) {
                         auto iTmp = regex_replace(
                             i,
                             i,
                             min(next(i, maxSearchSize), fileBuf.end()),
-                            reg,
-                            p.second);
+                            regex(oldValue),
+                            newValue);
 
                         //Если замена произошла засчитываем ее и производим
                         //сдвиг в ее конец
-                        if(string(i,next(i, p.second.length())) == p.second) {
-                            ++replaceCount;
+                        if(string(i,next(i, newValue.length())) == newValue) {
+                            ++replaceCount;//подсчитываем число замен
                             i = prev(iTmp);//prev чтобы не перешагнуть за end
                             break;//выходим в цикл проверки символа
                         }
                     }
-                    break; // выходим в while если символ подошел
+                    break; // выходим в while если символ - начало лексемы
                 }
             }
             i = next(i);
         }
-        write_buffer_to_file(move(fileBuf), filePath);
-
-        return make_pair(replaceCount, move(filePath));
-    }
-
-    //Простая функция для отображения считанных из конфига пар.
-    void Replacer::show_pairs() const {
-        cout << "Pairs of replacements: \n";
-        for(const auto& [key, value] : pairs) {
-            cout << '\"' << key << "\" will be replaced to \""
-                      << value << "\"\n";
-        }
-        flush(cout);
+        write_buffer_to_file(fileBuf, filePath);
+        notify_finished(filePath, replaceCount);
     }
 }

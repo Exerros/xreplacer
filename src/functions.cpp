@@ -1,35 +1,38 @@
 #include "functions.hpp"
 
+namespace epx_func {
+
     //Данная функция считывает буфер из файла и возвращает его функциям.
-    char* epx_func::get_buffer_from(const string& filePath) {
+    string get_buffer_from(const string& filePath) {
         ifstream file(filePath);
 
         //Узнаем размер файла
         file.seekg(0, std::ios::end);
         long length = file.tellg();
         file.seekg(0, std::ios::beg);
-        if(length == 0) throw Buffer_Error();
 
         //Читаем буфер
         char* tmpBuf = new char[static_cast<unsigned long>(length)];
         file.read(tmpBuf, length);
 
-        if(file.fail()) throw Buffer_Error();
+        //Проверяем на наличие ошибок при чтении и закрываем
+        if(file.good() != true) throw Buffer_Error();
         file.close();
 
-        return tmpBuf;
+        string result(std::move(tmpBuf));
+        delete[](tmpBuf);
+        return result;
     }
 
     //Функция для записи буфера в файл
-    void epx_func::write_buffer_to_file(
-        string&& buffer,
-        const string& filePath
-    ){
+    void write_buffer_to_file(string& buffer, const string& filePath){
         //открываем файл (стирая содержимое) и записываем буфер
         ofstream output_file(filePath, std::ios::trunc);
-        output_file << buffer;
+        output_file << std::move(buffer);
 
         //проверяем на ошибки при записи
-        if(output_file.fail()) throw Writing_Error();
+        if(output_file.good() != true) throw Writing_Error();
         output_file.close();
     }
+
+}

@@ -3,47 +3,41 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
-#include <cstdint>
+#include <ostream>
 #include <string>
-#include <regex>
-#include <iostream>
+#include <filesystem>
 
+#include "configurator.hpp"
 #include "functions.hpp"
 #include "exception.hpp"
 
 namespace epx_test {
     using std::unordered_map;
-    using std::string;
-    using std::regex;
-    using std::smatch;
-    using std::pair;
-    using std::move;
-    using std::regex_search;
-    using std::regex_replace;
     using std::unordered_set;
-    using std::cout;
-    using std::flush;
+    using std::ostream;
+    using std::string;
+    using std::pair;
+    using std::filesystem::path;
     using epx_func::get_buffer_from;
     using epx_func::write_buffer_to_file;
 
-    const string FIRST_REGULAR_STRING =
-                 "replace[[:blank:]]*=[^<>]*<{1}([^<>]*)>{1}",
-                 SECOND_REGULAR_STRING =
-                 "\"{1}([^\"]*)(\"[[:blank:]]*=[[:blank:]]*\"){1}([^\"]*)\"{1}";
-
-    //Данный класс занимается заменами в файлах переданных ему в виде пути
-    //Основные коментарии в .cpp файле
     class Replacer {
     private:
         unordered_map<string, string> pairs;
-        size_t maxSearchSize;
         unordered_set<char> searchSymbols;
+        unsigned long maxSearchSize;
+        ostream* outputStream;
     public:
-        Replacer(const string& filePath);
+        Replacer(Configurator& config);
 
-        pair<uint32_t, string> replace_in (const string& filePath) const;
-        pair<uint32_t, string> fast_replace_in (const string& filePath) const;
-        void show_pairs() const;
+        void replace_in (const path& filePath) const;
+        void fast_replace_in (const path& filePath) const;
+
+        void notify_started(const path& filePath) const;
+        void notify_finished(
+                const path& filePath,
+                unsigned long repCount = 0
+        ) const;
     };
 
 }

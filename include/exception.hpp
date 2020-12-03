@@ -20,7 +20,7 @@ namespace epx_test {
     };
 
     class Test_Exception : public exception {
-    private:
+    protected:
         const Exception_Code errCode;
         const char* errComm;
     public:

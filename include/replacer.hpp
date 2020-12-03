@@ -9,8 +9,9 @@
 #include <regex>
 #include <iostream>
 
-namespace epx_test {
+#include "functions.hpp"
 
+namespace epx_test {
     using std::unordered_map;
     using std::ifstream;
     using std::ofstream;
@@ -24,11 +25,15 @@ namespace epx_test {
     using std::unordered_set;
     using std::cout;
     using std::flush;
+    using epx_func::get_buffer_from;
 
-    const string UPPER_REGULAR_STRING = "[^<>]*<{1}([^<>]*)>{1}[^<>]*",
-                 LOWER_REGULAR_STRING =
+    const string FIRST_REGULAR_STRING =
+                 "replace[[:blank:]]*=[^<>]*<{1}([^<>]*)>{1}",
+                 SECOND_REGULAR_STRING =
                  "\"{1}([^\"]*)(\"[[:blank:]]*=[[:blank:]]*\"){1}([^\"]*)\"{1}";
 
+    //Данный класс занимается заменами в файлах переданных ему в виде пути
+    //Основные коментарии в .cpp файле
     class Replacer {
     private:
         unordered_map<string, string> pairs;
@@ -36,11 +41,10 @@ namespace epx_test {
         unordered_set<char> searchSymbols;
     public:
         Replacer(const string& filePath);
+
         pair<uint32_t, string> replace_in (const string& filePath) const;
         pair<uint32_t, string> fast_replace_in (const string& filePath) const;
         void show_pairs() const;
-    private:
-        char* get_buf_and_close(const string& filePath) const;
     };
 
 }

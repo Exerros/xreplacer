@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project(everypixel_test)
 
-set(CMAKE_CXX_STANDART 17)
-set(CMAKE_CXX_STANDART_REQUIRED True)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_BUILD_TYPE Debug)
 
 add_compile_options(

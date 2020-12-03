@@ -4,7 +4,7 @@
 
 namespace epx_test {
 
-//    class Error : public exception {
+//    class Errors : public exception {
 
 //    };
 

@@ -11,15 +11,15 @@ namespace epx_test {
         //выражений от первого выражения, которое ищет необходимый блок
         //информации. Буфер файла создается на основе переданного из функции
         // get_buf_and_close rvalue char* буфера.
-        string fileBuf(move(get_buf_and_close(filePath)));
-        regex reg(UPPER_REGULAR_STRING);
+        string fileBuf(move(get_buffer_from(filePath)));
+        regex reg(FIRST_REGULAR_STRING);
         smatch match;
 
         //Здесь происходит поиск необходимого блока информации для его
         //дальнейшего парсинга и подмена регулярного выражения для дальнейшего
         //поиска необходимой информации уже в этом блоке информации.
         regex_search(fileBuf, match, reg);
-        reg = regex(LOWER_REGULAR_STRING);
+        reg = regex(SECOND_REGULAR_STRING);
         fileBuf = match[1].str();
 
         //В данном блоке происходит парсинг информации уже до вида пар "что" и
@@ -37,29 +37,12 @@ namespace epx_test {
         }
     }
 
-    //Данная функция лишь считывает буфер из файла и возвращает его функциям.
-    char* Replacer::get_buf_and_close(const string& filePath) const {
-        ifstream file(filePath);
-
-        //Узнаем размер файла
-        file.seekg(0, std::ios::end);
-        long length = file.tellg();
-        file.seekg(0, std::ios::beg);
-
-        //Читаем буфер
-        char* tmpBuf = new char[static_cast<unsigned long>(length)];
-        file.read(tmpBuf, length);
-        file.close();
-
-        return tmpBuf;
-    }
-
     //Данная функция как и fast_replace_in занимается заменой лексем в
     //переданных в виде пути файлах. В данной вариации функции применен более
     //медленный, но при том более легкочитаемый вариант кода.
     pair<uint32_t, string> Replacer::replace_in(const string& filePath) const {
         uint32_t replaceCount = 0;
-        string fileBuf(move(get_buf_and_close(filePath)));
+        string fileBuf(move(get_buffer_from(filePath)));
 
         //проверяем весь файл на наличие лексем. Контроль за заменами полностью
         //передан классу regex
@@ -99,7 +82,7 @@ namespace epx_test {
     pair<uint32_t, string>
     Replacer::fast_replace_in(const string& filePath) const {
         uint32_t replaceCount = 0;
-        string fileBuf(std::move(get_buf_and_close(filePath)));
+        string fileBuf(std::move(get_buffer_from(filePath)));
         auto i = fileBuf.begin();
 
         //пока буфер не пуст

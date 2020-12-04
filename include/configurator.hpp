@@ -36,20 +36,25 @@ namespace epx_test {
     STREAMS_MATCH_INDEX = 1,
     PAIRS_MATCH_INDEX = 1;
 
+//Данный класс занимается разбором файла конфигурации и в последствии отдает
+//полученную информацию классам Replacer и Parser. Также этот класс выводит
+//полученную информацию в переданный поток
     class Configurator {
     public:
+        //поля описаны как публичные с целью дальнейшего перемещения значений
         //parser data
         unsigned long maxStreamCount;
         path rootDirectory;
         //replacer data
         unordered_map<string, string> pairs;
-        unordered_set<char> searchSymbols;
-        unsigned long maxSearchSize;
         ostream* outputStream;
 
+//Все действия данного класса выполняются в конструкторе: и парсинг, и вывод.
         Configurator(const path& filePath, ostream* output);
 
+//Функция для вывода информации
         void show_data() const;
+//Функция поиска необходимой информации в буфере.
     private:
         decltype(auto) search(
                 const string& regStr,

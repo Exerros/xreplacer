@@ -6,8 +6,9 @@
 
 #include "cmake_variables.hpp"
 #include "parser.hpp"
-#ifdef DEBUG
-//ТЕСТЫ
+
+#ifdef BUILD_TESTS
+    #include "tests.hpp"
 #endif
 
 using namespace epx_test;
@@ -22,7 +23,7 @@ void fill(const fs::path& p) {
 }
 
 int main() {
-#ifdef DEBUG
+#ifdef BUILD_TESTS
     std::cout << "DEBUG" << std::endl;
 #endif
     fs::path configPath("config.txt");

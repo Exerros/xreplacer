@@ -1,2 +1,4 @@
 #pragma once
-#define @CMAKE_BUILD_TYPE@
+#define @TESTS@
+//Данный заголовочный файл позволяет управлять вариантом сборки программы из
+//CMake файла

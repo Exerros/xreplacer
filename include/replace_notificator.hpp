@@ -23,13 +23,19 @@ namespace epx_test {
     FINISH_MSG = "Replacement finished in file: ",
     TIME_MSG = ". Total time of operation ";
 
+//Данный класс используется для оповещении о запущенном потоке обработки
+//файла и расчета затраченного на это времени
     class Notificator {
     private:
         const path& filePath;
         ostream* outputStream;
         decltype(steady_clock::now()) startTime;
     public:
+//оповещает о начале замены информации в файле и запоминает момент когда это
+//произошло.
         Notificator(const path& filePath, ostream* output);
+
+//расчитывает время работы и оповещает о завершении замены
         ~Notificator();
     };
 }

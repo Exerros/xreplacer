@@ -19,12 +19,18 @@ namespace epx_test {
     PARSER_FINISH_MSG(
                    "Replacement is complete. Total replacement running time: ");
 
+//Этот класс занимается замером времени потраченного на процесс замены в целом
+//и оповещением о начале и конце этого процесса. Весь функционал реализован в
+//конструкторе и деструкторе
     class Parser_Notificator {
     private:
         decltype(steady_clock::now()) startTime;
         ostream* outputStream;
     public:
+//оповещает о начале замены и запоминает момент когда это произошло.
         Parser_Notificator(ostream* output);
+
+//расчитывает время работы и оповещает о завершении замены
         ~Parser_Notificator();
     };
 

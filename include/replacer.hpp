@@ -26,16 +26,22 @@ namespace epx_test {
     using epx_func::get_buffer_from;
     using epx_func::write_buffer_to_file;
 
+//Этот класс занимается заменой информации в файле и оповещением пользователя
+//о начале и конце этого процесса.
     class Replacer {
     private:
+//т.к. нам не важно в каком порядке будут производится замены, но важно
+//отсутствие совпадающих замен на мой взгляд самым подходящим контейнером
+//является unordered_map
         unordered_map<string, string> pairs;
-        unordered_set<char> searchSymbols;
-        unsigned long maxSearchSize;
         ostream* outputStream;
     public:
-        Replacer();
+//Пустой конструктор используется для создания объекта в который позднее
+//будет перемещена информация из config
+        Replacer() = default;
         Replacer(Configurator& config);
 
+//Функция которая заменяет информацию в указанном файле.
         void replace_in (
                 const path& filePath,
                 atomic<unsigned long>* streamCounter

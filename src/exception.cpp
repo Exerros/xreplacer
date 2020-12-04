@@ -2,6 +2,7 @@
 
 namespace epx_test {
 
+//Здесь описаны все функции класса исключений
     Test_Exception::Test_Exception(
         const Exception_Code code,
         const string& comm

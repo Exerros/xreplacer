@@ -20,6 +20,7 @@ set(BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 file(GLOB_RECURSE TEST_SRC "${SRC_DIR}/*.cpp")
 add_library(test STATIC ${TEST_SRC})
 target_include_directories(test PUBLIC ${INCLUDE_DIR})
+target_link_libraries(test stdc++fs)
 
 add_executable(${PROJECT_NAME} "main.cpp")
-target_link_libraries(${PROJECT_NAME} test_core)
+target_link_libraries(${PROJECT_NAME} test)

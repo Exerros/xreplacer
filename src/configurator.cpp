@@ -19,7 +19,7 @@ namespace epx_test {
     }
 
 
-    Configurator::Configurator(const string& filePath, ostream* output)
+    Configurator::Configurator(const path& filePath, ostream* output)
         :maxStreamCount()
         ,maxSearchSize()
         ,outputStream(output)
@@ -56,8 +56,8 @@ namespace epx_test {
     //Простая функция для отображения считанной из конфига информации
     void Configurator::show_data() const {
         *outputStream << DELIMITER << '\n'
-                      << FILLER << "Config  data:" << FILLER
-                      << '\n' << DELIMITER
+                      << FILLER << "Config data:" << FILLER << '\n'
+                      << DELIMITER
                       << "\nPath to directory with files: \""
                       << rootDirectory << "\"\n"
                       << DELIMITER
@@ -71,7 +71,6 @@ namespace epx_test {
                           << "\" will be replaced to \""
                           << newValue << "\"\n";
         }
-        *outputStream << DELIMITER << '\n';
         std::flush(*outputStream);
     }
 }

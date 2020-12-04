@@ -21,6 +21,11 @@ namespace epx_test {
     using epx_func::get_buffer_from;
     using epx_func::write_buffer_to_file;
 
+    constexpr auto
+    START_MSG = "Replacement started in file: ",
+    FINISH_MSG = "Replacement finished in file: ",
+    COUNT_MSG = ". Number of changes is ";
+
     class Replacer {
     private:
         unordered_map<string, string> pairs;
@@ -28,6 +33,7 @@ namespace epx_test {
         unsigned long maxSearchSize;
         ostream* outputStream;
     public:
+        Replacer();
         Replacer(Configurator& config);
 
         void replace_in (const path& filePath) const;

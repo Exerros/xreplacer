@@ -2,12 +2,34 @@
 
 namespace epx_test {
 
+    Replacer::Replacer()
+        :pairs()
+        ,searchSymbols()
+        ,maxSearchSize()
+        ,outputStream()
+        { }
+
     Replacer::Replacer(Configurator& config)
         :pairs(std::move(config.pairs))
         ,searchSymbols(std::move(config.searchSymbols))
         ,maxSearchSize(std::move(config.maxSearchSize))
         ,outputStream(std::move(config.outputStream))
         { }
+
+    void Replacer::notify_started(const path& filePath) const {
+        *outputStream << START_MSG << '\"' << filePath << '\"' << std::endl;
+    }
+
+    void Replacer::notify_finished(
+            const path& filePath,
+            unsigned long repCount
+    ) const {
+        *outputStream << FINISH_MSG << '\"' << filePath << '\"';
+        if(repCount != 0) {
+            *outputStream << COUNT_MSG << repCount;
+        }
+        *outputStream << std::endl;
+    }
 
     void Replacer::replace_in(const path& filePath) const {
         notify_started(filePath);

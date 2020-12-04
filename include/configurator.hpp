@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <ostream>
+#include <filesystem>
 
 #include "functions.hpp"
 #include "exception.hpp"
@@ -17,6 +18,7 @@ namespace epx_test {
     using std::regex_search;
     using std::smatch;
     using std::ostream;
+    using std::filesystem::path;
     using epx_func::get_buffer_from;
 
     const string
@@ -26,7 +28,7 @@ namespace epx_test {
     PAIR_REGULAR_STRING =
                  "\"{1}([^\"]*)(\"[[:blank:]]*=[[:blank:]]*\"){1}([^\"]*)\"{1}",
     DELIMITER(80, '-'),
-    FILLER(33, '-');
+    FILLER(34, '-');
 
     constexpr unsigned long
     ROOT_MATCH_INDEX = 1,
@@ -37,14 +39,14 @@ namespace epx_test {
     public:
         //parser data
         unsigned long maxStreamCount;
-        string rootDirectory;
+        path rootDirectory;
         //replacer data
         unordered_map<string, string> pairs;
         unordered_set<char> searchSymbols;
         unsigned long maxSearchSize;
         ostream* outputStream;
 
-        Configurator(const string& filePath, ostream* output);
+        Configurator(const path& filePath, ostream* output);
 
         void show_data() const;
     private:

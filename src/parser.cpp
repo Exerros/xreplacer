@@ -1,5 +1,7 @@
 #include "parser.hpp"
 
+#define REMOVE_UNUSED(x) (void)x
+
 namespace epx_test {
 
     Parser::Parser(const path& configPath, ostream* output)
@@ -15,7 +17,8 @@ namespace epx_test {
                 if(false == is_directory(i->status()))
                 files.push_back(*i);
             }
-        } catch(std::filesystem::filesystem_error) {
+        } catch(std::exception* ex) {
+            REMOVE_UNUSED(ex);
             throw FileSystem_Error();
         }
 
@@ -33,11 +36,35 @@ namespace epx_test {
     }
 
     void Parser::replace_data() const {
-        atomic<unsigned long> streamCount(0);
+        Parser_Notificator notificator(outputStream);
+        atomic<unsigned long>* streamCount = new atomic<unsigned long>(0);
+        auto filesIter = files.begin();
+        std::vector<std::thread*> t;
 
-
-        for(const auto& file : files)
-        replacer.replace_in(file, streamCount);
+        while(filesIter != files.end()) {
+            if(*streamCount < maxStreamCount) {
+                t.push_back(new std::thread(
+                    replase,
+                    std::cref(replacer),
+                    std::cref(*filesIter),
+                    streamCount
+                ));
+                filesIter++;
+                ++(*streamCount);
+            } else {
+                sleep_for(10ms);
+            }
+        }
+        for(const auto& thread : t) {
+            thread->join();
+        }
+        std::flush(*outputStream);
     }
-
+    void Parser::replase(
+            const Replacer& replacer,
+            const path& p,
+            atomic<unsigned long>* streamCounter
+    ) {
+        replacer.replace_in(p, streamCounter);
+    }
 }

@@ -3,6 +3,8 @@
 #include <chrono>
 #include <filesystem>
 #include <ostream>
+#include <string>
+#include <mutex>
 
 namespace epx_test {
     using std::ostream;
@@ -12,11 +14,13 @@ namespace epx_test {
     using std::chrono::duration;
     using std::chrono::duration_cast;
     using std::chrono::milliseconds;
+    using std::string;
+    using std::mutex;
+    using std::lock_guard;
 
     constexpr auto
     START_MSG = "Replacement started in file: ",
     FINISH_MSG = "Replacement finished in file: ",
-    COUNT_MSG = ". Number of changes is ",
     TIME_MSG = ". Total time of operation ";
 
     class Notificator {
@@ -25,8 +29,6 @@ namespace epx_test {
         ostream* outputStream;
         decltype(steady_clock::now()) startTime;
     public:
-        unsigned long replaceCount;
-
         Notificator(const path& filePath, ostream* output);
         ~Notificator();
     };

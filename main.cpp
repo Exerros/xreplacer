@@ -1,9 +1,14 @@
-#include "parser.hpp"
-
 #include <filesystem>
 #include <string>
 #include <iostream>
 #include <chrono>
+#include <future>
+
+#include "cmake_variables.hpp"
+#include "parser.hpp"
+#ifdef DEBUG
+//ТЕСТЫ
+#endif
 
 using namespace epx_test;
 namespace fs = std::filesystem;
@@ -17,6 +22,9 @@ void fill(const fs::path& p) {
 }
 
 int main() {
+#ifdef DEBUG
+    std::cout << "DEBUG" << std::endl;
+#endif
     fs::path configPath("config.txt");
 
     std::ofstream config(configPath);

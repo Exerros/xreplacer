@@ -38,11 +38,7 @@ namespace epx_test {
 
         void replace_in (
                 const path& filePath,
-                atomic<unsigned long>& streamCounter
-                ) const;
-        void fast_replace_in (
-                const path& filePath,
-                atomic<unsigned long>& streamCounter
+                atomic<unsigned long>* streamCounter
                 ) const;
     };
 

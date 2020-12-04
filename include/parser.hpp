@@ -6,6 +6,7 @@
 #include <vector>
 #include <ostream>
 #include <algorithm>
+#include <atomic>
 
 #include "configurator.hpp"
 #include "replacer.hpp"
@@ -19,6 +20,7 @@ namespace epx_test {
     using std::filesystem::is_directory;
     using fs_iterator = std::filesystem::recursive_directory_iterator;
     namespace fs = std::filesystem;
+    using std::atomic;
 
     class Parser {
     private:

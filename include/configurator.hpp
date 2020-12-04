@@ -28,7 +28,8 @@ namespace epx_test {
     PAIR_REGULAR_STRING =
                  "\"{1}([^\"]*)(\"[[:blank:]]*=[[:blank:]]*\"){1}([^\"]*)\"{1}",
     DELIMITER(80, '-'),
-    FILLER(34, '-');
+    FILLER(37, '-'),
+    TITLE = FILLER + "PARSER" + FILLER;
 
     constexpr unsigned long
     ROOT_MATCH_INDEX = 1,
@@ -54,7 +55,7 @@ namespace epx_test {
                 const string& regStr,
                 const string& buffer,
                 const unsigned long index
-        ) const;
+                ) const;
     };
 
 }

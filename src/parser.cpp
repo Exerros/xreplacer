@@ -33,8 +33,11 @@ namespace epx_test {
     }
 
     void Parser::replace_data() const {
+        atomic<unsigned long> streamCount(0);
+
+
         for(const auto& file : files)
-        replacer.fast_replace_in(file);
+        replacer.replace_in(file, streamCount);
     }
 
 }

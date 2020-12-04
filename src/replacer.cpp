@@ -16,24 +16,12 @@ namespace epx_test {
         ,outputStream(std::move(config.outputStream))
         { }
 
-    void Replacer::notify_started(const path& filePath) const {
-        *outputStream << START_MSG << filePath << std::endl;
-    }
-
-    void Replacer::notify_finished(
+    void Replacer::replace_in(
             const path& filePath,
-            unsigned long repCount
+            atomic<unsigned long>& streamCounter
     ) const {
-        *outputStream << FINISH_MSG << filePath;
-        if(repCount != 0) {
-            *outputStream << COUNT_MSG << repCount;
-        }
-        *outputStream << std::endl;
-    }
-
-    void Replacer::replace_in(const path& filePath) const {
-        notify_started(filePath);
-
+        ++streamCounter;
+        Notificator notificator(filePath, outputStream);
         string fileBuf(get_buffer_from(filePath));
 
         for(const auto& [oldValue, newValue] : pairs) {
@@ -47,8 +35,7 @@ namespace epx_test {
         }
 
         write_buffer_to_file(fileBuf, filePath);
-
-        notify_finished(filePath);
+        --streamCounter;
     }
 
     //Более быстрый и менее читаемый вариант replace_in
@@ -61,10 +48,13 @@ namespace epx_test {
     //лексему. После этого происходит проверка замены и если замена была
     //произведена, то итератор i сдвигается на следующую позицию после лексемы
     //пропуская часть ненужных проверок.
-    void Replacer::fast_replace_in(const path& filePath) const {
-        notify_started(filePath);
+    void Replacer::fast_replace_in(
+            const path& filePath,
+            atomic<unsigned long>& streamCounter
+    ) const {
+        ++streamCounter;
+        Notificator notificator(filePath, outputStream);
         string fileBuf(get_buffer_from(filePath));
-        unsigned long replaceCount = 0;
         auto i = fileBuf.begin();
 
         //пока буфер не пуст
@@ -84,7 +74,7 @@ namespace epx_test {
                         //Если замена произошла засчитываем ее и производим
                         //сдвиг в ее конец
                         if(string(i,next(i, newValue.length())) == newValue) {
-                            ++replaceCount;//подсчитываем число замен
+                            ++notificator.replaceCount;//считаем число замен
                             i = prev(iTmp);//prev чтобы не перешагнуть за end
                             break;//выходим в цикл проверки символа
                         }
@@ -95,6 +85,6 @@ namespace epx_test {
             i = next(i);
         }
         write_buffer_to_file(fileBuf, filePath);
-        notify_finished(filePath, replaceCount);
+        --streamCounter;
     }
 }

@@ -56,7 +56,7 @@ namespace epx_test {
     //Простая функция для отображения считанной из конфига информации
     void Configurator::show_data() const {
         *outputStream << DELIMITER << '\n'
-                      << FILLER << "Config data:" << FILLER << '\n'
+                      << TITLE << '\n'
                       << DELIMITER
                       << "\nPath to directory with files: "
                       << rootDirectory << "\n"

@@ -17,14 +17,14 @@ namespace epx_test {
         { }
 
     void Replacer::notify_started(const path& filePath) const {
-        *outputStream << START_MSG << '\"' << filePath << '\"' << std::endl;
+        *outputStream << START_MSG << filePath << std::endl;
     }
 
     void Replacer::notify_finished(
             const path& filePath,
             unsigned long repCount
     ) const {
-        *outputStream << FINISH_MSG << '\"' << filePath << '\"';
+        *outputStream << FINISH_MSG << filePath;
         if(repCount != 0) {
             *outputStream << COUNT_MSG << repCount;
         }

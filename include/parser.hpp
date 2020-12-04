@@ -16,17 +16,20 @@ namespace epx_test {
     using std::vector;
     using std::ostream;
     using std::filesystem::path;
-
+    using std::filesystem::is_directory;
     using fs_iterator = std::filesystem::recursive_directory_iterator;
+    namespace fs = std::filesystem;
 
     class Parser {
     private:
         Replacer replacer;
         vector<path> files;
         unsigned long maxStreamCount;
+        ostream* outputStream;
     public:
         Parser(const path& configPath, ostream* output);
-        void parse() const;
+        void show_paths() const;
+        void replace_data() const;
     private:
     };
 

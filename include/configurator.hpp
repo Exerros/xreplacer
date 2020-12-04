@@ -22,9 +22,9 @@ namespace epx_test {
     using epx_func::get_buffer_from;
 
     const string
-    ROOT_REGULAR_STRING = "root[[:blank:]]*=[^\"]*\"{1}(.*)\"{1}",
-    STREAMS_REGULAR_STRING = "streams[[:blank:]]*=[^\"]*\"{1}(.*)\"{1}",
-    REPLACE_REGULAR_STRING = "replace[[:blank:]]*=[^<>]*<{1}([^<>]*)>{1}",
+    ROOT_REGULAR_STRING = "root:[[:blank:]]*\"{1}(.*)\"{1};",
+    STREAMS_REGULAR_STRING = "streams:[[:blank:]]*([[:digit:]]*);",
+    REPLACE_REGULAR_STRING = "replace:[[:blank:]]*([^;]*);{1}",
     PAIR_REGULAR_STRING =
                  "\"{1}([^\"]*)(\"[[:blank:]]*=[[:blank:]]*\"){1}([^\"]*)\"{1}",
     DELIMITER(80, '-'),

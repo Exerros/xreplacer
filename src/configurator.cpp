@@ -58,8 +58,8 @@ namespace epx_test {
         *outputStream << DELIMITER << '\n'
                       << FILLER << "Config data:" << FILLER << '\n'
                       << DELIMITER
-                      << "\nPath to directory with files: \""
-                      << rootDirectory << "\"\n"
+                      << "\nPath to directory with files: "
+                      << rootDirectory << "\n"
                       << DELIMITER
                       << "\nMaximum number of streams: "
                       << maxStreamCount << "\n"

@@ -5,11 +5,11 @@
 #include <string>
 
 namespace epx_test {
-    using std::chrono::time_point;
-    using std::chrono::steady_clock;
-    using std::chrono::duration;
     using std::chrono::duration_cast;
     using std::chrono::milliseconds;
+    using std::chrono::steady_clock;
+    using std::chrono::time_point;
+    using std::chrono::duration;
     using std::ostream;
     using std::string;
 

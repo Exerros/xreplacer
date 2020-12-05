@@ -7,16 +7,16 @@
 #include <mutex>
 
 namespace epx_test {
-    using std::ostream;
-    using std::filesystem::path;
+    using std::chrono::duration_cast;
+    using std::chrono::milliseconds;
     using std::chrono::steady_clock;
     using std::chrono::time_point;
     using std::chrono::duration;
-    using std::chrono::duration_cast;
-    using std::chrono::milliseconds;
+    using std::filesystem::path;
+    using std::lock_guard;
+    using std::ostream;
     using std::string;
     using std::mutex;
-    using std::lock_guard;
 
     constexpr auto
     START_MSG = "Replacement started in file: ",

@@ -30,7 +30,8 @@ target_link_libraries(assignment stdc++fs pthread)
 
 #configure and build tests library
 if(TESTS MATCHES BUILD_TESTS)
-    add_library(tests STATIC "${TESTS_DIR}/src")
+    file(GLOB_RECURSE TESTS_SRC "${TESTS_DIR}/*.cpp")
+    add_library(tests STATIC ${TESTS_SRC})
     target_include_directories(tests PUBLIC "${TESTS_DIR}/include")
     target_link_libraries(tests assignment)
 endif()

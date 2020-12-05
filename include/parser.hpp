@@ -17,18 +17,20 @@
 #include "exception.hpp"
 
 namespace epx_test {
+    using std::chrono_literals::operator""ms;
+    using std::filesystem::is_directory;
+    using std::this_thread::sleep_for;
+    using epx_test::FileSystem_Error;
+    using std::filesystem::path;
+    using std::ostream;
     using std::string;
     using std::vector;
-    using std::ostream;
-    using std::filesystem::path;
-    using std::filesystem::is_directory;
-    using fs_iterator = std::filesystem::recursive_directory_iterator;
-    namespace fs = std::filesystem;
     using std::atomic;
-    using std::this_thread::sleep_for;
-    using std::chrono_literals::operator""ms;
-    using epx_test::FileSystem_Error;
 
+    using fs_iterator = std::filesystem::recursive_directory_iterator;
+
+//данная константа используется для ограничения цикла запускающего потоки
+    constexpr auto TIME_TO_SLEEP = 5ms;
 
 //Основной класс данной программы. Использует функционал остальных описанных
 //классов и реализует функционал самой программы.

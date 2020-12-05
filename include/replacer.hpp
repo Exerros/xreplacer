@@ -15,14 +15,14 @@
 #include "exception.hpp"
 
 namespace epx_test {
+    using std::chrono::steady_clock;
+    using std::filesystem::path;
     using std::unordered_map;
     using std::unordered_set;
     using std::ostream;
     using std::string;
-    using std::pair;
-    using std::filesystem::path;
     using std::atomic;
-    using std::chrono::steady_clock;
+    using std::pair;
     using epx_func::get_buffer_from;
     using epx_func::write_buffer_to_file;
 

@@ -4,6 +4,8 @@
 namespace tests {
 
     void config_tests() {
+        using namespace ya_test_runner;
+
         std::cerr << "Started config tests:\n";
         TestRunner tr;
         //проверка чтения правильного конфига
@@ -26,6 +28,8 @@ namespace tests {
     }
 
     void replacer_tests() {
+        using namespace ya_test_runner;
+
         std::cerr << "Started replacer tests:\n";
         TestRunner tr;
         //проверка проведения замены при корректных условиях
@@ -40,6 +44,8 @@ namespace tests {
     }
 
     void parser_tests() {
+        using namespace ya_test_runner;
+
         std::cerr << "Started parser tests:\n";
         TestRunner tr;
         //проверка корректной работы
@@ -52,10 +58,17 @@ namespace tests {
         RUN_TEST(tr, test_one_stream);
         //проверка работоспособности строк использующих различные символы
         RUN_TEST(tr, test_symbols);
+        //проверка случая когда строка, на которую заменено значение, больше чем
+        //строка которая была заменена
+        RUN_TEST(tr, test_bigger);
+        //Проверка случая когда заменяемая строка больше чем результирующая
+        RUN_TEST(tr, test_smaller);
         std::cerr << "Finished parser tests.\n\n";
     }
 
     void test_correct_config() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_correct_config");
         string root("tests/test_correct_config/dir");
         unsigned long streams(10);
@@ -81,6 +94,8 @@ namespace tests {
     }
 
     void test_void_config() {
+        using namespace ya_test_runner;
+
         bool result = false;
         string configDir("tests/test_void_config");
         fs::create_directories(configDir);
@@ -99,6 +114,8 @@ namespace tests {
     }
 
     void test_uncorrect_rootdir() {
+        using namespace ya_test_runner;
+
         bool result = false;
         string configDir("tests/test_uncorrect_rootdir");
         string root("tests/test_uncorrect_rootdir///\\.?1  \n1f");
@@ -119,6 +136,8 @@ namespace tests {
     }
 
     void test_uncorrect_streams() {
+        using namespace ya_test_runner;
+
         bool result = false;
         string configDir("tests/test_uncorrect_streams");
         string root("tests/test_uncorrect_streams/dir");
@@ -139,6 +158,8 @@ namespace tests {
     }
 
     void test_null_pairs() {
+        using namespace ya_test_runner;
+
         bool result = false;
         string configDir("tests/test_null_pairs");
         string root("tests/test_null_pairs/dir");
@@ -156,6 +177,8 @@ namespace tests {
     }
 
     void test_oneline_pairs() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_oneline_pairs/");
         string root("tests/test_oneline_pairs/dir");
         string pairs("\"a\"= \"b\"\"c\" =\"d\"\"e\"=\"f\"");
@@ -183,6 +206,8 @@ namespace tests {
     }
 
     void test_strange_placed_pairs() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_strange_placed_pairs/");
         string root("tests/test_strange_placed_pairs/dir");
         string pairs("\"a\"\t\t= \"b\"asdf\t\n\t\"c\" =\"d\"   11 \"e\"=\"f\"");
@@ -210,6 +235,8 @@ namespace tests {
     }
 
     void test_no_config_file() {
+        using namespace ya_test_runner;
+
         string configPath("tests/test_no_config_file/config.txt");
         std::ostringstream tmpStream;
         bool result = false;
@@ -223,6 +250,8 @@ namespace tests {
     }
 
     void test_correct_replace() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_correct_replace");
         string root("tests/test_correct_replace/dir");
         int streams(1);
@@ -252,6 +281,8 @@ namespace tests {
     }
 
     void test_nothing_to_replace() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_nothing_to_replace");
         string root("tests/test_nothing_to_replace/dir");
         int streams(1);
@@ -285,6 +316,8 @@ namespace tests {
     }
 
     void test_only_one_of_pairs() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_only_one_of_pairs");
         string root("tests/test_only_one_of_pairs/dir");
         int streams(1);
@@ -319,6 +352,8 @@ namespace tests {
     }
 
     void test_no_file_to_replace() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_no_file_to_replace");
         string root("tests/test_no_file_to_replace/dir");
         int streams(1);
@@ -344,6 +379,8 @@ namespace tests {
     }
 
     void test_correct_parse() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_correct_parse");
         string root("tests/test_correct_parse/dir/");
         int streams(10);
@@ -383,6 +420,8 @@ namespace tests {
     }
 
     void test_no_files() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_no_files");
         string root("tests/test_no_files/dir/");
         int streams(10);
@@ -404,6 +443,8 @@ namespace tests {
     }
 
     void test_too_much_streams() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_too_much_streams");
         string root("tests/test_too_much_streams/dir/");
         int streams(100);
@@ -443,6 +484,8 @@ namespace tests {
     }
 
     void test_one_stream() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_too_much_streams");
         string root("tests/test_too_much_streams/dir/");
         int streams(1);
@@ -482,11 +525,13 @@ namespace tests {
     }
 
     void test_symbols() {
+        using namespace ya_test_runner;
+
         string configDir("tests/test_symbols");
         string root("tests/test_symbols/dir/");
         int streams(10);
         unordered_map<string, string> pairs;
-        pairs["<. ,!@%&-_=>"] = "!!!SYMBOLS!!";
+        pairs["<. ,!@%&-_=>"] = "!!!SYMBOLS!!!";
         auto configPath = create_valid_config(configDir, root, streams, pairs);
         std::vector<fs::path> files;
         for(char ch = 'a'; ch <= 'z'; ++ch) {
@@ -503,7 +548,79 @@ namespace tests {
         std::ostringstream correct_result;
         fill_stream(
                     correct_result,
-                    "!!!SYMBOLS!! \n",
+                    "!!!SYMBOLS!!! \n",
+                    50
+                    );
+        using type = decltype (correct_result.str());
+        auto correct_hash = std::hash<type>{}(correct_result.str());
+
+        for(const auto& filePath : files) {
+            string result(epx_test::get_buffer_from(filePath));
+            ASSERT_EQUAL(correct_hash, std::hash<type>{}(result));
+        }
+    }
+
+    void test_bigger() {
+        using namespace ya_test_runner;
+
+        string configDir("tests/test_bigger");
+        string root("tests/test_bigger/dir/");
+        int streams(10);
+        unordered_map<string, string> pairs;
+        pairs["small"] = "VERY BIG";
+        auto configPath = create_valid_config(configDir, root, streams, pairs);
+        std::vector<fs::path> files;
+        for(char ch = 'a'; ch <= 'z'; ++ch) {
+            files.push_back(create_file_and_fill(
+                        root,
+                        string(3, ch),
+                        "small \n",
+                        50
+                        ));
+        }
+        std::ostringstream tmpStream;
+        epx_test::Parser parser(configPath, &tmpStream);
+        parser.replace_data();
+        std::ostringstream correct_result;
+        fill_stream(
+                    correct_result,
+                    "VERY BIG \n",
+                    50
+                    );
+        using type = decltype (correct_result.str());
+        auto correct_hash = std::hash<type>{}(correct_result.str());
+
+        for(const auto& filePath : files) {
+            string result(epx_test::get_buffer_from(filePath));
+            ASSERT_EQUAL(correct_hash, std::hash<type>{}(result));
+        }
+    }
+
+    void test_smaller() {
+        using namespace ya_test_runner;
+
+        string configDir("tests/test_smaller");
+        string root("tests/test_smaller/dir/");
+        int streams(10);
+        unordered_map<string, string> pairs;
+        pairs["VERY BIG"] = "small";
+        auto configPath = create_valid_config(configDir, root, streams, pairs);
+        std::vector<fs::path> files;
+        for(char ch = 'a'; ch <= 'z'; ++ch) {
+            files.push_back(create_file_and_fill(
+                        root,
+                        string(3, ch),
+                        "VERY BIG \n",
+                        50
+                        ));
+        }
+        std::ostringstream tmpStream;
+        epx_test::Parser parser(configPath, &tmpStream);
+        parser.replace_data();
+        std::ostringstream correct_result;
+        fill_stream(
+                    correct_result,
+                    "small \n",
                     50
                     );
         using type = decltype (correct_result.str());

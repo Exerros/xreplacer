@@ -13,6 +13,7 @@ namespace epx_func {
     using std::ofstream;
     using epx_test::Buffer_Error;
     using epx_test::Writing_Error;
+    using epx_test::FileSystem_Error;
 
 //этот класс содержит функционал применяемый различными классами данной
 //программы. В частности чтением буфера занимаются Configurator и Replacer

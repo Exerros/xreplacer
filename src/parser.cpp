@@ -11,8 +11,12 @@ namespace epx_test {
     Parser::Parser(const fs::path& configPath, ostream* output)
     {
         //создаем конфигуратор и заполняем поля
-        Configurator config(configPath, output);
-        replacer = Replacer(config);
+        Configurator config;
+        try {
+            config = Configurator(configPath, output);
+        } catch (...) {
+            throw Config_Error();
+        }
         maxStreamCount = std::move(config.maxStreamCount);
         fs::path rootDirectory = std::move(config.rootDirectory);
         outputStream = output;

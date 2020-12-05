@@ -16,10 +16,10 @@ namespace epx_test {
     };
 //Стандартные описания ошибок
     constexpr auto
-    CONFIG_ERR_COMMENT = "An error occurred while reading the config!",
-    BUFFER_ERR_COMMENT = "An error occurred while reading the buffer!",
-    WRITING_ERR_COMMENT = "An error occurred while writing a file!",
-    FS_ERR_COMMENT = "An error occurred while handling the file system!";
+    CONFIG_ERR_COMMENT = "An error occurred while reading the config!\n",
+    BUFFER_ERR_COMMENT = "An error occurred while reading the buffer!\n",
+    WRITING_ERR_COMMENT = "An error occurred while writing a file!\n",
+    FS_ERR_COMMENT = "An error occurred while handling the file system!\n";
 
 //Фактически в данной программе ошибки в большинстве своем фатальны и должны
 //приводить к завершению работы программы. Данный класс поможет оповестить
@@ -27,9 +27,9 @@ namespace epx_test {
 //Здесь намеренно применено наследование ради конструктора, чтобы не было
 //необходимости заполнять описания исключений на месте, но для возможности
 //удобного понимания какое исключение было получено передается Exception_Code.
-    class Test_Exception : public exception {
+    class Test_Exception {
     protected:
-        Exception_Code errCode;
+        const Exception_Code errCode;
         const char* errComm;
     public:
         Test_Exception(const Exception_Code code, const char* comm);

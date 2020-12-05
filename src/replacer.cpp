@@ -21,13 +21,17 @@ namespace epx_test {
 
         //ищем и заменяем строки
         for(const auto& [oldValue, newValue] : pairs) {
+            string result;
+
             regex_replace(
-                fileBuf.begin(),
+                std::back_inserter(result),
                 fileBuf.begin(),
                 fileBuf.end(),
                 regex(oldValue),
                 newValue
             );
+
+            fileBuf = std::move(result);
         }
 
         //пишем буфер обратно в файл

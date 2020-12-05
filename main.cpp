@@ -14,14 +14,6 @@
 using namespace epx_test;
 namespace fs = std::filesystem;
 
-void fill(const fs::path& p) {
-    std::ofstream file(p);
-    for(int i = 0; i < 10000; ++i) {
-        file << "<first> <second> <third>\n";
-    }
-    file.close();
-}
-
 #ifdef BUILD_TESTS
 int main() {
     tests::config_tests();
@@ -33,11 +25,18 @@ int main(int argc, char** argv) {
     if(argc > 1) {
         configPath = argv[1];
     } else {
-        configPath("config.txt")
+        configPath = "config.txt";
     }
-
-    Parser p(configPath, &std::cout);
-    p.replace_data();
+    try {
+        Parser p(configPath, &std::cout);
+        p.replace_data();
+    } catch (const Test_Exception &ex) {
+        std::cerr << ex.what();
+        exit(1);
+    } catch (...) {
+        std::cerr << "Unknown error. Terminate";
+        exit(2);
+    }
 #endif
 
     return 0;

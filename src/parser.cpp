@@ -1,7 +1,5 @@
 #include "parser.hpp"
 
-#define REMOVE_UNUSED(x) (void)x
-
 namespace epx_test {
 
 //Конструктор создает объект конфигуратора, который считывает всю необходимую
@@ -10,13 +8,13 @@ namespace epx_test {
 //происходит чтения древа файлов в поисках файлов в которых будет производится
 //замена и выводится этот список файлов. Если при чтении древа файлов возникают
 //ошибки то бросается фатальное исключение FileSystem_Error
-    Parser::Parser(const path& configPath, ostream* output)
+    Parser::Parser(const fs::path& configPath, ostream* output)
     {
         //создаем конфигуратор и заполняем поля
         Configurator config(configPath, output);
         replacer = Replacer(config);
         maxStreamCount = std::move(config.maxStreamCount);
-        path rootDirectory = std::move(config.rootDirectory);
+        fs::path rootDirectory = std::move(config.rootDirectory);
         outputStream = output;
 
         //пытаемся считать древо файлов при помощи рекурсивного указателя
@@ -26,8 +24,7 @@ namespace epx_test {
                 if(false == is_directory(i->status()))
                 files.push_back(*i);
             }
-        } catch(std::exception* ex) {
-            REMOVE_UNUSED(ex);
+        } catch(...) {
             throw FileSystem_Error();
         }
 
@@ -89,7 +86,7 @@ namespace epx_test {
 //гонки за данными
     void Parser::replace(
             const Replacer& replacer,
-            const path& p,
+            const fs::path& p,
             atomic<unsigned long>* streamCounter
     ) {
         replacer.replace_in(p, streamCounter);

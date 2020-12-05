@@ -17,17 +17,16 @@
 #include "exception.hpp"
 
 namespace epx_test {
+    namespace fs = std::filesystem;
     using std::chrono_literals::operator""ms;
-    using std::filesystem::is_directory;
     using std::this_thread::sleep_for;
-    using epx_test::FileSystem_Error;
-    using std::filesystem::path;
     using std::ostream;
     using std::string;
     using std::vector;
     using std::atomic;
+    using epx_test::FileSystem_Error;
 
-    using fs_iterator = std::filesystem::recursive_directory_iterator;
+    using fs_iterator = fs::recursive_directory_iterator;
 
 //данная константа используется для ограничения цикла запускающего потоки
     constexpr auto TIME_TO_SLEEP = 5ms;
@@ -37,7 +36,7 @@ namespace epx_test {
     class Parser {
     private:
         Replacer replacer;
-        vector<path> files;
+        vector<fs::path> files;
         unsigned long maxStreamCount;
         ostream* outputStream;
 
@@ -47,7 +46,7 @@ namespace epx_test {
 //происходит парсинг дерева файлов и оповещение пользователя о найденых файлах
 //Если при чтении дерева файлов происходят ошибки то бросается исключение типа
 //FileSystem_Error
-        Parser(const path& configPath, ostream* output);
+        Parser(const fs::path& configPath, ostream* output);
 
 //Эта функция занимается многопоточной заменой информации в файлах согласно
 //конфигу. Также в этом классе создается объект Parser_Notificator который
@@ -61,7 +60,7 @@ namespace epx_test {
 //вызовом функции замены из объекта Replacer переданного первым аргументом
         static void replace(
                 const Replacer& replacer,
-                const path& p,
+                const fs::path& p,
                 atomic<unsigned long>* streamCounter
                 );
     };

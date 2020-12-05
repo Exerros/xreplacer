@@ -24,7 +24,7 @@ namespace epx_test {
 //конструктор занимается парсингом переданного в види пути файла конфигурации.
 //для опевещения пользователя используется указанный поток, также он будет
 // в дальнейшем передан классам Parser и Replacer
-    Configurator::Configurator(const path& filePath, ostream* output)
+    Configurator::Configurator(const fs::path& filePath, ostream* output)
         :maxStreamCount()
         ,outputStream(output)
     {
@@ -33,12 +33,18 @@ namespace epx_test {
 
         //ищем путь к рабочей директории
         rootDirectory = search(ROOT_REGULAR_STRING, fileBuf, ROOT_MATCH_INDEX);
-        //ищем максимальное количество потоков
-        maxStreamCount = std::stoul(search(
+        //ищем максимальное количество потоков, если число не корректно
+        //бросаем исключение
+        long tmpStreamCount = std::stol(search(
             STREAMS_REGULAR_STRING,
             fileBuf,
             STREAMS_MATCH_INDEX
         ));
+        if(tmpStreamCount <= 0) {
+            throw Config_Error();
+        } else {
+            maxStreamCount = static_cast<unsigned long>(tmpStreamCount);
+        }
         //ищем блок с парами для замены
         string pairsBlock = search(
             REPLACE_REGULAR_STRING,
@@ -53,6 +59,7 @@ namespace epx_test {
             pairs.insert(make_pair(move(match[1]), move(match[3])));
             pairsBlock = match.suffix();
         }
+        if(pairs.size() == 0) throw Config_Error();
 
         //оповещаем пользователя о том, что нашли
         show_data();

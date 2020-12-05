@@ -12,7 +12,7 @@ namespace epx_test {
 //используется атомарный счетчик из класса Parser. Увеличение счетчика
 //происходит в классе Parser во избежание ситуации гонок
     void Replacer::replace_in(
-            const path& filePath,
+            const fs::path& filePath,
             atomic<unsigned long>* streamCounter
     ) const {
         //оповещаем о начале и читаем буфер

@@ -15,7 +15,7 @@ namespace epx_test {
         fileSystemErr
     };
 //Стандартные описания ошибок
-    const auto
+    constexpr auto
     CONFIG_ERR_COMMENT = "An error occurred while reading the config!",
     BUFFER_ERR_COMMENT = "An error occurred while reading the buffer!",
     WRITING_ERR_COMMENT = "An error occurred while writing a file!",
@@ -29,10 +29,10 @@ namespace epx_test {
 //удобного понимания какое исключение было получено передается Exception_Code.
     class Test_Exception : public exception {
     protected:
-        const Exception_Code errCode;
+        Exception_Code errCode;
         const char* errComm;
     public:
-        Test_Exception(const Exception_Code code, const string& comm);
+        Test_Exception(const Exception_Code code, const char* comm);
 
         const char* what() const noexcept;
         Exception_Code code() const noexcept;

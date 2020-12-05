@@ -15,8 +15,8 @@
 #include "exception.hpp"
 
 namespace epx_test {
+    namespace fs = std::filesystem;
     using std::chrono::steady_clock;
-    using std::filesystem::path;
     using std::unordered_map;
     using std::unordered_set;
     using std::ostream;
@@ -43,7 +43,7 @@ namespace epx_test {
 
 //Функция которая заменяет информацию в указанном файле.
         void replace_in (
-                const path& filePath,
+                const fs::path& filePath,
                 atomic<unsigned long>* streamCounter
                 ) const;
     };

@@ -5,10 +5,10 @@ namespace epx_test {
 //Здесь описаны все функции класса исключений
     Test_Exception::Test_Exception(
         const Exception_Code code,
-        const string& comm
+        const char* comm
     )
         :errCode(code)
-        ,errComm(comm.c_str())
+        ,errComm(comm)
         { }
 
     const char* Test_Exception::what() const noexcept {

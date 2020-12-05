@@ -11,6 +11,7 @@
 #include "exception.hpp"
 
 namespace epx_test {
+    namespace fs = std::filesystem;
     using std::string;
     using std::unordered_map;
     using std::unordered_set;
@@ -18,7 +19,6 @@ namespace epx_test {
     using std::regex_search;
     using std::smatch;
     using std::ostream;
-    using std::filesystem::path;
     using epx_func::get_buffer_from;
 
     const string
@@ -44,13 +44,13 @@ namespace epx_test {
         //поля описаны как публичные с целью дальнейшего перемещения значений
         //parser data
         unsigned long maxStreamCount;
-        path rootDirectory;
+        fs::path rootDirectory;
         //replacer data
         unordered_map<string, string> pairs;
         ostream* outputStream;
 
 //Все действия данного класса выполняются в конструкторе: и парсинг, и вывод.
-        Configurator(const path& filePath, ostream* output);
+        Configurator(const fs::path& filePath, ostream* output);
 
 //Функция для вывода информации
         void show_data() const;

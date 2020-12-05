@@ -3,7 +3,7 @@
 namespace epx_func {
 
     //Данная функция считывает буфер из файла и возвращает его функциям.
-    string get_buffer_from(const path& filePath) {
+    string get_buffer_from(const fs::path& filePath) {
         ifstream file(filePath);
 
         //Узнаем размер файла
@@ -25,7 +25,7 @@ namespace epx_func {
     }
 
     //Функция для записи буфера в файл
-    void write_buffer_to_file(string& buffer, const path& filePath){
+    void write_buffer_to_file(string& buffer, const fs::path& filePath){
         //открываем файл (стирая содержимое) и записываем буфер
         ofstream output_file(filePath, std::ios::trunc);
         output_file << std::move(buffer);

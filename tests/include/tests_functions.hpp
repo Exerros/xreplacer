@@ -4,11 +4,15 @@
 #include <unordered_map>
 #include <filesystem>
 #include <fstream>
+#include <sstream>
+
+#include "exception.hpp"
 
 namespace tests {
     using std::string;
     using std::unordered_map;
     using std::ofstream;
+    using std::ostringstream;
     namespace fs = std::filesystem;
 
     //Создает указанный путь
@@ -16,8 +20,9 @@ namespace tests {
 
     //Создает корректный файл конфига с указанными значениями
     fs::path create_valid_config(
+            const string& configDir,
             const string& rootDir,
-            const unsigned long streams,
+            const int streams,
             const unordered_map<string, string>& pairs
             );
 
@@ -28,6 +33,12 @@ namespace tests {
             const string& filename,
             const string& data,
             const unsigned long dataRepeatCount
+            );
+
+    void fill_stream(
+            ostringstream& stream,
+            const string& data,
+            const unsigned long count
             );
 
 }

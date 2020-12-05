@@ -7,11 +7,13 @@ namespace tests {
     }
 
     fs::path create_valid_config(
+            const string& configDir,
             const string& rootDir,
-            const unsigned long streams,
+            const int streams,
             const unordered_map<string, string>& pairs
     ) {
-        fs::path configPath = rootDir + "/config.txt";
+        fs::create_directories(configDir);
+        fs::path configPath = configDir + "/config.txt";
         ofstream config(configPath);
         config << "root: \"" << rootDir << "\";\n"
                << "streams: " << streams << ";\n"
@@ -31,13 +33,25 @@ namespace tests {
             const string& data,
             const unsigned long dataRepeatCount
     ) {
-        fs::path filePath = pathToFile + filename + ".txt";
-        ofstream file(filePath);
+        fs::create_directories(pathToFile);
+        fs::path filePath = pathToFile + '/' + filename + ".txt";
+        ofstream file(filePath, std::ios::trunc);
         for(unsigned long i = 0; i < dataRepeatCount; ++i) {
-            file << data << '\n';
+            file << data;
         }
         file.close();
 
         return filePath;
+    }
+
+    void fill_stream(
+            ostringstream& stream,
+            const string& data,
+            const unsigned long count
+    ) {
+        for(unsigned long i = 0; i < count; ++i) {
+            stream << data;
+        }
+        std::flush(stream);
     }
 }

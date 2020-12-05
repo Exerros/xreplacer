@@ -7,7 +7,7 @@ namespace epx_test {
     static std::mutex outputMutex;
 
 //блокируем мьютекс и сообщаем о начале процесса замен информации
-    Notificator::Notificator(const path& path, ostream* output)
+    Notificator::Notificator(const fs::path& path, ostream* output)
         :filePath(path)
         ,outputStream(output)
         ,startTime(steady_clock::now())

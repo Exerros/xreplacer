@@ -2,14 +2,13 @@ cmake_minimum_required(VERSION 2.8)
 
 project(everypixel_test)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
-set(CMAKE_BUILD_TYPE RELEASE) # DEBUG / RELEASE
+set(CMAKE_BUILD_TYPE RELEASE)
 set(TESTS BUILD_TESTS) # BUILD_TESTS / NOT_BUILD_TESTS only in upper bound
 
 add_compile_options(
         -Wall
         -g
+        -std=c++17
 )
 
 #set the project variables

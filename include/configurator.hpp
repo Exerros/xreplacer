@@ -20,6 +20,7 @@ namespace epx_test {
     using std::smatch;
     using std::ostream;
     using epx_func::get_buffer_from;
+    using epx_func::create_regex_string;
 
     const string
     ROOT_REGULAR_STRING = "root:[[:blank:]]*\"{1}(.*)\"{1};",

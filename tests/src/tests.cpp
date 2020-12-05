@@ -51,7 +51,7 @@ namespace tests {
         //проверка однопоточного исполнения
         RUN_TEST(tr, test_one_stream);
         //проверка работоспособности строк использующих различные символы
-        //RUN_TEST(tr, test_symbols);
+        RUN_TEST(tr, test_symbols);
         std::cerr << "Finished parser tests.\n\n";
     }
 
@@ -468,6 +468,42 @@ namespace tests {
         fill_stream(
                     correct_result,
                     "HELLO WORLD ApPlE Orange\n",
+                    50
+                    );
+        using type = decltype (correct_result.str());
+        auto correct_hash = std::hash<type>{}(correct_result.str());
+
+        for(const auto& filePath : files) {
+            std::ostringstream result(epx_test::get_buffer_from(filePath));
+
+            ASSERT_EQUAL(correct_hash, std::hash<type>{}(result.str()));
+            result.clear();
+        }
+    }
+
+    void test_symbols() {
+        string configDir("tests/test_symbols");
+        string root("tests/test_symbols/dir/");
+        int streams(10);
+        unordered_map<string, string> pairs;
+        pairs["<. ,!@%&\'-_=~:№>"] = "HELLO";
+        auto configPath = create_valid_config(configDir, root, streams, pairs);
+        std::vector<fs::path> files;
+        for(char ch = 'a'; ch <= 'z'; ++ch) {
+            files.push_back(create_file_and_fill(
+                        root,
+                        string(3, ch),
+                        "<. ,!@%&\'-_=~:№> \n",
+                        50
+                        ));
+        }
+        std::ostringstream tmpStream;
+        epx_test::Parser parser(configPath, &tmpStream);
+        parser.replace_data();
+        std::ostringstream correct_result;
+        fill_stream(
+                    correct_result,
+                    "HELLO\n",
                     50
                     );
         using type = decltype (correct_result.str());

@@ -35,4 +35,22 @@ namespace epx_func {
         output_file.close();
     }
 
+    string create_regex_string(const string& str) {
+        string result;
+
+        for(const auto& ch: str) {
+            if(is_letter(ch)) {
+                result.push_back(ch);
+            } else {
+                result = result + '[' + ch + ']' + "{1}";
+            }
+        }
+        std::cout << "!!!" << result << "!!!" << std::endl;
+        return result;
+    }
+
+    bool is_letter(const char ch) {
+        return (('A' <= ch) && ('Z' >= ch)) || (('a' <= ch) && ('z' >= ch));
+    }
+
 }

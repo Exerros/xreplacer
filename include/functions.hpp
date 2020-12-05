@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
+#include <iostream>
 
 #include "exception.hpp"
 
@@ -23,4 +24,10 @@ namespace epx_func {
 //Запись буфера. При возникновении ошибок бросает исключение Writing_Error
     void write_buffer_to_file(string& buffer, const fs::path& filePath);
 
+//Функция обработки найденых в конфиге строк для замены в вид подходящий для
+//работы класса regex
+    string create_regex_string(const string& str);
+
+//Проверка является ли переданный символ буквой
+    inline bool is_letter(const char ch);
 }

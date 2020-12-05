@@ -56,6 +56,7 @@ namespace epx_test {
         regex reg(PAIR_REGULAR_STRING);
         smatch match;
         while(true == regex_search(pairsBlock, match, reg)) {
+            string regular_string = create_regex_string(match[1]);
             pairs.insert(make_pair(move(match[1]), move(match[3])));
             pairsBlock = match.suffix();
         }

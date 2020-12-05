@@ -4,24 +4,19 @@ namespace epx_func {
 
     //Данная функция считывает буфер из файла и возвращает его функциям.
     string get_buffer_from(const fs::path& filePath) {
-        ifstream file(filePath);
-
         //Узнаем размер файла
-        file.seekg(0, std::ios::end);
-        long length = file.tellg();
-        file.seekg(0, std::ios::beg);
+        unsigned long length = fs::file_size(filePath);
 
         //Читаем буфер
-        char* tmpBuf = new char[static_cast<unsigned long>(length)];
-        file.read(tmpBuf, length);
+        ifstream file(filePath);
+        string buffer(length, '\0');
+        file.read(buffer.data(), static_cast<long>(length));
 
         //Проверяем на наличие ошибок при чтении и закрываем
         if(file.good() != true) throw Buffer_Error();
         file.close();
 
-        string result(std::move(tmpBuf));
-        delete[](tmpBuf);
-        return result;
+        return buffer;
     }
 
     //Функция для записи буфера в файл
@@ -42,10 +37,9 @@ namespace epx_func {
             if(is_letter(ch)) {
                 result.push_back(ch);
             } else {
-                result = result + '[' + ch + ']' + "{1}";
+                result = result + '[' + ch + "]{1}";
             }
         }
-        std::cout << "!!!" << result << "!!!" << std::endl;
         return result;
     }
 

@@ -22,16 +22,23 @@ void fill(const fs::path& p) {
     file.close();
 }
 
-int main() {
 #ifdef BUILD_TESTS
+int main() {
     tests::config_tests();
     tests::replacer_tests();
     tests::parser_tests();
 #else
-    fs::path configPath("config.txt");
+int main(int argc, char** argv) {
+    fs::path configPath;
+    if(argc > 1) {
+        configPath = argv[1];
+    } else {
+        configPath("config.txt")
+    }
 
     Parser p(configPath, &std::cout);
     p.replace_data();
 #endif
+
     return 0;
 }

@@ -2,10 +2,6 @@
 
 namespace tests {
 
-    void create_directory(const fs::path& dirPath) {
-        fs::create_directory(dirPath);
-    }
-
     fs::path create_valid_config(
             const string& configDir,
             const string& rootDir,

@@ -1,6 +1,8 @@
 #include "tests.hpp"
 #include "test_runner.h"
 
+#define REMOVE_UNUSED(x) (void)x
+
 namespace tests {
 
     void config_tests() {
@@ -98,7 +100,6 @@ namespace tests {
 
         bool result = false;
         string configDir("tests/test_void_config");
-        fs::create_directories(configDir);
         fs::path configPath = configDir + "/config.txt";
         ofstream configFile(configPath);
         configFile << '\n';
@@ -107,7 +108,8 @@ namespace tests {
         std::ostringstream tmpStream;
         try {
             epx_test::Configurator config(configPath, &tmpStream);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);
@@ -129,7 +131,8 @@ namespace tests {
         std::ostringstream tmpStream;
         try {
             epx_test::Configurator config(configPath, &tmpStream);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);
@@ -151,7 +154,8 @@ namespace tests {
         std::ostringstream tmpStream;
         try {
             epx_test::Configurator config(configPath, &tmpStream);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);
@@ -170,7 +174,8 @@ namespace tests {
         std::ostringstream tmpStream;
         try {
             epx_test::Configurator config(configPath, &tmpStream);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);
@@ -188,7 +193,6 @@ namespace tests {
         correct_pairs["c"] = "d";
         correct_pairs["e"] = "f";
 
-        fs::create_directories(configDir);
         fs::path configPath = configDir + "/config.txt";
         ofstream configFile(configPath);
         configFile << "root: \"" << root << "\";\n"
@@ -217,7 +221,6 @@ namespace tests {
         correct_pairs["c"] = "d";
         correct_pairs["e"] = "f";
 
-        fs::create_directories(configDir);
         fs::path configPath = configDir + "/config.txt";
         ofstream configFile(configPath);
         configFile << "root: \"" << root << "\";\n"
@@ -243,7 +246,8 @@ namespace tests {
 
         try {
             epx_test::Configurator config(configPath, &tmpStream);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);
@@ -261,7 +265,6 @@ namespace tests {
         pairs["e"] = "f";
 
         auto configPath = create_valid_config(configDir, root, streams, pairs);
-        create_directory(root);
         auto filePath = create_file_and_fill(root, "file", "a c e ", 50);
         std::ostringstream correct_result;
         fill_stream(correct_result, "b d f ", 50);
@@ -292,7 +295,6 @@ namespace tests {
         pairs["e"] = "f";
 
         auto configPath = create_valid_config(configDir, root, streams, pairs);
-        create_directory(root);
         auto filePath = create_file_and_fill(root, "file", "b d f ", 50);
         std::ostringstream correct_result;
         fill_stream(correct_result, "b d f ", 50);
@@ -327,7 +329,6 @@ namespace tests {
         pairs["e"] = "f";
 
         auto configPath = create_valid_config(configDir, root, streams, pairs);
-        create_directory(root);
         auto filePath = create_file_and_fill(root, "file", "a a a\n", 50);
         std::ostringstream correct_result;
         fill_stream(correct_result, "b b b\n", 50);
@@ -372,7 +373,8 @@ namespace tests {
         epx_test::Replacer replacer(config);
         try {
             replacer.replace_in(filePath, &tmpCounter);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);
@@ -436,7 +438,8 @@ namespace tests {
 
         try {
             epx_test::Parser parser(configPath, &tmpStream);
-        } catch (...) {
+        } catch (const epx_test::Test_Exception &ex) {
+            REMOVE_UNUSED(ex);
             result = true;
         }
         ASSERT(result);

@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     try {
         Parser p(configPath, &std::cout);
         p.replace_data();
-    } catch (const Test_Exception &ex) {
+    } catch (const Test_Exception& ex) {
         std::cerr << ex.what();
         exit(1);
     } catch (...) {

@@ -15,9 +15,6 @@ namespace tests {
     using std::ostringstream;
     namespace fs = std::filesystem;
 
-    //Создает указанный путь
-    void create_directory(const fs::path& dirPath);
-
     //Создает корректный файл конфига с указанными значениями
     fs::path create_valid_config(
             const string& configDir,

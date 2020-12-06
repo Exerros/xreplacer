@@ -44,7 +44,7 @@
 > git clone https://github.com/Exerros/Everypixel_test.git  
 > mkdir Everypixel_test/build  
 > cd Everypixel_test/build  
-> cmake .. -DBUILD_TEST=ON  
+> cmake .. -DBUILD_TESTS=ON  
 > cmake --build .  
 > ./everypixel_test  
 

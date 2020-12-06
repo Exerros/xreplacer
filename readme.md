@@ -27,8 +27,8 @@
 
 Переместитесь в директорию в которую хотите скопировать проект и скопируйте команды в терминал:
 > git clone https://github.com/Exerros/Everypixel_test.git  
-> mkdir build  
-> cd build  
+> mkdir Everypixel_test/build  
+> cd Everypixel_test/build  
 > cmake ..  
 > cmake --build . 
 
@@ -42,8 +42,8 @@
 
 Аналогично обычной сборке, переместитесь в директорию куда хотите поместить проект и скопируйте команды в терминал:
 > git clone https://github.com/Exerros/Everypixel_test.git  
-> mkdir build  
-> cd build  
+> mkdir Everypixel_test/build  
+> cd Everypixel_test/build  
 > cmake .. -DBUILD_TEST=ON  
 > cmake --build .  
 > ./everypixel_test  

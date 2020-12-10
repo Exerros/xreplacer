@@ -8,6 +8,7 @@
 #include <filesystem>
 #include <atomic>
 #include <chrono>
+#include <memory>
 
 #include "replace_notificator.hpp"
 #include "configurator.hpp"
@@ -19,6 +20,7 @@ namespace epx_test {
     using std::chrono::steady_clock;
     using std::unordered_map;
     using std::unordered_set;
+    using std::shared_ptr;
     using std::ostream;
     using std::string;
     using std::atomic;
@@ -41,10 +43,11 @@ namespace epx_test {
         Replacer() = default;
         Replacer(Configurator& config);
 
+
 //Функция которая заменяет информацию в указанном файле.
         void replace_in (
                 const fs::path& filePath,
-                atomic<unsigned long>* streamCounter
+                shared_ptr<atomic<unsigned long>> streamCounter
                 ) const;
     };
 

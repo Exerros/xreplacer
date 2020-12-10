@@ -50,8 +50,6 @@ namespace epx_test {
         unordered_map<string, string> pairs;
         ostream* outputStream;
 
-//Пустой конструктор для обработки ошибок в случае отсутствия файла конфига
-        Configurator();
 //Все действия данного класса выполняются в конструкторе: и парсинг, и вывод.
         Configurator(const fs::path& filePath, ostream* output);
 

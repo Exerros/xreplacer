@@ -5,7 +5,7 @@ namespace epx_test {
 //Конструктор перемещает всю необходимую конфигурацию из конфигуратора
     Replacer::Replacer(Configurator& config)
         :pairs(std::move(config.pairs))
-        ,outputStream(std::move(config.outputStream))
+        ,outputStream(config.outputStream)
         { }
 
 //Функция для замены строк согласно конфигу. Для подсчета числа потоков
@@ -13,16 +13,15 @@ namespace epx_test {
 //происходит в классе Parser во избежание ситуации гонок
     void Replacer::replace_in(
             const fs::path& filePath,
-            atomic<unsigned long>* streamCounter
+            shared_ptr<atomic<unsigned long>> streamCounter
     ) const {
         //оповещаем о начале и читаем буфер
         Notificator notificator(filePath, outputStream);
         string fileBuf(get_buffer_from(filePath));
+        string result;
 
         //ищем и заменяем строки
         for(const auto& [oldValue, newValue] : pairs) {
-            string result;
-
             regex_replace(
                 std::back_inserter(result),
                 fileBuf.begin(),

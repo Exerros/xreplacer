@@ -4,14 +4,14 @@ namespace epx_func {
 
     //Данная функция считывает буфер из файла и возвращает его функциям.
     string get_buffer_from(const fs::path& filePath) {
-        //Узнаем размер файла. если файла не существует то бросаем исключение
+        //Узнаем размер файла
         unsigned long length(0);
         ifstream file;
         try {
-            length = fs::file_size(filePath);
+            length= fs::file_size(filePath);
             file.open(filePath);
         } catch (...) {
-            throw FileSystem_Error();
+            throw Buffer_Error();
         }
 
         //Читаем буфер

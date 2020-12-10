@@ -11,12 +11,8 @@ namespace epx_test {
     Parser::Parser(const fs::path& configPath, ostream* output)
     {
         //создаем конфигуратор и заполняем поля
-        Configurator config;
-        try {
-            config = Configurator(configPath, output);
-        } catch (...) {
-            throw Config_Error();
-        }
+        Configurator config(configPath, output);
+        replacer = Replacer(config);
         maxStreamCount = std::move(config.maxStreamCount);
         fs::path rootDirectory = std::move(config.rootDirectory);
         outputStream = output;
@@ -55,7 +51,7 @@ namespace epx_test {
 //удобного join и дальнейшего ожидания завершения этих потоков.
     void Parser::replace_data() const {
         Parser_Notificator notificator(outputStream);
-        atomic<unsigned long>* streamCount = new atomic<unsigned long>(0);
+        shared_ptr<atomic<unsigned long>> streamCount(new atomic<unsigned long>(0));
         auto filesIter = files.begin();
         std::vector<std::thread*> t;
 
@@ -91,7 +87,7 @@ namespace epx_test {
     void Parser::replace(
             const Replacer& replacer,
             const fs::path& p,
-            atomic<unsigned long>* streamCounter
+            shared_ptr<atomic<unsigned long>> streamCounter
     ) {
         replacer.replace_in(p, streamCounter);
     }

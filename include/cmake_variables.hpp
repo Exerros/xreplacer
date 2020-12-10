@@ -1,4 +1,4 @@
 #pragma once
-/* #undef BUILD_TESTS */
+#define BUILD_TESTS
 //Данный заголовочный файл позволяет управлять вариантом сборки программы из
 //CMake файла

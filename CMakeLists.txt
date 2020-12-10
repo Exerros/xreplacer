@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(everypixel_test)
 
 set(CMAKE_BUILD_TYPE release)
+set(BUILD_TESTS ON)
 
 add_compile_options(
         -Wall

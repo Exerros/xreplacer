@@ -27,16 +27,9 @@ int main(int argc, char** argv) {
     } else {
         configPath = "config.txt";
     }
-    try {
-        Parser p(configPath, &std::cout);
-        p.replace_data();
-    } catch (const Test_Exception& ex) {
-        std::cerr << ex.what();
-        exit(1);
-    } catch (...) {
-        std::cerr << "Unknown error. Terminate";
-        exit(2);
-    }
+
+    Parser p(configPath, &std::cout);
+    p.replace_data();
 #endif
 
     return 0;

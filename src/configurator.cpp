@@ -21,13 +21,6 @@ namespace epx_test {
         return match[index];
     }
 
-    Configurator::Configurator()
-        :maxStreamCount()
-        ,rootDirectory()
-        ,pairs()
-        ,outputStream()
-        { }
-
 //конструктор занимается парсингом переданного в види пути файла конфигурации.
 //для опевещения пользователя используется указанный поток, также он будет
 // в дальнейшем передан классам Parser и Replacer

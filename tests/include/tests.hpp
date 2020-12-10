@@ -10,6 +10,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <memory>
 
 #include "parser.hpp"
 #include "functions.hpp"

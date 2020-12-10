@@ -9,7 +9,7 @@
 #include <thread>
 #include <chrono>
 #include <functional>
-#include <iostream>
+#include <memory>
 
 #include "parser_notificator.hpp"
 #include "configurator.hpp"
@@ -24,6 +24,7 @@ namespace epx_test {
     using std::string;
     using std::vector;
     using std::atomic;
+    using std::shared_ptr;
     using epx_test::FileSystem_Error;
 
     using fs_iterator = fs::recursive_directory_iterator;
@@ -61,7 +62,7 @@ namespace epx_test {
         static void replace(
                 const Replacer& replacer,
                 const fs::path& p,
-                atomic<unsigned long>* streamCounter
+                shared_ptr<atomic<unsigned long>> streamCounter
                 );
     };
 

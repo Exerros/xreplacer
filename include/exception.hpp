@@ -27,9 +27,9 @@ namespace epx_test {
 //Здесь намеренно применено наследование ради конструктора, чтобы не было
 //необходимости заполнять описания исключений на месте, но для возможности
 //удобного понимания какое исключение было получено передается Exception_Code.
-    class Test_Exception {
+    class Test_Exception : public exception {
     protected:
-        const Exception_Code errCode;
+        Exception_Code errCode;
         const char* errComm;
     public:
         Test_Exception(const Exception_Code code, const char* comm);

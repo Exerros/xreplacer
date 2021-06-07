@@ -4,22 +4,11 @@
 #include <chrono>
 #include <future>
 
-#include "cmake_variables.hpp"
 #include "parser.hpp"
 
-#ifdef BUILD_TESTS
-    #include "tests.hpp"
-#endif
-
-using namespace epx_test;
+using namespace xrep;
 namespace fs = std::filesystem;
 
-#ifdef BUILD_TESTS
-int main() {
-    tests::config_tests();
-    tests::replacer_tests();
-    tests::parser_tests();
-#else
 int main(int argc, char** argv) {
     fs::path configPath;
     if(argc > 1) {
@@ -30,7 +19,6 @@ int main(int argc, char** argv) {
 
     Parser p(configPath, &std::cout);
     p.replace_data();
-#endif
 
     return 0;
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <root_dir value="/tmp/to_replace/" />
+    <stream_count value="/tmp/to_replace/" />
+    <pairs>
+        <pair from="aaa" to="bbb" />
+        <pair from="cccc" to="dddd" />
+        <pair from="eeeee" to="fffff" />
+    </pairs>
+</config>

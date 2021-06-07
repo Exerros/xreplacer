@@ -6,14 +6,14 @@
 
 #include "exception.hpp"
 
-namespace epx_func {
+namespace xrep_func {
     namespace fs = std::filesystem;
     using std::string;
     using std::ifstream;
     using std::ofstream;
-    using epx_test::Buffer_Error;
-    using epx_test::Writing_Error;
-    using epx_test::FileSystem_Error;
+    using xrep::Buffer_Error;
+    using xrep::Writing_Error;
+    using xrep::FileSystem_Error;
 
 //этот класс содержит функционал применяемый различными классами данной
 //программы. В частности чтением буфера занимаются Configurator и Replacer

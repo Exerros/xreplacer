@@ -16,7 +16,7 @@
 #include "replacer.hpp"
 #include "exception.hpp"
 
-namespace epx_test {
+namespace xrep {
     namespace fs = std::filesystem;
     using std::chrono_literals::operator""ms;
     using std::this_thread::sleep_for;
@@ -25,7 +25,7 @@ namespace epx_test {
     using std::vector;
     using std::atomic;
     using std::shared_ptr;
-    using epx_test::FileSystem_Error;
+    using xrep::FileSystem_Error;
 
     using fs_iterator = fs::recursive_directory_iterator;
 

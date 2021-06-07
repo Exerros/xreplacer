@@ -6,7 +6,7 @@
 #include <string>
 #include <mutex>
 
-namespace epx_test {
+namespace xrep {
     namespace fs = std::filesystem;
     using std::chrono::duration_cast;
     using std::chrono::milliseconds;

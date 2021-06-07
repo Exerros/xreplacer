@@ -4,7 +4,7 @@
 #include <ostream>
 #include <string>
 
-namespace epx_test {
+namespace xrep {
     using std::chrono::duration_cast;
     using std::chrono::milliseconds;
     using std::chrono::steady_clock;

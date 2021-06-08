@@ -39,6 +39,14 @@ option(XREPLACER_COVERAGE "Checking code coverage with tests." ON)
 
 ################################################################################
 #
+#
+
+set(BUILD_SHARED_LIBS ON)
+add_subdirectory("${XREPLACER_THIRD_PARTY_DIR}/pugixml")
+
+
+################################################################################
+#
 # This section is responsible for assembling the library with the main modules
 # of the program.
 
@@ -75,14 +83,14 @@ target_compile_options(xrep
         -Wextra
         -Wpedantic)
 
-target_link_libraries(xrep stdc++fs pthread)
+target_link_libraries(xrep pugixml::pugixml stdc++fs pthread)
 
 
 ################################################################################
 #
 # This section is responsible for building the application to be launched.
 
-add_executable(xreplacer "${CMAKE_PROJECT_SOURCE_DIR}/main.cpp")
+add_executable(xreplacer "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 target_link_libraries(xreplacer xrep)
 
 set_target_properties(xreplacer PROPERTIES

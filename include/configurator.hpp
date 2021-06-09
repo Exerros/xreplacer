@@ -9,7 +9,10 @@
 
 #include "pugixml.hpp"
 
+#include "exception.hpp"
+
 namespace xrep {
+namespace config {
 
 namespace fs = std::filesystem;
 using std::string;
@@ -29,11 +32,23 @@ public:
     ConfiguratorInterface() = default;
     virtual ~ConfiguratorInterface() = default;
 
-    virtual pugi:: get_replacer_data() = 0;
-    virtual std::string get_parser_data() = 0;
+    virtual pugi::xml_node get_replacer_data() const = 0;
+    virtual pugi::xml_node get_parser_data() const = 0;
 };
 
 //------------------------------------------------------------------------------
 
+class XMLConfigurator : ConfiguratorInterface {
+private:
+    pugi::xml_node config_data;
 
+public:
+    XMLConfigurator(const fs::path& config_path);
+    ~XMLConfigurator() override = default;
+
+    pugi::xml_node get_replacer_data() const override;
+    pugi::xml_node get_parser_data() const override;
+};
+
+}
 }

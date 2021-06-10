@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <filesystem>
 
 #include "configurator.hpp"
@@ -11,12 +12,20 @@
 //------------------------------------------------------------------------------
 namespace xrep {
 
+#ifdef __unix__
+constexpr auto STANDART_CONFIG_PATH = "/usr/local/etc/xreplacer/conf.xml";
+#elif
+constexpr auto STANDART_CONFIG_PATH = "";
+#endif
+
+//------------------------------------------------------------------------------
 class XReplacerCore {
 public:
     XReplacerCore() = default;
     ~XReplacerCore() = default;
 
-    bool init(int );
+    bool init(int argc, char** argv);
+    int run();
 };
 
 }

@@ -14,7 +14,7 @@ Logger::Logger(const pugi::xml_node& config) {
     try {
         for(const auto& child : config) {
             if(child.name() == "file") {
-
+                unique_ptr
             } else if(child.name() == "stream") {
 
             }

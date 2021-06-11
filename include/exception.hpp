@@ -20,7 +20,7 @@ public:
     ConfigException() = default;
     ~ConfigException() override = default;
 
-    virtual const char* what() const noexcept override {
+    const char* what() const noexcept override {
         return "";
     }
 };

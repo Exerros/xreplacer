@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+    <logger>
+        <file path="/var/log/xparser.log" />
+        <stream name="STDOUT" />
+    </logger>
 	<parser>
     	<root_dir value="/tmp/to_replace/" />
-    	<stream_count value="/tmp/to_replace/" />
+        <stream_count value="8" />
 	</parser>
     <replacer>
-        <pair from="aaa" to="bbb" />
-        <pair from="cccc" to="dddd" />
-        <pair from="eeeee" to="fffff" />
+        <pair from="@value1@" to="data1" />
+        <pair from="@value2@" to="data2" />
+        <pair from="@value3@" to="data3" />
     </replacer>
 </config>

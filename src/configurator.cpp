@@ -16,12 +16,8 @@ XMLConfigurator::XMLConfigurator(const fs::path& config_path) {
     }
 }
 
-pugi::xml_node XMLConfigurator::get_replacer_data() const {
-    return config_data.child("replacer");
-}
-
-pugi::xml_node XMLConfigurator::get_parser_data() const {
-    return config_data.child("parser");
+xml_node XMLConfigurator::get_config_for(const std::string& identify) const {
+    return config_data.child(identify.c_str());
 }
 
 }

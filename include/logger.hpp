@@ -15,15 +15,13 @@ private:
     std::forward_list<std::ostream&> streams;
     std::string prefix;
     std::string postfix;
+
 public:
     Logger(const pugi::xml_node& config);
     ~Logger() override = default;
- 
-    void add_stream(const std::ostream& stream) override;
-    void log(const std::string& message) const noexcept override;
 
-    void set_prefix(const std::string& message) const noexcept override;
-    void set_postfix(const std::string& message) const noexcept override;
+    void log(const std::string& message) const noexcept override;
+    void log_without_fix(const std::string& message) const noexcept override;
 };
 
 }

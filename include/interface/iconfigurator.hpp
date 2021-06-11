@@ -2,19 +2,19 @@
 
 #include <string>
 
-#include "interface/base_interface.hpp"
-#include "pugixml.hpp"
+#include "interface/interface.hpp"
 
 namespace xrep {
 namespace interface {
 
-class ConfiguratorInterface : BaseInterface {
+template<class T>
+class ConfiguratorInterface : Interface {
 public:
     ConfiguratorInterface() = default;
-    virtual ConfiguratorInterface() = default;
+    virtual ~ConfiguratorInterface() = default;
 
-    virtual pugi::xml_node get_config(const std::string& node_name) const = 0;
-}
+    virtual T get_config_for(const std::string& identify) const = 0;
+};
 
 }
 }

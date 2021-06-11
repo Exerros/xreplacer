@@ -11,10 +11,13 @@ bool XReplacerCore::init(int argc, char** argv) {
         try {
             config_path = fs::path(argv[1]);
         } catch (...) {
-            exit 1;
+            std::cout << "Uncorrect arguments" << std::endl;
+            exit(1);
         }
     }
 
+    config::XMLConfigurator conf(config_path);
+    logger::Logger logger(conf.get_config_for("logger"));
 }
 
 }

@@ -3,17 +3,26 @@
 namespace xrep {
 namespace logger {
 
-Logger::Logger(const pugi::xml_node& config)
-    : streams()
-    , prefix()
-    , postfix()
-    { }
+Logger::Logger(const pugi::xml_node& config) {
+    if(config.child("prefix").value()) {
+        prefix = string(config.child("prefix").value());
+    }
 
-void Logger::set_prefix(const std::string& message) const noexcept {
+    if(config.child("postfix").value()) {
+        postfix = string(config.child("postfix").value());
+    }
+    try {
+        for(const auto& child : config) {
+            if(child.name() == "file") {
 
-}
+            } else if(child.name() == "stream") {
 
-void Logger::set_postfix(const std::string& message) const noexcept {
+            }
+        }
+    } catch (...) {
+        throw exception::ConfigException();
+    }
+    streams();
 
 }
 

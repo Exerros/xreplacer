@@ -1,27 +1,35 @@
 #pragma once
 
-#include <ostream>
+#include <iostream>
+#include <fstream>
 #include <forward_list>
 
 #include "interface/ilogger.hpp"
+#include "exception.hpp"
+
 #include "pugixml.hpp"
 
 namespace xrep {
 namespace logger {
 
+using std::ostream;
+using std::string;
+using std::forward_list;
+using pugi::xml_node;
+using pugi::xml_document;
+
 //------------------------------------------------------------------------------
 class Logger : interface::LoggerInterface {
 private:
-    std::forward_list<std::ostream&> streams;
-    std::string prefix;
-    std::string postfix;
+    forward_list<ostream&> streams;
+    string prefix;
+    string postfix;
 
 public:
-    Logger(const pugi::xml_node& config);
+    Logger(const xml_node& config);
     ~Logger() override = default;
 
-    void log(const std::string& message) const noexcept override;
-    void log_without_fix(const std::string& message) const noexcept override;
+    void log(const string& message) const noexcept override;
 };
 
 }

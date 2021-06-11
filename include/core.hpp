@@ -2,6 +2,7 @@
 
 #include <string>
 #include <filesystem>
+#include <iostream>
 
 #include "interface/iconfigurator.hpp"
 #include "interface/iparser.hpp"

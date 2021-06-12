@@ -28,7 +28,7 @@ constexpr auto STANDART_CONFIG_PATH = "";
 class XReplacerCore {
 public:
     XReplacerCore() = default;
-    ~XReplacerCoreget_replacer_data() = default;
+    ~XReplacerCore() = default;
 
     bool init(int argc, char** argv);
     int run();

@@ -19,7 +19,7 @@ public:
     virtual ~ParserInterface() = default;
 
     virtual bool search_objects_to_replase(const Input& search_point) const = 0;
-    virtual forward_list<unique_ptr<Output>> get_objects_to_replase() const = 0;
+    virtual forward_list<unique_ptr<Output>>& get_objects_to_replase() const = 0;
 };
 
 }

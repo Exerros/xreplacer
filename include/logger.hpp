@@ -4,10 +4,10 @@
 #include <fstream>
 #include <forward_list>
 
+#include "pugixml.hpp"
+
 #include "interface/ilogger.hpp"
 #include "exception.hpp"
-
-#include "pugixml.hpp"
 
 namespace xrep {
 namespace logger {
@@ -18,7 +18,6 @@ using std::forward_list;
 using pugi::xml_node;
 using pugi::xml_document;
 
-//------------------------------------------------------------------------------
 class Logger : interface::LoggerInterface {
 private:
     forward_list<ostream&> streams;

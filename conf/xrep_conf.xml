@@ -7,10 +7,10 @@
         <postfix value=" : it's postfix" />
     </logger>
 	<parser>
-    	<root_dir value="/tmp/to_replace/" />
-        <stream_count value="8" />
+        <root_dir value="/tmp/to_replace/" />
 	</parser>
     <replacer>
+        <stream_count value="8" />
         <pair>
             <from value="@value1@" />
             <to value="data1" />

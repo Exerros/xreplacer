@@ -18,6 +18,8 @@ bool XReplacerCore::init(int argc, char** argv) {
 
     config::XMLConfigurator conf(config_path);
     logger::Logger logger(conf.get_config_for("logger"));
+    parser::FileSystemParser(conf.get_config_for("logger"));
+    replacer::FileDataReplacer replacer(conf.get_config_for("replacer"));
 }
 
 }

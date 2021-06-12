@@ -1,25 +1,44 @@
 #pragma once
 
-#include <forward_list>
-#include <memory>
-
-#include "interface.hpp"
-
-#include "pugixml.hpp"
+#include "interface/base.hpp"
 
 namespace xrep {
 namespace interface {
-using std::forward_list;
-using std::unique_ptr;
 
-template<class Input, class Output>
+template<class Input, class Output, class Container>
+/**
+ * @brief The ParserInterface class is a template class interface for finding
+ *        items in which you want to make a replacement. Template parameters
+ *        allow you to specify all necessary data formats for working of this
+ *        class.
+ */
 class ParserInterface : Interface {
 public:
     ParserInterface() = default;
-    virtual ~ParserInterface() = default;
+    virtual ~ParserInterface() = 0;
 
-    virtual bool search_objects_to_replase(const Input& search_point) const = 0;
-    virtual forward_list<unique_ptr<Output>>& get_objects_to_replase() const = 0;
+    /**
+     * @brief search_objects_to_replase is a search function for the items you
+     *        need.
+     * @param search_point this parameter specifies the search area for items.
+     */
+    virtual void search_objects_to_replase(const Input& search_point) const = 0;
+
+    /**
+     * @brief get_objects_to_replase is a function for passing found items
+     *        outside the class.
+     * @return A container with elements, references to them, or any other
+     *         object that stores elements that need to be replaced.
+     */
+    virtual Container& get_objects_to_replase() const = 0;
+
+    /**
+     * @brief has_objects_to_replace is the function is designed to get
+     *        information about whether there are items that are meant to be
+     *        replaced.
+     * @return True if the necessary objects were found.
+     */
+    virtual bool has_objects_to_replace() const = 0;
 };
 
 }

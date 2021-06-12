@@ -18,7 +18,7 @@ using std::forward_list;
 using pugi::xml_node;
 using pugi::xml_document;
 
-class Logger : interface::LoggerInterface {
+class Logger : interface::LoggerInterface<string> {
 private:
     forward_list<ostream&> streams;
     string prefix;

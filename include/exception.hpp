@@ -1,6 +1,7 @@
 #pragma once
 
 #include <exception>
+#include <cstring>
 
 namespace xrep {
 namespace exception {
@@ -17,11 +18,24 @@ public:
 //------------------------------------------------------------------------------
 class ConfigException : BaseException {
 public:
-    ConfigException() = default;
-    ~ConfigException() override = default;
-
     const char* what() const noexcept override {
-        return "";
+        return "Incorrect configuration file";
+    }
+};
+
+//------------------------------------------------------------------------------
+class ParserException : BaseException {
+public:
+    const char* what() const noexcept override {
+        return "An error occurred while parsing the files, maybe you passed the wrong root directory or no matching files were found";
+    }
+};
+
+//------------------------------------------------------------------------------
+class ReplacerException : BaseException {
+public:
+    const char* what() const noexcept override {
+        return "An error occurred during information replacement, perhaps the input file was incorrect or no data was found for replacement";
     }
 };
 

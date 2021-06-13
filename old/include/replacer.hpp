@@ -47,8 +47,7 @@ namespace xrep {
 //Функция которая заменяет информацию в указанном файле.
         void replace_in (
                 const fs::path& filePath,
-                shared_ptr<atomic<unsigned long>> streamCounter
-                ) const;
+                shared_ptr<atomic<unsigned long>> streamCounter) const;
     };
 
 }

@@ -14,7 +14,7 @@ template<class ConfigType, class Identifier>
 class ConfiguratorInterface : Interface {
 public:
     ConfiguratorInterface() = default;
-    virtual ~ConfiguratorInterface() = 0;
+    virtual ~ConfiguratorInterface() = default;
 
     /**
      * @brief get_config_for A function designed to pass the necessary part of

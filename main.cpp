@@ -1,24 +1,9 @@
-#include <filesystem>
-#include <string>
-#include <iostream>
-#include <chrono>
-#include <future>
-
-//#include "parser.hpp"
-
-//using namespace xrep;
-//namespace fs = std::filesystem;
+#include <core.hpp>
 
 int main(int argc, char** argv) {
-//    fs::path configPath;
-//    if(argc > 1) {
-//        configPath = argv[1];
-//    } else {
-//        configPath = "config.txt";
-//    }
+    xrep::XReplacerCore core{};
 
-//    Parser p(configPath, &std::cout);
-//    p.replace_data();
+    core.init(argc, argv);
 
-    return 0;
+    return core.run();
 }

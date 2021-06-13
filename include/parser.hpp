@@ -2,7 +2,6 @@
 
 #include <filesystem>
 #include <forward_list>
-#include <memory>
 
 #include "pugixml.hpp"
 
@@ -12,25 +11,24 @@
 namespace xrep {
 namespace parser {
 
-namespace fs = std::filesystem;
 using pugi::xml_node;
 using std::forward_list;
-using std::unique_ptr;
-using objects_list = forward_list<unique_ptr<fs::path>>;
+using std::filesystem::path;
+using fs_iterator = std::filesystem::recursive_directory_iterator;
 
-class FileSystemParser : interface::ParserInterface<
-        fs::path,
-        fs::path,
-        objects_list> {
+//------------------------------------------------------------------------------
+class FileSystemParser : interface::ParserInterface<forward_list<path>> {
 private:
-    objects_list objects;
+    path root_dir;
+    forward_list<path> objects;
 
 public:
     FileSystemParser(const xml_node& config);
     ~FileSystemParser() = default;
 
-    bool search_objects_to_replase(const fs::path& search_point) const;
-    objects_list& get_objects_to_replase() const;
+    unsigned int search_objects_to_replase();
+    forward_list<path>& get_objects_to_replase();
+    bool has_objects_to_replace() const;
 };
 
 }

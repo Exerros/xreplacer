@@ -3,6 +3,7 @@
 namespace xrep {
 namespace replacer {
 
+//------------------------------------------------------------------------------
 FileDataReplacer::FileDataReplacer(const xml_node& config) {
     try {
         if(config.child("stream_count").value()) {
@@ -16,16 +17,29 @@ FileDataReplacer::FileDataReplacer(const xml_node& config) {
                                  child.child("from").value(),
                                  child.child("to").value()));
             }
-
-            if(pairs.size() == 0) throw exception::ConfigException();
         }
     } catch(...) {
         throw exception::ConfigException();
     }
+
+    if(pairs.empty()) throw exception::ConfigException();
 }
 
-bool FileDataReplacer::replase(fs::path& object) const {
+//------------------------------------------------------------------------------
+unsigned long long
+FileDataReplacer::replase(forward_list<path>& objects) const {
+
+
+    for(auto& object : objects) {
+
+    }
+}
+
+//------------------------------------------------------------------------------
+unsigned long long
+FileDataReplacer::replace_in_file(const path& file_path) const {
 
 }
+
 }
 }

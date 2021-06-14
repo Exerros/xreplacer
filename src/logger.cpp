@@ -61,7 +61,7 @@ void Logger::add_file(const string& file_path) {
     try {
         stream_pointer file(
                     new ofstream(file_path, std::ios::ate | std::ios::trunc),
-                    [](ostream* f){ ((ofstream*)f)->close(); });
+                    [](ostream* f){ reinterpret_cast<ofstream*>(f)->close(); });
         streams.push_front(file);
     } catch(...) {
         throw exception::ConfigException();

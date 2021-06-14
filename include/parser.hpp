@@ -24,11 +24,11 @@ private:
 
 public:
     FileSystemParser(const xml_node& config);
-    ~FileSystemParser() = default;
+    ~FileSystemParser() override = default;
 
-    unsigned int search_objects_to_replase();
-    forward_list<path>& get_objects_to_replase();
-    bool has_objects_to_replace() const;
+    unsigned int search_objects_to_replase() override;
+    forward_list<path>& get_objects_to_replase() override;
+    bool has_objects_to_replace() const override;
 };
 
 }

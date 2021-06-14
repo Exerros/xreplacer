@@ -1,11 +1,7 @@
 #pragma once
 
-#include <memory>
-
 namespace xrep {
 namespace interface {
-
-using std::unique_ptr;
 
 /**
  * @brief The Interface class is a base class for interfaces, needed to be able

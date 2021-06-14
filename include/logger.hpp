@@ -10,8 +10,6 @@
 #include "interface/ilogger.hpp"
 #include "exception.hpp"
 
-#define REMOVE_UNUSED(X) ((void)(X))
-
 namespace xrep {
 namespace logger {
 

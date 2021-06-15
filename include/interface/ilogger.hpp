@@ -14,7 +14,7 @@ template<class MessageType>
 class LoggerInterface : Interface {
 public:
     LoggerInterface() = default;
-    ~LoggerInterface() = default;
+    virtual ~LoggerInterface() = default;
 
     /**
      * @brief Function for transmitting a log message. The message will be

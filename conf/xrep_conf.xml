@@ -5,13 +5,14 @@
         <stream value="STDOUT" />
         <prefix value="it's prefix : " />
         <postfix value=" : it's postfix" />
+        <timings value="true" />
     </logger>
 	<parser>
         <root_dir value="/tmp/to_replace/" />
 	</parser>
     <replacer>
         <stream_count value="8" />
-        <thread_start_waiting value="5" />
+        <thread_start_waiting value="100" />
         <pair>
             <from value="@value1@" />
             <to value="data1" />

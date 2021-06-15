@@ -23,7 +23,7 @@ public:
      * @param container Is an object storing elements in which it is necessary
      *        to make replacements.
      */
-    virtual unsigned long long replase(ObjectContainer& container) const = 0;
+    virtual void replase(ObjectContainer& container) const = 0;
 };
 
 }

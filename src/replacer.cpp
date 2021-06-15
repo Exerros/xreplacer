@@ -6,9 +6,9 @@ namespace replacer {
 //------------------------------------------------------------------------------
 FileDataReplacer::FileDataReplacer(const xml_node& config)
     : pairs()
-    , stream_counter()
     , max_stream_count(1)
-    , threading_sleep_time(5ms)
+    , threading_sleep_time(100ms)
+    , logger()
 {
     try {
         if(config.child("stream_count").value()) {
@@ -40,32 +40,27 @@ FileDataReplacer::FileDataReplacer(const xml_node& config)
 }
 
 //------------------------------------------------------------------------------
-unsigned long long
-FileDataReplacer::replase(forward_list<path>& objects) const {
-    shared_ptr<atomic<unsigned long long>> replace_counter(
-                new atomic<unsigned long long>(0));
+void FileDataReplacer::replase(forward_list<path>& objects) const {
     shared_ptr<atomic<unsigned int>> stream_counter(new atomic<unsigned int>(0));
     auto files_iter = objects.begin();
-    std::vector<std::thread*> t;
+    std::vector<std::thread*> threads_vector;
 
     while(files_iter != objects.end()) {
         if(*stream_counter < max_stream_count) {
-            t.push_back(new std::thread(
-                replace_in_file,
-                std::cref(files_iter),
-                stream_counter
-            ));
+            logger->log("asd");
+            threads_vector.push_back(
+                        new std::thread(
+                            replace_in_file,
+                            std::cref(*files_iter),
+                            std::cref(pairs),
+                            stream_counter));
             files_iter++;
             ++(*stream_counter);
         } else {
             sleep_for(threading_sleep_time);
         }
     }
-    for(const auto& thread : t) {
-        thread->join();
-    }
-
-    return *replace_counter;
+    for(const auto& thread : threads_vector) thread->join();
 }
 
 //------------------------------------------------------------------------------
@@ -79,7 +74,6 @@ string FileDataReplacer::get_buffer_from(const path& filePath) {
     } catch (...) {
         throw exception::ReplacerException();
     }
-
     string buffer(length, '\0');
     file.read(buffer.data(), static_cast<long>(length));
 
@@ -90,9 +84,9 @@ string FileDataReplacer::get_buffer_from(const path& filePath) {
 }
 
 //------------------------------------------------------------------------------
-void
-FileDataReplacer::
-write_buffer_to_file(const string& buffer, const path& filePath) {
+void FileDataReplacer::write_buffer_to_file(
+        const string& buffer,
+        const path& filePath) {
     ofstream output_file(filePath, std::ios::trunc);
     output_file << buffer;
 
@@ -116,12 +110,15 @@ void FileDataReplacer::replace_in_file(
             regex(oldValue),
             newValue
         );
-
         file_buffer = std::move(result);
     }
-
     write_buffer_to_file(file_buffer, file_path);
     --(*stream_counter);
+}
+
+//------------------------------------------------------------------------------
+void FileDataReplacer::set_logger(logger_ptr l) {
+    logger = l;
 }
 
 }

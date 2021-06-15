@@ -3,6 +3,7 @@
 #include <string>
 #include <filesystem>
 #include <iostream>
+#include <memory>
 
 #include "interface/iconfigurator.hpp"
 #include "interface/iparser.hpp"
@@ -18,6 +19,8 @@
 namespace xrep {
 
 using std::filesystem::path;
+using std::string;
+using std::shared_ptr;
 
 #ifdef __unix__
 constexpr auto STANDART_CONFIG_PATH = "/usr/local/etc/xreplacer/conf.xml";
@@ -28,10 +31,10 @@ constexpr auto STANDART_CONFIG_PATH = "";
 //------------------------------------------------------------------------------
 class XReplacerCore {
 private:
-    config::XMLConfigurator conf;
-    logger::Logger logger;
-    parser::FileSystemParser parser;
-    replacer::FileDataReplacer replacer;
+    shared_ptr<config::XMLConfigurator> conf = nullptr;
+    shared_ptr<logger::Logger> logger = nullptr;
+    shared_ptr<parser::FileSystemParser> parser = nullptr;
+    shared_ptr<replacer::FileDataReplacer> replacer = nullptr;
 
 public:
     XReplacerCore() = default;

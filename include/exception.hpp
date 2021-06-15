@@ -39,5 +39,13 @@ public:
     }
 };
 
+//------------------------------------------------------------------------------
+class ResellerException : BaseException {
+public:
+    const char* what() const noexcept override {
+        return "An error occurred while trying to read or write data to the storage.";
+    }
+};
+
 }
 }

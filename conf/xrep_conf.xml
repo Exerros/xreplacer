@@ -11,6 +11,7 @@
 	</parser>
     <replacer>
         <stream_count value="8" />
+        <thread_start_waiting value="5" />
         <pair>
             <from value="@value1@" />
             <to value="data1" />

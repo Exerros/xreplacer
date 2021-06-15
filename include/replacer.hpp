@@ -7,6 +7,9 @@
 #include <atomic>
 #include <memory>
 #include <fstream>
+#include <regex>
+#include <thread>
+#include <chrono>
 
 #include "pugixml.hpp"
 
@@ -25,16 +28,20 @@ using std::shared_ptr;
 using std::atomic;
 using std::ifstream;
 using std::ofstream;
+using std::regex;
+using std::this_thread::sleep_for;
+using std::chrono_literals::operator""ms;
 using pairs_map = std::unordered_map<string, string>;
+using duration_t = std::chrono::duration<long, std::ratio<1, 1000>>;
 
 //------------------------------------------------------------------------------
 #pragma pack(push, 4)
 class FileDataReplacer : interface::ReplacerInterface<forward_list<path>> {
 private:
     pairs_map pairs;
-    shared_ptr<atomic<unsigned long long>> replace_counter;
     shared_ptr<atomic<unsigned int>> stream_counter;
     int max_stream_count;
+    duration_t threading_sleep_time;
 
 public:
     FileDataReplacer(const xml_node& config);
@@ -43,9 +50,13 @@ public:
     unsigned long long replase(forward_list<path>& object) const override;
 
 private:
-    string get_buffer_from(const path& filePath) const;
-    void write_buffer_to_file(string& buffer, const path& filePath) const;
-    unsigned long long replace_in_file(const path& file_path) const;
+    static string get_buffer_from(const path& filePath);
+    static void write_buffer_to_file(const string& buffer, const path& filePath);
+
+    static void replace_in_file(
+            const path& file_path,
+            const pairs_map& pairs,
+            shared_ptr<atomic<unsigned int>> stream_counter);
 };
 #pragma pack(pop)
 

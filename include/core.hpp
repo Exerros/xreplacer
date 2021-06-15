@@ -2,6 +2,7 @@
 
 #include <string>
 #include <filesystem>
+#include <iostream>
 
 #include "interface/iconfigurator.hpp"
 #include "interface/iparser.hpp"
@@ -26,6 +27,12 @@ constexpr auto STANDART_CONFIG_PATH = "";
 
 //------------------------------------------------------------------------------
 class XReplacerCore {
+private:
+    config::XMLConfigurator conf;
+    logger::Logger logger;
+    parser::FileSystemParser parser;
+    replacer::FileDataReplacer replacer;
+
 public:
     XReplacerCore() = default;
     ~XReplacerCore() = default;

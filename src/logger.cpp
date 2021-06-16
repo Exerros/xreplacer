@@ -6,24 +6,17 @@ namespace logger {
 //------------------------------------------------------------------------------
 Logger::Logger(const pugi::xml_node& config)
         : streams()
-        , prefix("")
-        , postfix("")
-        , with_timings(false)
+        , prefix()
+        , postfix()
 {
+    if(config.child("prefix").value()) {
+        prefix = string(config.child("prefix").value());
+    }
+
+    if(config.child("postfix").value()) {
+        postfix = string(config.child("postfix").value());
+    }
     try {
-        if(config.child("prefix").value()) {
-            prefix = string(config.child("prefix").value());
-        }
-
-        if(config.child("postfix").value()) {
-            postfix = string(config.child("postfix").value());
-        }
-
-        if(config.child("timings").value()) {
-            with_timings = (
-                    config.child("timings").value() == pugi::string_t("true"));
-        }
-
         for(const auto& child : config) {
             if(child.name() == pugi::string_t("file")) {
                 add_stream(child.value());
@@ -39,16 +32,12 @@ Logger::Logger(const pugi::xml_node& config)
 //------------------------------------------------------------------------------
 void Logger::log(const string& message) const noexcept {
     for(auto& stream : streams) {
-        if(with_timings) {
-            const auto now = sys_clock::to_time_t(sys_clock::now());
-            *stream << put_time(localtime(&now), "%H:%M:%S :");
-        }
-        *stream << prefix << message << postfix << std::endl;
+        *stream << message;
     }
 }
 
 //------------------------------------------------------------------------------
-void Logger::add_stream(const string& name) {/*
+void Logger::add_stream(const string& name) {
     if(name == "STDOUT") {
         stream_pointer stdout_stream(
                     &std::cout,
@@ -64,11 +53,11 @@ void Logger::add_stream(const string& name) {/*
                     &std::clog,
                     [](ostream* s){ delete(s); });
         streams.push_front(stdlog_stream);
-    } else throw exception::ConfigException();*/
+    } else throw exception::ConfigException();
 }
 
 //------------------------------------------------------------------------------
-void Logger::add_file(const string& file_path) {/*
+void Logger::add_file(const string& file_path) {
     try {
         stream_pointer file(
                     new ofstream(file_path, std::ios::ate | std::ios::trunc),
@@ -76,7 +65,7 @@ void Logger::add_file(const string& file_path) {/*
         streams.push_front(file);
     } catch(...) {
         throw exception::ConfigException();
-    }*/
+    }
 }
 
 }

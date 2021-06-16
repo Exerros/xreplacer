@@ -10,7 +10,7 @@ namespace interface {
 class Interface {
 public:
     Interface() = default;
-    virtual ~Interface() = default;
+    virtual ~Interface() = 0;
 };
 
 }

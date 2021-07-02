@@ -10,6 +10,7 @@ FileSystemParser::FileSystemParser(const xml_node& config)
 {
     if(config.child("root_dir").value()) {
         root_dir = path(config.child("root_dir").value());
+
     } else {
         throw exception::ConfigException();
     }

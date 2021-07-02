@@ -5,6 +5,8 @@
         <stream value="STDOUT" />
         <prefix value="it's prefix : " />
         <postfix value=" : it's postfix" />
+        <postfix start_msg=" : it's start message" />
+        <postfix finish_msg=" : it's finish message" />
     </logger>
 	<parser>
         <root_dir value="/tmp/to_replace/" />

@@ -46,19 +46,25 @@ FileDataReplacer::replase(forward_list<path>& objects) const {
                 new atomic<unsigned long long>(0));
     shared_ptr<atomic<unsigned int>> stream_counter(new atomic<unsigned int>(0));
     auto files_iter = objects.begin();
-    std::vector<std::thread*> t;
+    std::deque<std::thread*> t;
+    bool threads_more_than_used = false;
 
     while(files_iter != objects.end()) {
         if(*stream_counter < max_stream_count) {
-            t.push_back(new std::thread(
-                replace_in_file,
-                std::cref(files_iter),
-                stream_counter
-            ));
+            t.push_front(new std::thread(
+                    replace_in_file,
+                    std::cref(files_iter),
+                    stream_counter));
+
             files_iter++;
             ++(*stream_counter);
+
+            if(threads_more_than_used) {
+                t.pop_back();
+            }
         } else {
             sleep_for(threading_sleep_time);
+            threads_more_than_used = true;
         }
     }
     for(const auto& thread : t) {
@@ -76,6 +82,7 @@ string FileDataReplacer::get_buffer_from(const path& filePath) {
     try {
         length = file_size(filePath);
         file.open(filePath);
+
     } catch (...) {
         throw exception::ReplacerException();
     }
@@ -88,6 +95,7 @@ string FileDataReplacer::get_buffer_from(const path& filePath) {
 
     return buffer;
 }
+
 
 //------------------------------------------------------------------------------
 void
@@ -114,8 +122,7 @@ void FileDataReplacer::replace_in_file(
             file_buffer.begin(),
             file_buffer.end(),
             regex(oldValue),
-            newValue
-        );
+            newValue);
 
         file_buffer = std::move(result);
     }

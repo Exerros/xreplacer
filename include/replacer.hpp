@@ -10,6 +10,7 @@
 #include <regex>
 #include <thread>
 #include <chrono>
+#include <deque>
 
 #include "pugixml.hpp"
 

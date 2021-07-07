@@ -1,7 +1,6 @@
 #include "configurator.hpp"
 
-namespace xrep {
-namespace config {
+namespace xrep::config {
 
 //------------------------------------------------------------------------------
 XMLConfigurator::XMLConfigurator(const fs::path& config_path) {
@@ -23,5 +22,4 @@ xml_node XMLConfigurator::get_config_for(const std::string& identify) const {
     return config_data.child(identify.c_str());
 }
 
-}
 }

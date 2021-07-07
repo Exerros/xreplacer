@@ -3,10 +3,9 @@
     <logger>
         <file value="/var/log/xparser.log" />
         <stream value="STDOUT" />
-        <prefix value="it's prefix : " />
-        <postfix value=" : it's postfix" />
-        <postfix start_msg=" : it's start message" />
-        <postfix finish_msg=" : it's finish message" />
+        <start_msg value=" : it's start message" />
+        <finish_msg value=" : it's finish message" />
+        <show_time value="true" />
     </logger>
 	<parser>
         <root_dir value="/tmp/to_replace/" />

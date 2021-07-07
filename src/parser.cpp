@@ -1,7 +1,6 @@
 #include "parser.hpp"
 
-namespace xrep {
-namespace parser {
+namespace xrep::parser {
 
 //------------------------------------------------------------------------------
 FileSystemParser::FileSystemParser(const xml_node& config)
@@ -45,5 +44,4 @@ bool FileSystemParser::has_objects_to_replace() const {
     return !objects.empty();
 }
 
-}
 }

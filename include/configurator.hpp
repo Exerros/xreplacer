@@ -8,8 +8,7 @@
 #include "interface/iconfigurator.hpp"
 #include "exception.hpp"
 
-namespace xrep {
-namespace config {
+namespace xrep::config {
 
 namespace fs = std::filesystem;
 using std::string;
@@ -27,5 +26,4 @@ public:
     xml_node get_config_for(const string& identify) const override;
 };
 
-}
 }

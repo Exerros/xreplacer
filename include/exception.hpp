@@ -3,8 +3,7 @@
 #include <exception>
 #include <cstring>
 
-namespace xrep {
-namespace exception {
+namespace xrep::exception {
 
 //------------------------------------------------------------------------------
 class BaseException : std::exception {
@@ -39,5 +38,4 @@ public:
     }
 };
 
-}
 }

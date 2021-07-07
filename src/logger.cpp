@@ -1,22 +1,26 @@
 #include "logger.hpp"
 
-namespace xrep {
-namespace logger {
+namespace xrep::logger {
 
 //------------------------------------------------------------------------------
 Logger::Logger(const pugi::xml_node& config)
-        : streams()
-        , prefix()
-        , postfix()
+        : start_time(std::chrono::system_clock::now())
+        , streams()
+        , files()
         , start_msg()
         , finish_msg()
+        , show_time(false)
 {
-    if(config.child("prefix").value()) {
-        prefix = string(config.child("prefix").value());
+    if(config.child("start_msg").value()) {
+        start_msg = string(config.child("start_msg").value());
     }
 
-    if(config.child("postfix").value()) {
-        postfix = string(config.child("postfix").value());
+    if(config.child("finish_msg").value()) {
+	finish_msg = string(config.child("finish_msg").value());
+    }
+    
+    if(config.child("show_time").value() == "true"s) {
+        show_time = true;
     }
 
     try {
@@ -31,46 +35,74 @@ Logger::Logger(const pugi::xml_node& config)
     } catch (...) {
         throw exception::ConfigException();
     }
+
+    for(auto& stream : streams) {
+        *stream << finish_msg;
+    }
+
+    for(auto& stream : files) {
+        *stream << finish_msg;
+    }
+}
+
+//------------------------------------------------------------------------------
+Logger::~Logger() {
+    for(auto& stream : streams) {
+        *stream << finish_msg;
+    }
+
+    for(auto& stream : files) {
+        *stream << finish_msg;
+    }
 }
 
 //------------------------------------------------------------------------------
 void Logger::log(const string& message) const noexcept {
+    string time{};
+
+    if(show_time == true)
+        time = get_time_string();
+
     for(auto& stream : streams) {
-        *stream << message;
+        *stream << time << message;
+    }
+
+    for(auto& stream : files) {
+        *stream << time << message;
     }
 }
 
 //------------------------------------------------------------------------------
 void Logger::add_stream(const string& name) {
     if(name == "STDOUT") {
-        files_pointer stdout_stream(
-                    &std::cout,
-                    [](ostream* s){ delete(s); });
-        streams.push_front(stdout_stream);
+        streams.push_front(std::cout);
+
     } else if(name == "STDERR") {
-        files_pointer stderr_stream(
-                    &std::cerr,
-                    [](ostream* s){ delete(s); });
-        streams.push_front(stderr_stream);
+        streams.push_front(std::cerr);
+
     } else if(name == "STDLOG") {
-        files_pointer stdlog_stream(
-                    &std::clog,
-                    [](ostream* s){ delete(s); });
-        streams.push_front(stdlog_stream);
+        streams.push_front(std::clog);
+
     } else throw exception::ConfigException();
 }
 
 //------------------------------------------------------------------------------
-//void Logger::add_file(const string& file_path) {
-//    try {
-//        files_pointer file(
-//                    new ofstream(file_path, std::ios::ate | std::ios::trunc),
-//                    [](ostream* f){ reinterpret_cast<ofstream*>(f)->close(); });
-//        streams.push_front(file);
-//    } catch(...) {
-//        throw exception::ConfigException();
-//    }
-//}
-
+void Logger::add_file(const string& file_path) {
+    try {
+        files_pointer file(
+                    new ofstream(file_path, std::ios::ate | std::ios::trunc),
+                    [](ofstream f){ f.close(); });
+        files.push_front(file);
+    } catch(...) {
+        throw exception::ConfigException();
+    }
 }
+//------------------------------------------------------------------------------
+string Logger::get_time_string() const {
+    if(show_time == false)
+        return string();
+
+    return std::chrono::system_clock::now();
+}
+
 }

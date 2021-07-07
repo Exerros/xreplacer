@@ -15,10 +15,10 @@
 #include "pugixml.hpp"
 
 #include "interface/ireplacer.hpp"
+#include "interface/ilogger.hpp"
 #include "exception.hpp"
 
-namespace xrep {
-namespace replacer {
+namespace xrep::replacer {
 
 using pugi::xml_node;
 using std::string;
@@ -61,5 +61,4 @@ private:
 };
 #pragma pack(pop)
 
-}
 }

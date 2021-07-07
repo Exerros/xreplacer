@@ -1,7 +1,6 @@
 #include "replacer.hpp"
 
-namespace xrep {
-namespace replacer {
+namespace xrep::replacer {
 
 //------------------------------------------------------------------------------
 FileDataReplacer::FileDataReplacer(const xml_node& config)
@@ -131,5 +130,4 @@ void FileDataReplacer::replace_in_file(
     --(*stream_counter);
 }
 
-}
 }

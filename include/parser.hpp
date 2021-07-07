@@ -6,10 +6,10 @@
 #include "pugixml.hpp"
 
 #include "interface/iparser.hpp"
+#include "interface/ilogger.hpp"
 #include "exception.hpp"
 
-namespace xrep {
-namespace parser {
+namespace xrep::parser {
 
 using pugi::xml_node;
 using std::forward_list;
@@ -31,5 +31,4 @@ public:
     bool has_objects_to_replace() const override;
 };
 
-}
 }

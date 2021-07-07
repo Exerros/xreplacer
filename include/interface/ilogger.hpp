@@ -22,11 +22,6 @@ public:
      * @param message The message that will be transmitted.
      */
     virtual void log(const MessageType& message) const noexcept = 0;
-    /**
-     * @brief set_show_time FIXME
-     * @param value
-     */
-    virtual void set_show_time(const bool& value) noexcept = 0;
 };
 
 }

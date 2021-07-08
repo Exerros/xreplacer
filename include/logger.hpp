@@ -5,6 +5,8 @@
 #include <forward_list>
 #include <memory>
 #include <chrono>
+#include <sstream>
+#include <iomanip>
 
 #include "pugixml.hpp"
 
@@ -18,12 +20,13 @@ using std::string;
 using std::forward_list;
 using std::ofstream;
 using std::operator""s;
+using std::chrono::system_clock;
 using pugi::xml_node;
 using pugi::xml_document;
 using files_pointer = std::unique_ptr<ofstream, void(*)(ofstream)>;
 using files_list = forward_list<files_pointer>;
 using streams_list = forward_list<ostream&>;
-using time_point = std::chrono::time_point<std::chrono::system_clock>;
+using time_point = std::chrono::time_point<system_clock>;
 
 //------------------------------------------------------------------------------
 class Logger : interface::LoggerInterface<string> {
@@ -44,7 +47,6 @@ public:
 private:
     void add_stream(const string& name);
     void add_file(const string& file_path);
-    string get_time_string() const ;
 };
 
 }

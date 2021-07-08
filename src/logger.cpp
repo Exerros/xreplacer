@@ -16,7 +16,7 @@ Logger::Logger(const pugi::xml_node& config)
     }
 
     if(config.child("finish_msg").value()) {
-	finish_msg = string(config.child("finish_msg").value());
+        finish_msg = string(config.child("finish_msg").value());
     }
     
     if(config.child("show_time").value() == "true"s) {
@@ -48,27 +48,29 @@ Logger::Logger(const pugi::xml_node& config)
 //------------------------------------------------------------------------------
 Logger::~Logger() {
     for(auto& stream : streams) {
-        *stream << finish_msg;
+        *stream << finish_msg << std::endl;
     }
 
     for(auto& stream : files) {
-        *stream << finish_msg;
+        *stream << finish_msg << std::endl;
     }
 }
 
 //------------------------------------------------------------------------------
 void Logger::log(const string& message) const noexcept {
-    string time{};
+    std::ostringstream msg{};
 
-    if(show_time == true)
-        time = get_time_string();
+    if(show_time == true) {
+        const auto time_now = system_clock::to_time_t(system_clock::now());
+        msg << std::put_time(std::localtime(&time_now), "%F %T : ") << message;
+    }
 
     for(auto& stream : streams) {
-        *stream << time << message;
+        *stream << msg.str() << std::flush;
     }
 
     for(auto& stream : files) {
-        *stream << time << message;
+        *stream << msg.str() << std::flush;
     }
 }
 
@@ -93,16 +95,11 @@ void Logger::add_file(const string& file_path) {
                     new ofstream(file_path, std::ios::ate | std::ios::trunc),
                     [](ofstream f){ f.close(); });
         files.push_front(file);
+
     } catch(...) {
         throw exception::ConfigException();
     }
 }
 //------------------------------------------------------------------------------
-string Logger::get_time_string() const {
-    if(show_time == false)
-        return string();
-
-    return std::chrono::system_clock::now();
-}
 
 }

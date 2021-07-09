@@ -3,7 +3,7 @@
 #include <exception>
 #include <cstring>
 
-namespace xrep::exception {
+namespace xrep {
 
 //------------------------------------------------------------------------------
 class BaseException : std::exception {

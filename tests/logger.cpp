@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "testing_functions/functions.hpp"
+#include "testing_functions/stdout_capturer"
 #include "logger.hpp"
 
 //------------------------------------------------------------------------------

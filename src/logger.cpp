@@ -1,6 +1,6 @@
 #include "logger.hpp"
 
-namespace xrep::logger {
+namespace xrep {
 
 //------------------------------------------------------------------------------
 Logger::Logger(const pugi::xml_node& config)
@@ -12,14 +12,14 @@ Logger::Logger(const pugi::xml_node& config)
         , show_time(false)
 {
     if(config.child("start_msg").value()) {
-        start_msg = string(config.child("start_msg").value());
+        start_msg = std::string(config.child("start_msg").value());
     }
 
     if(config.child("finish_msg").value()) {
-        finish_msg = string(config.child("finish_msg").value());
+        finish_msg = std::string(config.child("finish_msg").value());
     }
     
-    if(config.child("show_time").value() == "true"s) {
+    if(config.child("show_time").value() == std::string("true")) {
         show_time = true;
     }
 
@@ -33,7 +33,7 @@ Logger::Logger(const pugi::xml_node& config)
             }
         }
     } catch (...) {
-        throw exception::ConfigException();
+        throw ConfigException();
     }
 
     for(auto& stream : streams) {
@@ -57,7 +57,7 @@ Logger::~Logger() {
 }
 
 //------------------------------------------------------------------------------
-void Logger::log(const string& message) const noexcept {
+void Logger::log(const std::string& message) const noexcept {
     std::ostringstream msg{};
 
     if(show_time == true) {
@@ -75,7 +75,7 @@ void Logger::log(const string& message) const noexcept {
 }
 
 //------------------------------------------------------------------------------
-void Logger::add_stream(const string& name) {
+void Logger::add_stream(const std::string& name) {
     if(name == "STDOUT") {
         streams.push_front(std::cout);
 
@@ -85,19 +85,19 @@ void Logger::add_stream(const string& name) {
     } else if(name == "STDLOG") {
         streams.push_front(std::clog);
 
-    } else throw exception::ConfigException();
+    } else throw ConfigException();
 }
 
 //------------------------------------------------------------------------------
-void Logger::add_file(const string& file_path) {
+void Logger::add_file(const std::string& file_path) {
     try {
         files_pointer file(
-                    new ofstream(file_path, std::ios::ate | std::ios::trunc),
-                    [](ofstream f){ f.close(); });
+                new std::ofstream(file_path, std::ios::ate | std::ios::trunc),
+                [](std::ofstream f){ f.close(); });
         files.push_front(file);
 
     } catch(...) {
-        throw exception::ConfigException();
+        throw ConfigException();
     }
 }
 //------------------------------------------------------------------------------

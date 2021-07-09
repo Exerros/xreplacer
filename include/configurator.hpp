@@ -8,22 +8,19 @@
 #include "interface/iconfigurator.hpp"
 #include "exception.hpp"
 
-namespace xrep::config {
+namespace xrep {
 
-namespace fs = std::filesystem;
-using std::string;
-using pugi::xml_node;
+class XMLConfigurator : public interface::ConfiguratorInterface {
+    using fs_path = std::filesystem::path;
 
-//------------------------------------------------------------------------------
-class XMLConfigurator : interface::ConfiguratorInterface<xml_node, string> {
 private:
-    xml_node config_data;
+    pugi::xml_node config_data;
 
 public:
-    XMLConfigurator(const fs::path& config_path);
+    XMLConfigurator(const fs_path& config_path);
     ~XMLConfigurator() override = default;
 
-    xml_node get_config_for(const string& identify) const override;
+    pugi::xml_node get_config_for(const std::string& identifier) const override;
 };
 
 }

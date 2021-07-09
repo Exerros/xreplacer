@@ -3,16 +3,16 @@
     <logger>
         <file value="/var/log/xparser.log" />
         <stream value="STDOUT" />
-        <start_msg value=" : it's start message" />
-        <finish_msg value=" : it's finish message" />
+        <start_msg value="Program started." />
+        <finish_msg value="Program finished." />
         <show_time value="true" />
     </logger>
 	<parser>
         <root_dir value="/tmp/to_replace/" />
 	</parser>
     <replacer>
-        <stream_count value="8" />
-        <thread_start_waiting value="5" />
+        <stream_count value="4" />
+        <thread_start_waiting_ms value="5" />
         <pair>
             <from value="@value1@" />
             <to value="data1" />

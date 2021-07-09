@@ -1,25 +1,25 @@
 #include "configurator.hpp"
 
-namespace xrep::config {
+namespace xrep {
 
-//------------------------------------------------------------------------------
-XMLConfigurator::XMLConfigurator(const fs::path& config_path) {
+XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
     try {
         pugi::xml_document config_file;
         config_file.load_file(config_path.c_str());
         config_data = config_file.root();
 
     } catch (...) {
-        throw exception::ConfigException();
+        throw ConfigException();
     }
 }
 
 //------------------------------------------------------------------------------
-xml_node XMLConfigurator::get_config_for(const std::string& identify) const {
-    if(!config_data.child(identify.c_str()).value())
-        throw exception::ConfigException();
+pugi::xml_node
+XMLConfigurator::get_config_for(const std::string& identifier) const {
+    if(!config_data.child(identifier.c_str()).value())
+        throw ConfigException();
 
-    return config_data.child(identify.c_str());
+    return config_data.child(identifier.c_str());
 }
 
 }

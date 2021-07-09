@@ -1,10 +1,6 @@
 #include "gtest/gtest.h"
 
-#include <utility>
-#include <string>
-#include <sstream>
-
-#include "testing_functions/functions.hpp"
+#include "testing_functions/stdout_capturer.hpp"
 #include "configurator.hpp"
 
 //------------------------------------------------------------------------------
@@ -13,6 +9,7 @@ namespace tests {
 class ConfiguratorTester : public ::testing::Test {};
 
 TEST_F(ConfiguratorTester, CorrectConstructing) {
+    xrep::config::XMLConfigurator configurator()
 }
 
 TEST_F(ConfiguratorTester, UncorrectConfigConstructing) {

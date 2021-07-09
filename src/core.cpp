@@ -1,18 +1,16 @@
 #include "core.hpp"
 
 namespace xrep {
-namespace fs = std::filesystem;
 
-//------------------------------------------------------------------------------
 void XReplacerCore::init(int argc, char** argv) {
-    path config_path;
+    fs_path config_path;
     if((argc == 1) || (argc > 2)) {
         config_path = path(STANDART_CONFIG_PATH);
 
-        conf = config::XMLConfigurator(config_path);
-        logger = logger::Logger(conf.get_config_for("logger"));
-        parser = parser::FileSystemParser(conf.get_config_for("parser"));
-        replacer = replacer::FileDataReplacer(conf.get_config_for("replacer"));
+        config = config_ptr(new XMLConfigurator(config_path));
+        logger = Logger(conf.get_config_for("logger"));
+        parser = FileSystemParser(conf.get_config_for("parser"));
+        replacer = FileDataReplacer(conf.get_config_for("replacer"));
 
     } else {
         try {

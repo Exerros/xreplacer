@@ -13,40 +13,32 @@
 #include "interface/ilogger.hpp"
 #include "exception.hpp"
 
-namespace xrep::logger {
+namespace xrep {
 
-using std::ostream;
-using std::string;
-using std::forward_list;
-using std::ofstream;
-using std::operator""s;
-using std::chrono::system_clock;
-using pugi::xml_node;
-using pugi::xml_document;
-using files_pointer = std::unique_ptr<ofstream, void(*)(ofstream)>;
-using files_list = forward_list<files_pointer>;
-using streams_list = forward_list<ostream&>;
-using time_point = std::chrono::time_point<system_clock>;
+class Logger : public interface::LoggerInterface {
+    using files_pointer = std::unique_ptr<std::ofstream, void(*)(std::ofstream)>;
+    using system_clock = std::chrono::system_clock;
+    using time_point = std::chrono::time_point<system_clock>;
+    using files_list = std::forward_list<files_pointer>;
+    using streams_list = std::forward_list<std::ostream&>;
 
-//------------------------------------------------------------------------------
-class Logger : interface::LoggerInterface<string> {
 private:
     time_point start_time;
     streams_list streams;
     files_list files;
-    string start_msg;
-    string finish_msg;
+    std::string start_msg;
+    std::string finish_msg;
     bool show_time;
 
 public:
-    Logger(const xml_node& config);
+    Logger(const pugi::xml_node& config);
     ~Logger() override;
 
-    void log(const string& message) const noexcept override;
+    void log(const std::string& message) const noexcept override;
 
 private:
-    void add_stream(const string& name);
-    void add_file(const string& file_path);
+    void add_stream(const std::string& name);
+    void add_file(const std::string& file_path);
 };
 
 }

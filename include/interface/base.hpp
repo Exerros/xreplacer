@@ -1,7 +1,6 @@
 #pragma once
 
-namespace xrep {
-namespace interface {
+namespace xrep::interface {
 
 /**
  * @brief The Interface class is a base class for interfaces, needed to be able
@@ -13,5 +12,4 @@ public:
     virtual ~Interface() = 0;
 };
 
-}
 }

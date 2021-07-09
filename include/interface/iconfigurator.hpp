@@ -1,11 +1,13 @@
 #pragma once
 
+#include <string>
+
 #include "interface/base.hpp"
 
-namespace xrep {
-namespace interface {
+#include "pugixml.hpp"
 
-template<class ConfigType, class Identifier>
+namespace xrep::interface {
+
 /**
  * @brief The ConfiguratorInterface class is a template configuration class
  *        interface. It is implemented in such a way that it does not depend on
@@ -22,8 +24,8 @@ public:
      * @param identifier Identifies the desired config.
      * @return Necessary element of the configure.
      */
-    virtual ConfigType get_config_for(const Identifier& identifier) const = 0;
+    virtual pugi::xml_node
+    get_config_for(const std::string& identifier) const = 0;
 };
 
-}
 }

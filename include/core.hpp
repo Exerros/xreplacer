@@ -17,8 +17,6 @@
 
 namespace xrep {
 
-using std::filesystem::path;
-
 #ifdef __unix__
 constexpr auto STANDART_CONFIG_PATH = "/usr/local/etc/xreplacer/conf.xml";
 #elif
@@ -27,14 +25,20 @@ constexpr auto STANDART_CONFIG_PATH = "";
 
 //------------------------------------------------------------------------------
 class XReplacerCore {
+    using fs_path = std::filesystem::path;
+    using config_ptr = std::unique_ptr<interface::ConfiguratorInterface>;
+    using logger_ptr = std::unique_ptr<interface::LoggerInterface>;
+    using parser_ptr = std::unique_ptr<interface::ParserInterface>;
+    using replacer_ptr = std::unique_ptr<interface::ReplacerInterface>;
+
 private:
-    config::XMLConfigurator conf;
-    logger::Logger logger;
-    parser::FileSystemParser parser;
-    replacer::FileDataReplacer replacer;
+    config_ptr config;
+    logger_ptr logger;
+    parser_ptr parser;
+    replacer_ptr replacer;
 
 public:
-    XReplacerCore() = default;
+    XReplacerCore();
     ~XReplacerCore() = default;
 
     void init(int argc, char** argv) noexcept(false);

@@ -1,11 +1,12 @@
 #pragma once
 
+#include <forward_list>
+#include <filesystem>
+
 #include "interface/base.hpp"
 
-namespace xrep {
-namespace interface {
+namespace xrep::interface {
 
-template<class ObjectContainer>
 /**
  * @brief The ReplacerInterface class is the template interface of the
  *        substitution handler class. This class gets a container with objects
@@ -13,6 +14,8 @@ template<class ObjectContainer>
  *        implementation.
  */
 class ReplacerInterface : Interface {
+    using fs_path = std::filesystem::path;
+
 public:
     ReplacerInterface() = default;
     virtual ~ReplacerInterface() = default;
@@ -23,8 +26,7 @@ public:
      * @param container Is an object storing elements in which it is necessary
      *        to make replacements.
      */
-    virtual unsigned long long replase(ObjectContainer& container) const = 0;
+    virtual void replase(std::forward_list<fs_path>& container) const = 0;
 };
 
-}
 }

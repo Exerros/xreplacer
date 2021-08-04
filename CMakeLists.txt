@@ -39,7 +39,7 @@ option(XREPLACER_COVERAGE "Checking code coverage with tests." ON)
 
 ################################################################################
 #
-#
+# TODO comment
 
 set(BUILD_SHARED_LIBS ON)
 add_subdirectory("${XREPLACER_THIRD_PARTY_DIR}/pugixml")
@@ -77,13 +77,14 @@ target_compile_features(xrep
         cxx_constexpr
         cxx_decltype
         cxx_auto_type)
+
 target_compile_options(xrep
     INTERFACE
         -Wall
         -Wextra
         -Wpedantic)
 
-target_link_libraries(xrep pugixml::pugixml stdc++fs pthread)
+target_link_libraries(xrep pugixml::pugixml stdc++fs pthread boost_log)
 
 
 ################################################################################

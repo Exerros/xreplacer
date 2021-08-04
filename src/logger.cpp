@@ -3,103 +3,46 @@
 namespace xrep {
 
 //------------------------------------------------------------------------------
-Logger::Logger(const pugi::xml_node& config)
-        : start_time(std::chrono::system_clock::now())
-        , streams()
-        , files()
-        , start_msg()
-        , finish_msg()
-        , show_time(false)
-{
-    if(config.child("start_msg").value()) {
-        start_msg = std::string(config.child("start_msg").value());
-    }
+LoggerHelper::LoggerHelper() noexcept
+    : output()
+    { }
 
-    if(config.child("finish_msg").value()) {
-        finish_msg = std::string(config.child("finish_msg").value());
-    }
-    
-    if(config.child("show_time").value() == std::string("true")) {
-        show_time = true;
-    }
+//------------------------------------------------------------------------------
+LoggerHelper::~LoggerHelper() noexcept {
+    Logger::get_instance().log(output.str());
+}
 
-    try {
-        for(const auto& child : config) {
-            if(child.name() == pugi::string_t("file")) {
-                add_stream(child.value());
-
-            } else if(child.name() == pugi::string_t("stream")) {
-                add_file(child.value());
-            }
-        }
-    } catch (...) {
-        throw ConfigException();
-    }
-
-    for(auto& stream : streams) {
-        *stream << finish_msg;
-    }
-
-    for(auto& stream : files) {
-        *stream << finish_msg;
+//------------------------------------------------------------------------------
+std::string LoggerHelper::lvl_to_string(LogLevel level) {
+    switch (level) {
+       case LogLevel::trace:
+           return std::string("trace");
+       case LogLevel::debug:
+           return std::string("debug");
+       case LogLevel::info:
+           return std::string("info");
+       case LogLevel::warning:
+           return std::string("warning");
+       case LogLevel::error:
+           return std::string("error");
+       case LogLevel::fatal:
+           return std::string("fatal");
     }
 }
 
 //------------------------------------------------------------------------------
-Logger::~Logger() {
-    for(auto& stream : streams) {
-        *stream << finish_msg << std::endl;
-    }
-
-    for(auto& stream : files) {
-        *stream << finish_msg << std::endl;
-    }
+void Logger::log(const std::string& data) const noexcept {
+    std::cout << data << std::endl;
 }
 
 //------------------------------------------------------------------------------
-void Logger::log(const std::string& message) const noexcept {
-    std::ostringstream msg{};
+const Logger& Logger::get_instance() {
+    static std::unique_ptr<Logger> logger;
 
-    if(show_time == true) {
-        const auto time_now = system_clock::to_time_t(system_clock::now());
-        msg << std::put_time(std::localtime(&time_now), "%F %T : ") << message;
-    }
+    if (logger == nullptr)
+        logger = std::unique_ptr<Logger>(new Logger());
 
-    for(auto& stream : streams) {
-        *stream << msg.str() << std::flush;
-    }
-
-    for(auto& stream : files) {
-        *stream << msg.str() << std::flush;
-    }
+    return *logger;
 }
-
-//------------------------------------------------------------------------------
-void Logger::add_stream(const std::string& name) {
-    if(name == "STDOUT") {
-        streams.push_front(std::cout);
-
-    } else if(name == "STDERR") {
-        streams.push_front(std::cerr);
-
-    } else if(name == "STDLOG") {
-        streams.push_front(std::clog);
-
-    } else throw ConfigException();
-}
-
-//------------------------------------------------------------------------------
-void Logger::add_file(const std::string& file_path) {
-    try {
-        files_pointer file(
-                new std::ofstream(file_path, std::ios::ate | std::ios::trunc),
-                [](std::ofstream f){ f.close(); });
-        files.push_front(file);
-
-    } catch(...) {
-        throw ConfigException();
-    }
-}
-//------------------------------------------------------------------------------
 
 }

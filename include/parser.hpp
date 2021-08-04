@@ -11,7 +11,7 @@
 
 namespace xrep {
 
-class FileSystemParser : public interface::ParserInterface {
+class FileSystemParser final : public interface::ParserInterface {
     using fs_iterator = std::filesystem::recursive_directory_iterator;
     using fs_path = std::filesystem::path;
 

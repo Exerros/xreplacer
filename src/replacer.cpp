@@ -7,7 +7,7 @@ FileDataReplacer::FileDataReplacer(const pugi::xml_node& config)
     : pairs()
     , stream_counter()
     , max_stream_count(1)
-    , threading_sleep_time(5ms)
+    , threading_sleep_time(std::chrono::milliseconds<5>)
 {
     try {
         if(config.child("stream_count").value()) {
@@ -55,7 +55,7 @@ void FileDataReplacer::replase(std::forward_list<fs_path>& objects) const {
             ++(*stream_counter);
 
         } else {
-            sleep_for(threading_sleep_time);
+            std::this_thread::sleep_for(threading_sleep_time);
         }
     }
     for(const auto& thread : t) {

@@ -10,7 +10,7 @@
 
 namespace xrep {
 
-class XMLConfigurator : public interface::ConfiguratorInterface {
+class XMLConfigurator final : public interface::ConfiguratorInterface {
     using fs_path = std::filesystem::path;
 
 private:
@@ -20,7 +20,8 @@ public:
     XMLConfigurator(const fs_path& config_path);
     ~XMLConfigurator() override = default;
 
-    pugi::xml_node get_config_for(const std::string& identifier) const override;
+    pugi::xml_node
+    get_config_for(const std::string_view identifier) const override;
 };
 
 }

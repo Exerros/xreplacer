@@ -10,7 +10,7 @@
 #include <regex>
 #include <thread>
 #include <chrono>
-#include <deque>
+#include <vector>
 
 #include "pugixml.hpp"
 
@@ -20,13 +20,8 @@
 
 namespace xrep {
 
-using std::filesystem::file_size;
-using std::this_thread::sleep_for;
-using std::chrono_literals::operator""ms;
-
-//------------------------------------------------------------------------------
 #pragma pack(push, 4)
-class FileDataReplacer : public interface::ReplacerInterface {
+class FileDataReplacer final : public interface::ReplacerInterface {
     using duration_t = std::chrono::duration<long, std::ratio<1, 1000>>;
     using pairs_map = std::unordered_map<std::string, std::string>;
     using counter_ptr = std::shared_ptr<std::atomic<unsigned int>>;

@@ -6,22 +6,27 @@
 
 namespace xrep::interface {
 
+enum class LogLevel {
+    trace,
+    debug,
+    info,
+    warning,
+    error,
+    fatal
+};
+
 /**
- * @brief The interface of the logging classes, the functionality of these
- *        classes is limited to logging and the main function to be applied in
- *        the work is the function log.
+ * TODO brief
  */
 class LoggerInterface : Interface {
 public:
-    LoggerInterface() = default;
-    ~LoggerInterface() = default;
+    LoggerInterface() noexcept = default;
+    virtual ~LoggerInterface() noexcept = default;
 
     /**
-     * @brief Function for transmitting a log message. The message will be
-     *        transmitted according to the implementation.
-     * @param message The message that will be transmitted.
+     * TODO brief
      */
-    virtual void log(const std::string& message) const noexcept = 0;
+    virtual void log(const std::string& data) const noexcept = 0;
 };
 
 }

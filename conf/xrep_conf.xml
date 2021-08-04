@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <logger>
-        <file value="/var/log/xparser.log" />
-        <stream value="STDOUT" />
-        <start_msg value="Program started." />
-        <finish_msg value="Program finished." />
+        <log_level value="debug" />
+        <color_log value="true" />
         <show_time value="true" />
     </logger>
 	<parser>

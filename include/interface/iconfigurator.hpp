@@ -25,7 +25,7 @@ public:
      * @return Necessary element of the configure.
      */
     virtual pugi::xml_node
-    get_config_for(const std::string& identifier) const = 0;
+    get_config_for(const std::string_view identifier) const = 0;
 };
 
 }

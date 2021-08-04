@@ -5,7 +5,7 @@
 #include <sstream>
 
 #include "testing_functions/stdout_capturer"
-#include "logger.hpp"
+#include "SingletonLogger.hpp"
 
 //------------------------------------------------------------------------------
 namespace tests {

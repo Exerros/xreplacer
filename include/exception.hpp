@@ -15,7 +15,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class ConfigException : BaseException {
+class ConfigException final : BaseException {
 public:
     const char* what() const noexcept override {
         return "Incorrect configuration file";
@@ -23,7 +23,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class ParserException : BaseException {
+class ParserException final : BaseException {
 public:
     const char* what() const noexcept override {
         return "An error occurred while parsing the files, maybe you passed the wrong root directory or no matching files were found";
@@ -31,7 +31,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class ReplacerException : BaseException {
+class ReplacerException final : BaseException {
 public:
     const char* what() const noexcept override {
         return "An error occurred during information replacement, perhaps the input file was incorrect or no data was found for replacement";

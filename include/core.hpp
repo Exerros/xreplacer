@@ -11,7 +11,7 @@
 
 #include "configurator.hpp"
 #include "exception.hpp"
-#include "logger.hpp"
+#include "SingletonLogger.hpp"
 #include "parser.hpp"
 #include "replacer.hpp"
 

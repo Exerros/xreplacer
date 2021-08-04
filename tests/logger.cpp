@@ -4,8 +4,8 @@
 #include <string>
 #include <sstream>
 
-#include "testing_functions/stdout_capturer"
-#include "SingletonLogger.hpp"
+#include "testing_functions/stdout_capturer.hpp"
+#include "logger.hpp"
 
 //------------------------------------------------------------------------------
 namespace tests {
@@ -42,4 +42,11 @@ TEST_F(LoggerTester, LogWithTime) {
 TEST_F(LoggerTester, LogWithoutTime) {
 }
 
+}
+//------------------------------------------------------------------------------
+int main(int argc, char **argv) {
+
+    ::testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
 }

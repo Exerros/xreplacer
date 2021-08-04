@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "testing_functions/stdout_capturer"
+#include "testing_functions/stdout_capturer.hpp"
 #include "replacer.hpp"
 
 //------------------------------------------------------------------------------
@@ -24,4 +24,11 @@ TEST_F(ReplacerTester, CorrectReplace) {
 TEST_F(ReplacerTester, NothingToReplace) {
 }
 
+}
+//------------------------------------------------------------------------------
+int main(int argc, char **argv) {
+
+    ::testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
 }

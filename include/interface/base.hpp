@@ -9,7 +9,7 @@ namespace xrep::interface {
 class Interface {
 public:
     Interface() = default;
-    virtual ~Interface() = 0;
+    virtual ~Interface() = default;
 };
 
 }

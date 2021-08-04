@@ -21,7 +21,7 @@ public:
     ~XMLConfigurator() override = default;
 
     pugi::xml_node
-    get_config_for(const std::string_view identifier) const override;
+    get_config_for(const std::string& identifier) const override;
 };
 
 }

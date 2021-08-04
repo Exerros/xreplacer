@@ -9,7 +9,7 @@ namespace tests {
 class ConfiguratorTester : public ::testing::Test {};
 
 TEST_F(ConfiguratorTester, CorrectConstructing) {
-    xrep::config::XMLConfigurator configurator()
+//    xrep::XMLConfigurator configurator{};
 }
 
 TEST_F(ConfiguratorTester, UncorrectConfigConstructing) {
@@ -33,4 +33,11 @@ TEST_F(ConfiguratorTester, TryToGetVoidConfigFor) {
 TEST_F(ConfiguratorTester, CorrectGetConfigForWithDoubleData) {
 }
 
+}
+//------------------------------------------------------------------------------
+int main(int argc, char **argv) {
+
+    ::testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
 }

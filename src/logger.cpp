@@ -4,7 +4,8 @@ namespace xrep {
 
 //------------------------------------------------------------------------------
 LoggerHelper::LoggerHelper() noexcept
-    : output()
+    : log_time(system_clock::now())
+    , output()
     { }
 
 //------------------------------------------------------------------------------
@@ -13,7 +14,7 @@ LoggerHelper::~LoggerHelper() noexcept {
 }
 
 //------------------------------------------------------------------------------
-std::string LoggerHelper::lvl_to_string(LogLevel level) {
+std::string LoggerHelper::lvl_to_string(LogLevel level) const noexcept {
     switch (level) {
        case LogLevel::trace:
            return std::string("trace");
@@ -28,6 +29,7 @@ std::string LoggerHelper::lvl_to_string(LogLevel level) {
        case LogLevel::fatal:
            return std::string("fatal");
     }
+    return std::string();
 }
 
 //------------------------------------------------------------------------------

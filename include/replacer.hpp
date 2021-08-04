@@ -26,6 +26,7 @@ class FileDataReplacer final : public interface::ReplacerInterface {
     using pairs_map = std::unordered_map<std::string, std::string>;
     using counter_ptr = std::shared_ptr<std::atomic<unsigned int>>;
     using fs_path = std::filesystem::path;
+    using milliseconds = std::chrono::milliseconds;
 
 private:
     pairs_map pairs;

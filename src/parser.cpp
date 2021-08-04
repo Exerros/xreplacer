@@ -11,7 +11,7 @@ FileSystemParser::FileSystemParser(const pugi::xml_node& config)
         root_dir = fs_path(config.child("root_dir").value());
 
     } else {
-        throw ConfigException();
+        throw exception::ConfigException();
     }
 }
 
@@ -26,10 +26,10 @@ unsigned int FileSystemParser::search_objects_to_replase() {
             ++objects_count;
         }
     } catch(...) {
-        throw ParserException();
+        throw exception::ParserException();
     }
 
-    if(objects.empty()) throw ParserException();
+    if(objects.empty()) throw exception::ParserException();
 
     return objects_count;
 }

@@ -7,20 +7,21 @@ FileDataReplacer::FileDataReplacer(const pugi::xml_node& config)
     : pairs()
     , stream_counter()
     , max_stream_count(1)
-    , threading_sleep_time(std::chrono::milliseconds<5>)
+    , threading_sleep_time(milliseconds(5))
 {
     try {
         if(config.child("stream_count").value()) {
             max_stream_count = std::atoi(config.child("prefix").value());
 
-            if(max_stream_count < 1) throw ConfigException();
+            if(max_stream_count < 1) throw exception::ConfigException();
         }
 
         if(config.child("thread_start_waiting_ms").value()) {
             threading_sleep_time = duration_t(std::atoi(
                         config.child("thread_start_waiting_ms").value()));
 
-            if(threading_sleep_time < 5ms) throw ConfigException();
+            if(threading_sleep_time < milliseconds(5))
+                throw exception::ConfigException();
         }
 
         for(const auto& child : config) {
@@ -32,10 +33,10 @@ FileDataReplacer::FileDataReplacer(const pugi::xml_node& config)
             }
         }
     } catch(...) {
-        throw ConfigException();
+        throw exception::ConfigException();
     }
 
-    if(pairs.empty()) throw ConfigException();
+    if(pairs.empty()) throw exception::ConfigException();
 }
 
 //------------------------------------------------------------------------------
@@ -48,10 +49,11 @@ void FileDataReplacer::replase(std::forward_list<fs_path>& objects) const {
         if(*stream_counter < max_stream_count) {
             t.push_back(std::unique_ptr<std::thread>(new std::thread(
                     replace_in_file,
-                    std::cref(files_iter),
+                    std::cref(*files_iter),
+                    std::cref(pairs),
                     stream_counter)));
 
-            files_iter++;
+            files_iter = next(files_iter);
             ++(*stream_counter);
 
         } else {
@@ -73,26 +75,25 @@ std::string FileDataReplacer::get_buffer_from(const fs_path& filePath) {
         file.open(filePath);
 
     } catch (...) {
-        throw ReplacerException();
+        throw exception::ReplacerException();
     }
 
     std::string buffer(length, '\0');
     file.read(buffer.data(), static_cast<long>(length));
 
-    if(file.good() != true) throw ReplacerException();
+    if(file.good() != true) throw exception::ReplacerException();
     file.close();
 
     return buffer;
 }
 
 //------------------------------------------------------------------------------
-void
-FileDataReplacer::
+void FileDataReplacer::
 write_buffer_to_file(const std::string& buffer, const fs_path& filePath) {
     std::ofstream output_file(filePath, std::ios::trunc);
     output_file << buffer;
 
-    if(output_file.good() != true) throw ReplacerException();
+    if(output_file.good() != true) throw exception::ReplacerException();
     output_file.close();
 }
 

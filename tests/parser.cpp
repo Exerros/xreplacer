@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include "testing_functions/stdout_capturer"
+#include "testing_functions/stdout_capturer.hpp"
 #include "parser.hpp"
 
 //------------------------------------------------------------------------------
@@ -36,4 +36,11 @@ TEST_F(ParserTester, HasObjectsToReplace) {
 TEST_F(ParserTester, HasNoObjectsToReplace) {
 }
 
+}
+//------------------------------------------------------------------------------
+int main(int argc, char **argv) {
+
+    ::testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
 }

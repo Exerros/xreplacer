@@ -25,7 +25,7 @@ public:
      *        need.
      * @param search_point this parameter specifies the search area for items.
      */
-    virtual unsigned int search_objects_to_replase() = 0;
+    virtual void search_objects_to_replase() = 0;
 
     /**
      * @brief get_objects_to_replase is a function for passing found items

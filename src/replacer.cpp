@@ -2,13 +2,13 @@
 
 namespace xrep {
 
-//------------------------------------------------------------------------------
 FileDataReplacer::FileDataReplacer(const pugi::xml_node& config)
     : pairs()
     , stream_counter()
     , max_stream_count(1)
     , threading_sleep_time(milliseconds(5))
 {
+    LOG(info) << "Configuring the Replacer";
     try {
         if(config.child("stream_count").value()) {
             max_stream_count = std::atoi(config.child("prefix").value());
@@ -37,13 +37,18 @@ FileDataReplacer::FileDataReplacer(const pugi::xml_node& config)
     }
 
     if(pairs.empty()) throw exception::ConfigException();
+
+    LOG(info) << "Replaser configuration was successful\n"
+              << NEXT_LINE_CONTINUE << pairs.size() << " pairs were found";
 }
 
 //------------------------------------------------------------------------------
 void FileDataReplacer::replase(std::forward_list<fs_path>& objects) const {
-    counter_ptr stream_counter(new std::atomic<unsigned int>(0));
+    counter_ptr stream_counter(new std::atomic_uint(0));
     auto files_iter = objects.begin();
     std::vector<std::unique_ptr<std::thread>> t;
+
+    LOG(info) << "Replacer starts processing files";
 
     while(files_iter != objects.end()) {
         if(*stream_counter < max_stream_count) {
@@ -63,6 +68,7 @@ void FileDataReplacer::replase(std::forward_list<fs_path>& objects) const {
     for(const auto& thread : t) {
         thread->join();
     }
+    LOG(info) << "Replacer has finished processing files";
 }
 
 //------------------------------------------------------------------------------
@@ -101,7 +107,8 @@ write_buffer_to_file(const std::string& buffer, const fs_path& filePath) {
 void FileDataReplacer::replace_in_file(
         const fs_path& file_path,
         const pairs_map& pairs,
-        counter_ptr stream_counter) {
+        counter_ptr stream_counter)
+{
     std::string file_buffer(get_buffer_from(file_path));
     std::string result;
 

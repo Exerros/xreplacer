@@ -7,6 +7,7 @@
 
 #include "interface/iconfigurator.hpp"
 #include "exception.hpp"
+#include "logger.hpp"
 
 namespace xrep {
 

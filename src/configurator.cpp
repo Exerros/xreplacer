@@ -3,6 +3,7 @@
 namespace xrep {
 
 XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
+    LOG(info) << "Reading the configuration";
     try {
         pugi::xml_document config_file;
         config_file.load_file(config_path.c_str());
@@ -11,6 +12,7 @@ XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
     } catch (...) {
         throw exception::ConfigException();
     }
+    LOG(info) << "Reading is successful";
 }
 
 //------------------------------------------------------------------------------

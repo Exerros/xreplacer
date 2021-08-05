@@ -11,7 +11,9 @@
 #include "exception.hpp"
 
 //------------------------------------------------------------------------------
-#define LOG(LEVEL) xrep::LoggerHelper() << xrep::interface::LogLevel::LEVEL
+#define LOG(LEVEL) xrep::LoggerHelper(xrep::LogLevel::LEVEL)
+#define NEXT_LINE_CONTINUE "\n" << std::string(19, ' ')
+#define BORDER std::string(80, '-') << '\n'
 
 //------------------------------------------------------------------------------
 namespace xrep {
@@ -32,30 +34,20 @@ class LoggerHelper {
     using time_point = system_clock::time_point;
 
 private:
-    time_point log_time;
     sstream output;
 
 public:
-    LoggerHelper() noexcept;
+    LoggerHelper(LogLevel level) noexcept;
     ~LoggerHelper() noexcept;
 
-private:
-    std::string lvl_to_string(LogLevel level) const noexcept;
-
-public:
     template<class T>
     LoggerHelper& operator <<(const T& data) {
         output << data;
         return *this;
     }
 
-    template<LogLevel>
-    LoggerHelper& operator <<(LogLevel lvl) noexcept {
-        auto time = system_clock::to_time_t(log_time);
-        output << std::put_time(std::localtime(&time), "%T")
-               << std::setw(10) << " [" << lvl_to_string(lvl) << "] ";
-        return *this;
-    }
+private:
+    std::string lvl_to_string(LogLevel level) const noexcept;
 };
 
 //------------------------------------------------------------------------------

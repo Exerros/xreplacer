@@ -6,8 +6,8 @@
 #include "pugixml.hpp"
 
 #include "interface/iparser.hpp"
-#include "interface/ilogger.hpp"
 #include "exception.hpp"
+#include "logger.hpp"
 
 namespace xrep {
 
@@ -23,7 +23,7 @@ public:
     FileSystemParser(const pugi::xml_node& config);
     ~FileSystemParser() override = default;
 
-    unsigned int search_objects_to_replase() override;
+    void search_objects_to_replase() override;
     std::forward_list<fs_path>& get_objects_to_replase() override;
     bool has_objects_to_replace() const override;
 };

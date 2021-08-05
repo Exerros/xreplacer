@@ -8,7 +8,10 @@ XReplacerCore::XReplacerCore()
     , replacer(nullptr)
     { }
 
+//------------------------------------------------------------------------------
 void XReplacerCore::init(int argc, char** argv) {
+    LOG(info) << BORDER << "Initialization of xReplaser started";
+
     fs_path config_path;
     if((argc == 1) || (argc > 2)) {
         config_path = fs_path(STANDART_CONFIG_PATH);
@@ -24,14 +27,17 @@ void XReplacerCore::init(int argc, char** argv) {
             config_path = fs_path(argv[1]);
 
         } catch (std::exception& ex) {
-            std::cerr << ex.what() << std::endl;
+            LOG(fatal) << ex.what();
             exit(1);
         }
     }
+
+    LOG(info) << "xReplaser initialization completed successfully\n" << BORDER;
 }
 
 //------------------------------------------------------------------------------
 int XReplacerCore::run() {
+    LOG(info) << "xReplaser starts processing files";
     try {
         parser->search_objects_to_replase();
 
@@ -41,9 +47,10 @@ int XReplacerCore::run() {
         } else throw exception::ParserException();
 
     } catch(std::exception& ex) {
-        std::cerr << ex.what() << std::endl;
+        LOG(fatal) << ex.what();
         exit(2);
     }
+    LOG(info) << "xReplaser has finished processing files\n" << BORDER;
 
     return 0;
 }

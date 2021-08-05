@@ -2,21 +2,23 @@
 
 namespace xrep {
 
-//------------------------------------------------------------------------------
 FileSystemParser::FileSystemParser(const pugi::xml_node& config)
     : root_dir()
     , objects()
 {
+    LOG(info) << "Configuring the Parser";
     if(config.child("root_dir").value()) {
         root_dir = fs_path(config.child("root_dir").value());
 
     } else {
         throw exception::ConfigException();
     }
+    LOG(info) << "Parser configuration was successful";
 }
 
 //------------------------------------------------------------------------------
-unsigned int FileSystemParser::search_objects_to_replase() {
+void FileSystemParser::search_objects_to_replase() {
+    LOG(info) << "Parser starts searching for objects";
     unsigned int objects_count = 0;
 
     try {
@@ -25,13 +27,15 @@ unsigned int FileSystemParser::search_objects_to_replase() {
             objects.push_front(*i);
             ++objects_count;
         }
-    } catch(...) {
+    } catch(std::exception& ex) {
+        LOG(error) << ex.what();
         throw exception::ParserException();
     }
 
     if(objects.empty()) throw exception::ParserException();
 
-    return objects_count;
+    LOG(info) << "Parser starts searching for objects"
+              << NEXT_LINE_CONTINUE << objects_count << " files were found";
 }
 
 //------------------------------------------------------------------------------

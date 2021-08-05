@@ -15,8 +15,8 @@
 #include "pugixml.hpp"
 
 #include "interface/ireplacer.hpp"
-#include "interface/ilogger.hpp"
 #include "exception.hpp"
+#include "logger.hpp"
 
 namespace xrep {
 

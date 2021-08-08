@@ -10,7 +10,7 @@ XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
         config_data = config_file.root();
 
     } catch (...) {
-        throw exception::ConfigException();
+        throw exception::configurator::IncorrectConfigFile();
     }
     LOG(info) << "Reading is successful";
 }
@@ -19,7 +19,7 @@ XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
 pugi::xml_node
 XMLConfigurator::get_config_for(const std::string& identifier) const {
     if(!config_data.child(identifier.c_str()).value())
-        throw exception::ConfigException();
+        throw exception::configurator::NoSettingsForItem();
 
     return config_data.child(identifier.c_str());
 }

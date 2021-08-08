@@ -12,24 +12,25 @@ XReplacerCore::XReplacerCore()
 void XReplacerCore::init(int argc, char** argv) {
     LOG(info) << BORDER << "Initialization of xReplaser started";
 
-    fs_path config_path;
-    if((argc == 1) || (argc > 2)) {
-        config_path = fs_path(STANDART_CONFIG_PATH);
+    try {
+        fs_path config_path;
 
-        config = config_ptr(new XMLConfigurator(config_path));
-        parser = parser_ptr(
+        if((argc == 1) || (argc > 2)) {
+            config_path = fs_path(STANDART_CONFIG_PATH);
+
+            config = config_ptr(new XMLConfigurator(config_path));
+            parser = parser_ptr(
                     new FileSystemParser(config->get_config_for("parser")));
-        replacer = replacer_ptr(
+            replacer = replacer_ptr(
                     new FileDataReplacer(config->get_config_for("replacer")));
 
-    } else {
-        try {
+        } else {
             config_path = fs_path(argv[1]);
 
-        } catch (std::exception& ex) {
-            LOG(fatal) << ex.what();
-            exit(1);
         }
+    } catch (std::exception& ex) {
+        LOG(fatal) << ex.what();
+        exit(1);
     }
 
     LOG(info) << "xReplaser initialization completed successfully\n" << BORDER;
@@ -44,7 +45,7 @@ int XReplacerCore::run() {
         if(parser->has_objects_to_replace()) {
             replacer->replase(parser->get_objects_to_replase());
 
-        } else throw exception::ParserException();
+        } else throw exception::parser::NoObjects();
 
     } catch(std::exception& ex) {
         LOG(fatal) << ex.what();

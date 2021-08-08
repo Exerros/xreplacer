@@ -1,6 +1,6 @@
 #pragma once
 
-#include <forward_list>
+#include <vector>
 #include <filesystem>
 
 #include "interface/base.hpp"
@@ -33,7 +33,7 @@ public:
      * @return A container with elements, references to them, or any other
      *         object that stores elements that need to be replaced.
      */
-    virtual std::forward_list<fs_path>& get_objects_to_replase() = 0;
+    virtual std::vector<fs_path>& get_objects_to_replase() = 0;
 
     /**
      * @brief has_objects_to_replace is the function is designed to get

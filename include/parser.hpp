@@ -1,7 +1,7 @@
 #pragma once
 
 #include <filesystem>
-#include <forward_list>
+#include <vector>
 
 #include "pugixml.hpp"
 
@@ -17,14 +17,14 @@ class FileSystemParser final : public interface::ParserInterface {
 
 private:
     fs_path root_dir;
-    std::forward_list<fs_path> objects;
+    std::vector<fs_path> objects;
 
 public:
     FileSystemParser(const pugi::xml_node& config);
     ~FileSystemParser() override = default;
 
     void search_objects_to_replase() override;
-    std::forward_list<fs_path>& get_objects_to_replase() override;
+    std::vector<fs_path>& get_objects_to_replase() override;
     bool has_objects_to_replace() const override;
 };
 

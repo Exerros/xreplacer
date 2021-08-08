@@ -3,14 +3,11 @@
 #include <filesystem>
 #include <unordered_map>
 #include <string>
-#include <forward_list>
-#include <atomic>
+#include <vector>
 #include <memory>
 #include <fstream>
 #include <regex>
 #include <thread>
-#include <chrono>
-#include <vector>
 
 #include "pugixml.hpp"
 
@@ -22,23 +19,18 @@ namespace xrep {
 
 #pragma pack(push, 4)
 class FileDataReplacer final : public interface::ReplacerInterface {
-    using duration_t = std::chrono::duration<long, std::ratio<1, 1000>>;
     using pairs_map = std::unordered_map<std::string, std::string>;
-    using counter_ptr = std::shared_ptr<std::atomic<unsigned int>>;
     using fs_path = std::filesystem::path;
-    using milliseconds = std::chrono::milliseconds;
 
 private:
     pairs_map pairs;
-    counter_ptr stream_counter;
-    int max_stream_count;
-    duration_t threading_sleep_time;
+    unsigned int thread_count;
 
 public:
     FileDataReplacer(const pugi::xml_node& config);
     ~FileDataReplacer() override = default ;
 
-    void replase(std::forward_list<fs_path>& object) const override;
+    void replase(std::vector<fs_path>& object) const override;
 
 private:
     static std::string get_buffer_from(const fs_path& filePath);
@@ -46,10 +38,12 @@ private:
     static void
     write_buffer_to_file(const std::string& buffer, const fs_path& filePath);
 
-    static void replace_in_file(
-            const fs_path& file_path,
-            const pairs_map& pairs,
-            counter_ptr stream_counter);
+    static void replace_in_files(
+            const std::vector<fs_path>& files_paths,
+            const pairs_map& pairs);
+
+    std::vector<std::vector<fs_path>>
+    chop_objects_container(std::vector<fs_path>& container) const;
 };
 #pragma pack(pop)
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <forward_list>
+#include <vector>
 #include <filesystem>
 
 #include "interface/base.hpp"
@@ -26,7 +26,7 @@ public:
      * @param container Is an object storing elements in which it is necessary
      *        to make replacements.
      */
-    virtual void replase(std::forward_list<fs_path>& container) const = 0;
+    virtual void replase(std::vector<fs_path>& container) const = 0;
 };
 
 }

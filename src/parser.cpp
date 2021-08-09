@@ -7,7 +7,7 @@ FileSystemParser::FileSystemParser(const pugi::xml_node& config)
     , objects()
 {
     LOG(info) << "Configuring the Parser";
-    if(config.child("root_dir").value()) {
+    if (config.child("root_dir").value()) {
         root_dir = fs_path(config.child("root_dir").value());
 
     } else {
@@ -21,12 +21,12 @@ void FileSystemParser::search_objects_to_replase() {
     LOG(info) << "Parser starts searching for objects";
 
     try {
-        for(fs_iterator i(root_dir); i != fs_iterator(); i = ++i) {
-            if(false == is_directory(i->status()))
+        for (fs_iterator i(root_dir); i != fs_iterator(); i = ++i) {
+            if (!is_directory(i->status()))
             objects.push_back(*i);
         }
 
-    } catch(std::exception& ex) {
+    } catch (std::exception& ex) {
         LOG(error) << ex.what();
         throw exception::parser::FileSearchError();
     }

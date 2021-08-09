@@ -13,7 +13,7 @@
 //------------------------------------------------------------------------------
 #define LOG(LEVEL) xrep::LoggerHelper(xrep::LogLevel::LEVEL)
 #define NEXT_LINE_CONTINUE "\n" << std::string(19, ' ')
-#define BORDER std::string(80, '-') << '\n'
+#define BORDER std::string(80, '-')
 
 //------------------------------------------------------------------------------
 namespace xrep {

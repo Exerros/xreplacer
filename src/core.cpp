@@ -10,12 +10,12 @@ XReplacerCore::XReplacerCore()
 
 //------------------------------------------------------------------------------
 void XReplacerCore::init(int argc, char** argv) {
-    LOG(info) << BORDER << "Initialization of xReplaser started";
+    LOG(info) << BORDER << "\nInitialization of xReplaser started";
 
     try {
         fs_path config_path;
 
-        if((argc == 1) || (argc > 2)) {
+        if ((argc == 1) || (argc > 2)) {
             config_path = fs_path(STANDART_CONFIG_PATH);
 
             config = config_ptr(new XMLConfigurator(config_path));
@@ -42,12 +42,12 @@ int XReplacerCore::run() {
     try {
         parser->search_objects_to_replase();
 
-        if(parser->has_objects_to_replace()) {
+        if (parser->has_objects_to_replace()) {
             replacer->replase(parser->get_objects_to_replase());
 
         } else throw exception::parser::NoObjects();
 
-    } catch(std::exception& ex) {
+    } catch (std::exception& ex) {
         LOG(fatal) << ex.what();
         exit(2);
     }

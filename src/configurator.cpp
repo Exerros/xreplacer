@@ -18,7 +18,7 @@ XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
 //------------------------------------------------------------------------------
 pugi::xml_node
 XMLConfigurator::get_config_for(const std::string& identifier) const {
-    if(!config_data.child(identifier.c_str()).value())
+    if (!config_data.child(identifier.c_str()).value())
         throw exception::configurator::NoSettingsForItem();
 
     return config_data.child(identifier.c_str());

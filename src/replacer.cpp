@@ -13,26 +13,26 @@ FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count)
     else
         throw exception::replacer::IncorrectThreadsCount();
 
-    LOG(info) << "Replaser configuration was successful\n"
+    LOG(info) << "Replaser configuration was successful"
               << NEXT_LINE_CONTINUE << thread_count << " streams will be used"
               << NEXT_LINE_CONTINUE << pairs.size() << " pairs were found";
 }
 
 //------------------------------------------------------------------------------
 void FileDataReplacer::replase(std::vector<fs_path>& objects) const {
-    std::vector<std::unique_ptr<std::thread>> t{ thread_count };
+    std::vector<std::unique_ptr<std::thread>> treads {};
     auto separated_files = chop_objects_container(objects);
 
     LOG(info) << "Replacer starts processing files";
 
     for (const auto& files_group : separated_files) {
-    t.push_back(std::unique_ptr<std::thread>(new std::thread(
-        replace_in_files,
-        std::cref(files_group),
-        std::cref(pairs))));
+        treads.push_back(std::unique_ptr<std::thread>(new std::thread(
+            replace_in_files,
+            std::cref(files_group),
+            std::cref(pairs))));
     }
 
-    for (const auto& thread : t) {
+    for (const auto& thread : treads) {
         thread->join();
     }
 
@@ -41,7 +41,7 @@ void FileDataReplacer::replase(std::vector<fs_path>& objects) const {
 
 //------------------------------------------------------------------------------
 std::string FileDataReplacer::get_buffer_from(const fs_path& filePath) {
-    unsigned long length(0);
+    unsigned long length {};
     std::ifstream file;
 
     try {
@@ -80,48 +80,54 @@ void FileDataReplacer::replace_in_files(
         const pairs_map& pairs)
 {
     for (const auto& file : files_paths) {
-        LOG(info) << "Starts a replacement in file \"" << file << '\"';
+        LOG(info) << "Starts a replacement in file " << file;
 
         std::string file_buffer(get_buffer_from(file));
-        std::string result;
+        std::string temp {};
 
         for (const auto& [oldValue, newValue] : pairs) {
             std::regex_replace(
-                std::back_inserter(result),
+                std::back_inserter(temp),
                 file_buffer.begin(),
                 file_buffer.end(),
                 std::regex(oldValue),
                 newValue);
 
-            file_buffer = std::move(result);
+            file_buffer = std::move(temp);
         }
 
         write_buffer_to_file(file_buffer, file);
 
-        LOG(info) << "Replacement completed in file \"" << file << '\"';
+        LOG(info) << "Replacement completed in file " << file;
     }
 }
 
 //------------------------------------------------------------------------------
 std::vector<std::vector<std::filesystem::path>>
 FileDataReplacer::
-chop_objects_container(std::vector<fs_path>& container) const{
-    auto object_count_for_thread = container.size() / thread_count;
+chop_objects_container(std::vector<fs_path>& container) const {
+    size_t object_count_for_thread {};
 
-    if (object_count_for_thread == 1) return { container };
+    if (container.size() == 1) { return { container }; }
 
-    std::vector<std::vector<fs_path>> result{object_count_for_thread};
+    if (container.size() <= thread_count) {
+        object_count_for_thread = 1;
 
-    for (auto i = container.begin(),
-         j = std::min(container.end(), next(i, object_count_for_thread));
-         j != container.end();
-         i = j,
-         j = std::min(container.end(), next(i, object_count_for_thread)))
-    {
+    } else {
+        object_count_for_thread = container.size() / thread_count;
+    }
+
+    std::vector<std::vector<fs_path>> result {};
+    auto i = container.begin();
+    auto j = std::min(container.end(), next(i, object_count_for_thread));
+
+    while(i != container.end()) {
         result.push_back(std::vector(i, std::min(j, container.end())));
+        i = j;
+        j = std::min(container.end(), next(i, object_count_for_thread));
     }
 
     return result;
 }
 
-}
+} // namespace xrep

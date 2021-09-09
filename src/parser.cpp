@@ -39,4 +39,4 @@ bool FileSystemParser::has_objects_to_replace() const {
     return !objects.empty();
 }
 
-}
+} // namespace xrep

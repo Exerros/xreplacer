@@ -5,7 +5,7 @@
 namespace xrep::exception::parser {
 
 //------------------------------------------------------------------------------
-class NoObjects final : FatalException {
+class NoObjects final : public FatalException {
 public:
     const char* what() const noexcept override {
         return "Parser could not find files to replace the data";
@@ -13,7 +13,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class FileSearchError final : FatalException {
+class FileSearchError final : public FatalException {
 public:
     const char* what() const noexcept override {
         return "File search error";

@@ -23,7 +23,6 @@ std::string LoggerHelper::lvl_to_string(LogLevel level) const noexcept {
         "trace", "debug", "info", "warning", "error", "fatal"
     };
 
-
     return std::string(levelStrings[static_cast<unsigned int>(level)]);
 }
 
@@ -38,4 +37,4 @@ const Logger& Logger::get_instance() {
     return logger;
 }
 
-}
+} // namespace xrep

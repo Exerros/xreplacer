@@ -13,17 +13,19 @@ JsonConfigurator::JsonConfigurator(const fs_path& config_path)
     } catch (...) {
         throw exception::configurator::ReadingError();
     }
-
-    verify_config();
-
     LOG(info) << "Reading is successful";
+
+    LOG(info) << "Verifing the config file";
+    verify_config();
+    LOG(info) << "Verifing is successful";
+
 }
 
 //------------------------------------------------------------------------------
 void JsonConfigurator::verify_config() const {
-    if   ((config_data.find("root_path")    == config_data.end())
-       || (config_data.find("stream_count") == config_data.end())
-       || (config_data.find("pairs")        == config_data.end()))
+    if   ((config_data.at("parser").at("root_dir") == NULL)
+       || (config_data.at("replaser").at("thread_count") == NULL)
+       || (config_data.at("replaser").at("pairs")        == NULL))
     {
         throw exception::configurator::IncorrectConfigFile();
     }
@@ -31,12 +33,12 @@ void JsonConfigurator::verify_config() const {
 
 //------------------------------------------------------------------------------
 std::filesystem::path JsonConfigurator::get_root_dir() const {
-    return config_data["parser"]["root_dir"];
+    return std::string(config_data["parser"]["root_dir"].get<std::string>());
 }
 
 //------------------------------------------------------------------------------
 unsigned int JsonConfigurator::get_thread_count() const {
-    return config_data["replaser"]["stream_count"];
+    return config_data["replaser"]["thread_count"].get<unsigned int>();
 }
 
 //------------------------------------------------------------------------------

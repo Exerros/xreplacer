@@ -5,7 +5,7 @@
 
 namespace xrep::exception {
 
-class xReplacerException : std::exception {
+class xReplacerException : public std::exception {
 public:
     xReplacerException() = default;
     virtual ~xReplacerException() = default;
@@ -14,7 +14,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class non_FatalException : xReplacerException {
+class non_FatalException : public xReplacerException {
 public:
     non_FatalException() = default;
     virtual ~non_FatalException() = default;
@@ -23,7 +23,7 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class FatalException : xReplacerException {
+class FatalException : public xReplacerException {
 public:
     FatalException() = default;
     virtual ~FatalException() = default;

@@ -31,12 +31,9 @@ void XReplacerCore::init(int argc, char** argv) {
         LOG(error) << ex.what();
 
     } catch (exception::FatalException& ex) {
-        LOG(error) << ex.what();
+        LOG(fatal) << ex.what();
         exit(1);
-    } catch (exception::xReplacerException& ex) {
-        LOG(error) << ex.what();
-        exit(1);
-    } // TODO WIN ME
+    }
 
     LOG(info) << "xReplaser initialization completed successfully";
     LOG(info) << BORDER;
@@ -57,11 +54,11 @@ int XReplacerCore::run() {
         LOG(fatal) << ex.what();
         exit(2);
     }
-    LOG(info) << "xReplaser has finished processing files";
+    LOG(info) << "xReplaser has finished work";
     LOG(info) << BORDER;
 
     return 0;
 }
 
 
-}
+} // namespace xrep

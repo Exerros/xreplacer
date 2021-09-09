@@ -44,4 +44,4 @@ public:
     virtual bool has_objects_to_replace() const = 0;
 };
 
-}
+} // namespace xrep::interface

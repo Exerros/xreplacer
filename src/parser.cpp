@@ -2,19 +2,10 @@
 
 namespace xrep {
 
-FileSystemParser::FileSystemParser(const pugi::xml_node& config)
-    : root_dir()
+FileSystemParser::FileSystemParser(const fs_path& conf_root_dir)
+    : root_dir(conf_root_dir)
     , objects()
-{
-    LOG(info) << "Configuring the Parser";
-    if (config.child("root_dir").value()) {
-        root_dir = fs_path(config.child("root_dir").value());
-
-    } else {
-        throw exception::parser::NoRootDir();
-    }
-    LOG(info) << "Parser configuration was successful";
-}
+    { }
 
 //------------------------------------------------------------------------------
 void FileSystemParser::search_objects_to_replase() {

@@ -1,4 +1,4 @@
-#pragma onec
+#pragma once
 
 #include <exception>
 #include <cstring>
@@ -10,7 +10,7 @@ public:
     xReplacerException() = default;
     virtual ~xReplacerException() = default;
 
-    virtual const char* what() const noexcept = 0;
+    virtual const char* what() const noexcept { return "FUK"; };
 };
 
 //------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ public:
     non_FatalException() = default;
     virtual ~non_FatalException() = default;
 
-    virtual const char* what() const noexcept = 0;
+    virtual const char* what() const noexcept { return "FUK"; };
 };
 
 //------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ public:
     FatalException() = default;
     virtual ~FatalException() = default;
 
-    virtual const char* what() const noexcept = 0;
+    virtual const char* what() const noexcept { return "FUK"; };
 };
 
-}
+} // namespace xrep::exception

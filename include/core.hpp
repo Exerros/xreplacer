@@ -42,5 +42,5 @@ public:
     int run() noexcept(false);
 };
 
-}
+} // namespace xrep
 

@@ -19,21 +19,12 @@ LoggerHelper::~LoggerHelper() noexcept {
 
 //------------------------------------------------------------------------------
 std::string LoggerHelper::lvl_to_string(LogLevel level) const noexcept {
-    switch (level) {
-        case LogLevel::trace:
-            return std::string("trace");
-        case LogLevel::debug:
-            return std::string("debug");
-        case LogLevel::info:
-            return std::string("info");
-        case LogLevel::warning:
-            return std::string("warning");
-        case LogLevel::error:
-            return std::string("error");
-        case LogLevel::fatal:
-            return std::string("fatal");
-    }
-    return std::string();
+    std::array<const char*, 6> levelStrings {
+        "trace", "debug", "info", "warning", "error", "fatal"
+    };
+
+
+    return std::string(levelStrings[static_cast<unsigned int>(level)]);
 }
 
 //------------------------------------------------------------------------------

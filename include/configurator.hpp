@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 #include <filesystem>
+#include <unordered_map>
 
-#include "pugixml.hpp"
+#include <nlohmann/json.hpp>
 
 #include "interface/iconfigurator.hpp"
 #include "exception.hpp"
@@ -11,18 +13,40 @@
 
 namespace xrep {
 
-class XMLConfigurator final : public interface::ConfiguratorInterface {
+class JsonConfigurator final : public interface::ConfiguratorInterface {
+    using pairs_map = std::unordered_map<std::string, std::string>;
     using fs_path = std::filesystem::path;
+    using json = nlohmann::json;
 
 private:
-    pugi::xml_node config_data;
+    json config_data;
 
 public:
-    XMLConfigurator(const fs_path& config_path);
-    ~XMLConfigurator() override = default;
+    JsonConfigurator(const fs_path& config_path);
+    ~JsonConfigurator() override = default;
 
-    pugi::xml_node
-    get_config_for(const std::string& identifier) const override;
+    /**
+     * @brief verify_config
+     */
+    void verify_config() const override;
+
+    /**
+     * @brief get_root_dir
+     * @return
+     */
+    fs_path get_root_dir() const override;
+
+    /**
+     * @brief get_stream_count
+     * @return
+     */
+    unsigned int get_thread_count() const override;
+
+    /**
+     * @brief get_pairs
+     * @return
+     */
+    pairs_map get_pairs() const override;
 };
 
-}
+} // namespace xrep

@@ -4,6 +4,14 @@
 
 namespace xrep::exception::configurator {
 
+class ReadingError final : FatalException {
+public:
+    const char* what() const noexcept override {
+        return "An error occurred while reading the configuration file";
+    }
+};
+
+//------------------------------------------------------------------------------
 class IncorrectConfigFile final : FatalException {
 public:
     const char* what() const noexcept override {
@@ -11,12 +19,4 @@ public:
     }
 };
 
-//------------------------------------------------------------------------------
-class NoSettingsForItem final : non_FatalException {
-public:
-    const char* what() const noexcept override {
-        return "No settings for the item";
-    }
-};
-
-}
+} // namespace xrep::exception::configurator

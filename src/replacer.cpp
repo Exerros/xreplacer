@@ -1,41 +1,20 @@
 #include "replacer.hpp"
 
-#define DO_NOTHING ((void)())
-
 namespace xrep {
 
-FileDataReplacer::FileDataReplacer(const pugi::xml_node& config)
-    : pairs()
+FileDataReplacer::
+FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count)
+    : pairs(config_pairs)
     , thread_count(std::thread::hardware_concurrency())
 {
     LOG(info) << "Configuring the Replacer";
-    try {
-        if (config.child("thread_count").value()) {
-            int new_thread_count = std::atoi(
-                config.child("thread_count").value());
-
-            if (new_thread_count < 1)
-                thread_count = static_cast<unsigned int>(new_thread_count);
-            else
-                throw exception::replacer::IncorrectThreadsCount();
-        }
-
-        for (const auto& child : config) {
-            if (child.name() == pugi::string_t("pair")) {
-
-            pairs.insert(std::make_pair(
-                child.child("from").value(),
-                child.child("to").value()));
-            }
-        }
-
-        if (pairs.empty()) throw exception::replacer::NoPairs();
-    }
-    catch (std::exception& ex) {
-        throw ex;
-    }
+    if (config_thread_count >= 1)
+        thread_count = static_cast<unsigned int>(config_thread_count);
+    else
+        throw exception::replacer::IncorrectThreadsCount();
 
     LOG(info) << "Replaser configuration was successful\n"
+              << NEXT_LINE_CONTINUE << thread_count << " streams will be used"
               << NEXT_LINE_CONTINUE << pairs.size() << " pairs were found";
 }
 
@@ -101,6 +80,8 @@ void FileDataReplacer::replace_in_files(
         const pairs_map& pairs)
 {
     for (const auto& file : files_paths) {
+        LOG(info) << "Starts a replacement in file \"" << file << '\"';
+
         std::string file_buffer(get_buffer_from(file));
         std::string result;
 
@@ -116,6 +97,8 @@ void FileDataReplacer::replace_in_files(
         }
 
         write_buffer_to_file(file_buffer, file);
+
+        LOG(info) << "Replacement completed in file \"" << file << '\"';
     }
 }
 

@@ -3,8 +3,6 @@
 #include <filesystem>
 #include <vector>
 
-#include "pugixml.hpp"
-
 #include "interface/iparser.hpp"
 #include "exception.hpp"
 #include "logger.hpp"
@@ -20,12 +18,25 @@ private:
     std::vector<fs_path> objects;
 
 public:
-    FileSystemParser(const pugi::xml_node& config);
+    FileSystemParser(const fs_path& conf_root_dir);
     ~FileSystemParser() override = default;
 
+    /**
+     * @brief search_objects_to_replase TODO
+     */
     void search_objects_to_replase() override;
+
+    /**
+     * @brief get_objects_to_replase
+     * @return TODO
+     */
     std::vector<fs_path>& get_objects_to_replase() override;
+
+    /**
+     * @brief has_objects_to_replace
+     * @return TODO
+     */
     bool has_objects_to_replace() const override;
 };
 
-}
+} // namespace xrep

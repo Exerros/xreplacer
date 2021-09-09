@@ -4,13 +4,6 @@
 
 namespace xrep::exception::parser {
 
-class NoRootDir final : FatalException {
-public:
-    const char* what() const noexcept override {
-        return "There is no root directory for searching files in the settings file";
-    }
-};
-
 //------------------------------------------------------------------------------
 class NoObjects final : FatalException {
 public:
@@ -27,5 +20,5 @@ public:
     }
 };
 
-}
+} // namespace xrep::exception::parser
 

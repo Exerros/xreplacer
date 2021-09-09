@@ -9,8 +9,6 @@
 #include <regex>
 #include <thread>
 
-#include "pugixml.hpp"
-
 #include "interface/ireplacer.hpp"
 #include "exception.hpp"
 #include "logger.hpp"
@@ -27,7 +25,7 @@ private:
     unsigned int thread_count;
 
 public:
-    FileDataReplacer(const pugi::xml_node& config);
+    FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count);
     ~FileDataReplacer() override = default ;
 
     void replase(std::vector<fs_path>& object) const override;
@@ -47,4 +45,4 @@ private:
 };
 #pragma pack(pop)
 
-}
+} // namespace xrep

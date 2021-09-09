@@ -41,8 +41,7 @@ set(XREPLACER_THIRD_PARTY_DIR   "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 #
 # TODO comment
 
-set(BUILD_SHARED_LIBS ON)
-add_subdirectory("${XREPLACER_THIRD_PARTY_DIR}/pugixml")
+find_package(nlohmann_json 3.2.0 REQUIRED)
 
 
 ################################################################################
@@ -86,7 +85,7 @@ target_compile_options(xrep
         -Wextra
         -Wpedantic)
 
-target_link_libraries(xrep pugixml::pugixml stdc++fs pthread)
+target_link_libraries(xrep nlohmann_json::nlohmann_json stdc++fs pthread )
 
 
 ################################################################################

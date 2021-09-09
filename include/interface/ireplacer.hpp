@@ -29,4 +29,4 @@ public:
     virtual void replase(std::vector<fs_path>& container) const = 0;
 };
 
-}
+} // namespace xrep::interface

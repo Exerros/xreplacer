@@ -1,31 +1,46 @@
 #pragma once
 
 #include <string>
+#include <filesystem>
+#include <unordered_map>
 
-#include "interface/base.hpp"
-
-#include "pugixml.hpp"
+#include "base.hpp"
 
 namespace xrep::interface {
 
 /**
- * @brief The ConfiguratorInterface class is a template configuration class
- *        interface. It is implemented in such a way that it does not depend on
- *        the specific format of the configuration object.
+ * @brief TODO
  */
 class ConfiguratorInterface : Interface {
+    using pairs_map = std::unordered_map<std::string, std::string>;
+    using fs_path = std::filesystem::path;
+
 public:
     ConfiguratorInterface() = default;
     virtual ~ConfiguratorInterface() = default;
 
     /**
-     * @brief get_config_for A function designed to pass the necessary part of
-     *        the config to other classes.
-     * @param identifier Identifies the desired config.
-     * @return Necessary element of the configure.
+     * @brief verify_config TODO
      */
-    virtual pugi::xml_node
-    get_config_for(const std::string& identifier) const = 0;
+    virtual void verify_config() const = 0;
+
+    /**
+     * @brief get_root_dir
+     * @return TODO
+     */
+    virtual fs_path get_root_dir() const = 0;
+
+    /**
+     * @brief get_stream_count
+     * @return TODO
+     */
+    virtual unsigned int get_thread_count() const = 0;
+
+    /**
+     * @brief get_pairs
+     * @return TODO
+     */
+    virtual pairs_map get_pairs() const = 0;
 };
 
-}
+} // namespace xrep::interface

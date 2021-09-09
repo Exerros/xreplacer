@@ -12,4 +12,4 @@ public:
     virtual ~Interface() = default;
 };
 
-}
+} // namespace xrep::interface

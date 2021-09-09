@@ -14,4 +14,4 @@ public:
     virtual void log(const std::string& data) const noexcept = 0;
 };
 
-}
+} // namespace xrep::interface

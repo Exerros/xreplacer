@@ -5,21 +5,19 @@
 #include <chrono>
 #include <memory>
 
-#include "pugixml.hpp"
-
 #include "interface/ilogger.hpp"
 #include "exception.hpp"
 
 //------------------------------------------------------------------------------
 #define LOG(LEVEL) xrep::LoggerHelper(xrep::LogLevel::LEVEL)
 #define NEXT_LINE_CONTINUE "\n" << std::string(19, ' ')
-#define BORDER std::string(80, '-')
+#define BORDER std::string(61, '-')
 
 //------------------------------------------------------------------------------
 namespace xrep {
 
 enum class LogLevel {
-    trace,
+    trace = 0,
     debug,
     info,
     warning,
@@ -61,4 +59,4 @@ public:
     static const Logger& get_instance();
 };
 
-}
+} // namespace xrep

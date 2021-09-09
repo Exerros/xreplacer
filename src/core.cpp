@@ -10,30 +10,36 @@ XReplacerCore::XReplacerCore()
 
 //------------------------------------------------------------------------------
 void XReplacerCore::init(int argc, char** argv) {
-    LOG(info) << BORDER << "\nInitialization of xReplaser started";
+    LOG(info) << BORDER;
+    LOG(info) << "Initialization of xReplaser started";
+    fs_path config_path;
 
     try {
-        fs_path config_path;
+        if (argc == 2) { config_path = fs_path(argv[1]); }
+        else           { config_path = fs_path(STANDART_CONFIG_PATH); }
 
-        if ((argc == 1) || (argc > 2)) {
-            config_path = fs_path(STANDART_CONFIG_PATH);
+        config = config_ptr(new JsonConfigurator(config_path));
 
-            config = config_ptr(new XMLConfigurator(config_path));
-            parser = parser_ptr(
-                    new FileSystemParser(config->get_config_for("parser")));
-            replacer = replacer_ptr(
-                    new FileDataReplacer(config->get_config_for("replacer")));
+        parser = parser_ptr(new FileSystemParser(config->get_root_dir()));
 
-        } else {
-            config_path = fs_path(argv[1]);
+        replacer = replacer_ptr(
+            new FileDataReplacer(config->get_pairs(),
+                                 config->get_thread_count())
+        );
 
-        }
-    } catch (std::exception& ex) {
-        LOG(fatal) << ex.what();
+    } catch (exception::non_FatalException& ex) {
+        LOG(error) << ex.what();
+
+    } catch (exception::FatalException& ex) {
+        LOG(error) << ex.what();
         exit(1);
-    }
+    } catch (exception::xReplacerException& ex) {
+        LOG(error) << ex.what();
+        exit(1);
+    } // TODO WIN ME
 
-    LOG(info) << "xReplaser initialization completed successfully\n" << BORDER;
+    LOG(info) << "xReplaser initialization completed successfully";
+    LOG(info) << BORDER;
 }
 
 //------------------------------------------------------------------------------
@@ -51,7 +57,8 @@ int XReplacerCore::run() {
         LOG(fatal) << ex.what();
         exit(2);
     }
-    LOG(info) << "xReplaser has finished processing files\n" << BORDER;
+    LOG(info) << "xReplaser has finished processing files";
+    LOG(info) << BORDER;
 
     return 0;
 }

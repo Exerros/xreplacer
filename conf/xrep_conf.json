@@ -1,0 +1,12 @@
+{
+    "parser": {
+        "root_dir": "path_to_dir"
+    },
+    "replaser": {
+        "pairs": {
+            "from_1": "to_1",
+            "from_2": "to_2"
+        },
+        "thread_count": 4
+    }
+}

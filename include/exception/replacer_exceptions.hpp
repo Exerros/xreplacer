@@ -12,22 +12,6 @@ public:
 };
 
 //------------------------------------------------------------------------------
-class IncorrectSleepTime final : non_FatalException {
-public:
-    const char* what() const noexcept override {
-        return "In the configuration file there is an invalid waiting time between attempts to create threads";
-    }
-};
-
-//------------------------------------------------------------------------------
-class NoPairs final : non_FatalException {
-public:
-    const char* what() const noexcept override {
-        return "The configuration file does not specify the pairs to replace";
-    }
-};
-
-//------------------------------------------------------------------------------
 class FileReadException final : non_FatalException {
 public:
     const char* what() const noexcept override {
@@ -43,5 +27,5 @@ public:
     }
 };
 
-}
+} // namespace xrep::exception::replacer
 

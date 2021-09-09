@@ -2,26 +2,53 @@
 
 namespace xrep {
 
-XMLConfigurator::XMLConfigurator(const fs_path& config_path) {
+JsonConfigurator::JsonConfigurator(const fs_path& config_path)
+    :config_data()
+{
     LOG(info) << "Reading the configuration";
     try {
-        pugi::xml_document config_file;
-        config_file.load_file(config_path.c_str());
-        config_data = config_file.root();
-
+        std::ifstream config_file(config_path, std::ios::in);
+        config_file >> config_data;
+        config_file.close();
     } catch (...) {
-        throw exception::configurator::IncorrectConfigFile();
+        throw exception::configurator::ReadingError();
     }
+
+    verify_config();
+
     LOG(info) << "Reading is successful";
 }
 
 //------------------------------------------------------------------------------
-pugi::xml_node
-XMLConfigurator::get_config_for(const std::string& identifier) const {
-    if (!config_data.child(identifier.c_str()).value())
-        throw exception::configurator::NoSettingsForItem();
-
-    return config_data.child(identifier.c_str());
+void JsonConfigurator::verify_config() const {
+    if   ((config_data.find("root_path")    == config_data.end())
+       || (config_data.find("stream_count") == config_data.end())
+       || (config_data.find("pairs")        == config_data.end()))
+    {
+        throw exception::configurator::IncorrectConfigFile();
+    }
 }
 
+//------------------------------------------------------------------------------
+std::filesystem::path JsonConfigurator::get_root_dir() const {
+    return config_data["parser"]["root_dir"];
 }
+
+//------------------------------------------------------------------------------
+unsigned int JsonConfigurator::get_thread_count() const {
+    return config_data["replaser"]["stream_count"];
+}
+
+//------------------------------------------------------------------------------
+std::unordered_map<std::string, std::string>
+JsonConfigurator::get_pairs() const {
+    std::unordered_map<std::string, std::string> tmp {};
+
+    for(const auto& item : config_data["replaser"]["pairs"].items()) {
+        tmp.insert(std::pair(item.key(), item.value()));
+    }
+
+    return tmp;
+}
+
+} // namespace xrep

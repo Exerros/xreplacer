@@ -1,0 +1,6 @@
+<map id="xrep::exception::configurator::IncorrectConfigFile" name="xrep::exception::configurator::IncorrectConfigFile">
+<area shape="rect" id="node1" title="Exception thrown in case of an invalid configuration file." alt="" coords="14,244,223,285"/>
+<area shape="rect" id="node2" href="$classxrep_1_1exception_1_1FatalException.html" title="The FatalException is a base class for exceptions that require program termination." alt="" coords="5,169,232,196"/>
+<area shape="rect" id="node3" href="$classxrep_1_1exception_1_1xReplacerException.html" title="The xReplacerException is a base class for all exceptions used in the application." alt="" coords="21,80,217,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="61,5,176,32"/>
+</map>

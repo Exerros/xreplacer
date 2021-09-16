@@ -1,0 +1,8 @@
+<map id="xrep::exception::non_FatalException" name="xrep::exception::non_FatalException">
+<area shape="rect" id="node1" title="The non_FatalException is a base class for exceptions that do not require program termination." alt="" coords="412,71,567,112"/>
+<area shape="rect" id="node4" href="$classxrep_1_1exception_1_1replacer_1_1FileReadException.html" title="Exception thrown if an invalid number of handler threads is specified." alt="" coords="615,5,799,47"/>
+<area shape="rect" id="node5" href="$classxrep_1_1exception_1_1replacer_1_1FileWriteException.html" title="Exception thrown in case of a file writing error." alt="" coords="615,71,799,112"/>
+<area shape="rect" id="node6" href="$classxrep_1_1exception_1_1replacer_1_1IncorrectThreadsCount.html" title="The IncorrectThreadsCount class." alt="" coords="615,136,799,177"/>
+<area shape="rect" id="node2" href="$classxrep_1_1exception_1_1xReplacerException.html" title="The xReplacerException is a base class for all exceptions used in the application." alt="" coords="168,71,364,112"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,78,120,105"/>
+</map>

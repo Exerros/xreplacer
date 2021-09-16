@@ -1,0 +1,5 @@
+<map id="xrep::interface::ParserInterface" name="xrep::interface::ParserInterface">
+<area shape="rect" id="node1" title="The interface of the class responsible for obtaining objects that need to be replaced." alt="" coords="5,80,228,107"/>
+<area shape="rect" id="node3" href="$classxrep_1_1FileSystemParser.html" title="A class that replaces information in files." alt="" coords="31,155,202,181"/>
+<area shape="rect" id="node2" href="$classxrep_1_1interface_1_1Interface.html" title="The base class for interfaces." alt="" coords="25,5,208,32"/>
+</map>

@@ -4,10 +4,7 @@
 #include <filesystem>
 #include <iostream>
 
-#include "interface/iconfigurator.hpp"
-#include "interface/iparser.hpp"
-#include "interface/ireplacer.hpp"
-
+#include "interface.hpp"
 #include "configurator.hpp"
 #include "exception.hpp"
 #include "logger.hpp"
@@ -16,13 +13,16 @@
 
 namespace xrep {
 
-#ifdef __unix__
-constexpr auto STANDART_CONFIG_PATH = "/usr/local/etc/xreplacer/conf.xml";
-#elif
-constexpr auto STANDART_CONFIG_PATH = "";
+#if defined(__unix__)
+    constexpr auto STANDART_CONFIG_PATH = "conf.json";
+#elif defined(WIN32) || defined(__WIN32__) || defined (__WIN32)
+    constexpr auto STANDART_CONFIG_PATH = "conf.json";
 #endif
 
 //------------------------------------------------------------------------------
+/**
+ * @brief The class containing the basic logic of the xReplacer.
+ */
 class XReplacerCore {
     using fs_path = std::filesystem::path;
     using config_ptr = std::unique_ptr<interface::ConfiguratorInterface>;
@@ -38,7 +38,21 @@ public:
     XReplacerCore();
     ~XReplacerCore() = default;
 
+    /**
+     * @brief A method that initializes objects involved in the application.
+     *
+     * @param argc passed to the main function.
+     *
+     * @param argv passed to the main function.
+     */
     void init(int argc, char** argv) noexcept(false);
+
+    /**
+     * @brief The method that starts the application.
+     *
+     * @return Application operation status code. If == 0, then the application
+     *         ended correctly.
+     */
     int run() noexcept(false);
 };
 

@@ -4,6 +4,9 @@
 
 namespace xrep::exception::configurator {
 
+/**
+ * @brief Exception thrown in case of an error when reading a file.
+ */
 class ReadingError final : public FatalException {
 public:
     const char* what() const noexcept override {
@@ -12,6 +15,9 @@ public:
 };
 
 //------------------------------------------------------------------------------
+/**
+ * @brief Exception thrown in case of an invalid configuration file.
+ */
 class IncorrectConfigFile final : public FatalException {
 public:
     const char* what() const noexcept override {

@@ -1,0 +1,5 @@
+<map id="xrep::Logger" name="xrep::Logger">
+<area shape="rect" id="node1" title="Information logging class in STDOUT." alt="" coords="67,155,170,181"/>
+<area shape="rect" id="node2" href="$classxrep_1_1interface_1_1LoggerInterface.html" title="The LoggerInterface The interface of the class responsible for outputting information to the terminal..." alt="" coords="5,80,232,107"/>
+<area shape="rect" id="node3" href="$classxrep_1_1interface_1_1Interface.html" title="The base class for interfaces." alt="" coords="27,5,210,32"/>
+</map>

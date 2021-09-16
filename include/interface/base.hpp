@@ -3,8 +3,7 @@
 namespace xrep::interface {
 
 /**
- * @brief The Interface class is a base class for interfaces, needed to be able
- *        to use a common pointer for any classes.
+ * @brief The base class for interfaces.
  */
 class Interface {
 public:

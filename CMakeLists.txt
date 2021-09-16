@@ -3,7 +3,7 @@
 # This program was developed in December 2020 as a test job for everypixel.    #
 # Xreplacer is capable of multithreading the file tree of any nesting and      #
 # making replacements according to the configuration file.                     #
-# Now in June 2021 I am updating this project to correct the existing flaws.   #
+# Now in Sep 2021 I am updating this project to correct the existing flaws.    #
 #                                                                              #
 ################################################################################
 
@@ -39,7 +39,7 @@ set(XREPLACER_THIRD_PARTY_DIR   "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
 
 ################################################################################
 #
-# TODO comment
+# This block is responsible for connecting external libraries.
 
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
@@ -62,7 +62,7 @@ file(GLOB_RECURSE XREPLACER_SRC "${XREPLACER_SOURCE_DIR}/*.cpp")
 target_sources(xrep PRIVATE ${XREPLACER_SRC})
 target_include_directories(xrep 
     PUBLIC
-        $<INSTALL_INTERFACE:include/>
+        $<INSTALL_INTERFACE:${XREPLACER_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${XREPLACER_INCLUDE_DIR}>)
 
 set_target_properties(xrep PROPERTIES
@@ -108,8 +108,6 @@ set_target_properties(xreplacer PROPERTIES
 # This section is responsible for assembling the tests and preparing the CTest
 # module.
 
-# TODO ctest gtest my-cmake
-
 if(XREPLACER_BUILD_TESTS)
     include(CTest)
     enable_testing()
@@ -128,11 +126,26 @@ endif()
 # This section is responsible for building the documentation when building the
 # project.
 
-# TODO build docs
-
 if(XREPLACER_BUILD_DOCS)
+    find_package(
+        Doxygen REQUIRED
+        OPTIONAL_COMPONENTS dot mscgen dia)
 
-endif()
+    if(DOXYGEN_FOUND)
+        set(DOXYGEN_RECURSIVE YES)
+        set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/doc")
+        set(DOXYGEN_GENERATE_HTML YES)
+
+        doxygen_add_docs(xreplaser_doc
+            ${XREPLACER_INCLUDE_DIR}
+            ${XREPLACER_SOURCE_DIR}
+            ${XREPLACER_TESTS_DIR}
+            "${CMAKE_CURRENT_SOURCE_DIR}/doxyfiles"
+            ALL
+            COMMENT "Generate docs")
+    endif(DOXYGEN_FOUND)
+
+endif(XREPLACER_BUILD_DOCS)
 
 
 ################################################################################

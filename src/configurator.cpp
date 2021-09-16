@@ -23,7 +23,9 @@ JsonConfigurator::JsonConfigurator(const fs_path& config_path)
 
 //------------------------------------------------------------------------------
 void JsonConfigurator::verify_config() const {
-    if   ((config_data.at("parser").at("root_dir") == NULL)
+    if   ((config_data.at("parser") == NULL)
+       || (config_data.at("replaser") == NULL)
+       || (config_data.at("parser").at("root_dir") == NULL)
        || (config_data.at("replaser").at("thread_count") == NULL)
        || (config_data.at("replaser").at("pairs")        == NULL))
     {

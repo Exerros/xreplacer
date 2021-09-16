@@ -8,10 +8,8 @@
 namespace xrep::interface {
 
 /**
- * @brief The ReplacerInterface class is the template interface of the
- *        substitution handler class. This class gets a container with objects
- *        for replacements and makes replacements according to the
- *        implementation.
+ * @brief The interface of the class producing replacements according to the
+ *        configuration in the passed objects.
  */
 class ReplacerInterface : Interface {
     using fs_path = std::filesystem::path;
@@ -21,10 +19,10 @@ public:
     virtual ~ReplacerInterface() = default;
 
     /**
-     * @brief replase function starts the data replacement process according to
-     *        the implementation.
-     * @param container Is an object storing elements in which it is necessary
-     *        to make replacements.
+     * @brief A method that performs replacements in the passed files.
+     *
+     * @param container Сontainer with the objects in which the replacement will
+     *        be made.
      */
     virtual void replase(std::vector<fs_path>& container) const = 0;
 };

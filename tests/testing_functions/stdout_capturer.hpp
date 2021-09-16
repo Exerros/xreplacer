@@ -3,6 +3,9 @@
 #include <sstream>
 #include <iostream>
 
+/**
+ * @brief This class is designed to intercept information sent to STDOUT.
+ */
 class STDOUT_Capturer {
     using string = std::string;
     using ostringstream = std::ostringstream;
@@ -22,6 +25,11 @@ public:
         std::cout.rdbuf(old_buf);
     }
 
+    /**
+     * @brief A method that returns the information sent to STDOUT as a string.
+     *
+     * @return Information from STDOUT.
+     */
     string get_str() {
         return ss.str();
     }

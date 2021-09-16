@@ -4,6 +4,9 @@
 
 namespace xrep::exception::replacer {
 
+/**
+ * @brief The IncorrectThreadsCount class
+ */
 class IncorrectThreadsCount final : non_FatalException {
 public:
     const char* what() const noexcept override {
@@ -12,6 +15,9 @@ public:
 };
 
 //------------------------------------------------------------------------------
+/**
+ * @brief Exception thrown if an invalid number of handler threads is specified.
+ */
 class FileReadException final : non_FatalException {
 public:
     const char* what() const noexcept override {
@@ -20,6 +26,9 @@ public:
 };
 
 //------------------------------------------------------------------------------
+/**
+ * @brief Exception thrown in case of a file writing error.
+ */
 class FileWriteException final : non_FatalException {
 public:
     const char* what() const noexcept override {

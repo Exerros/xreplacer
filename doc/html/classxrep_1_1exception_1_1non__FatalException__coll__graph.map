@@ -1,0 +1,5 @@
+<map id="xrep::exception::non_FatalException" name="xrep::exception::non_FatalException">
+<area shape="rect" id="node1" title="The non_FatalException is a base class for exceptions that do not require program termination." alt="" coords="26,169,181,211"/>
+<area shape="rect" id="node2" href="$classxrep_1_1exception_1_1xReplacerException.html" title="The xReplacerException is a base class for all exceptions used in the application." alt="" coords="5,80,201,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="46,5,161,32"/>
+</map>

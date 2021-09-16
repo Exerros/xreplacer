@@ -3,30 +3,51 @@
 #include <filesystem>
 #include <fstream>
 
-#include "pugixml.hpp"
+#include <nlohmann/json.hpp>
 
+/**
+ * @brief An auxiliary class for creating configuration files for tests.
+ */
 class ConfigCreator {
-    using path = std::filesystem::path;
-    using xml_document = pugi::xml_document;
-    using xml_node = pugi::xml_node;
+    using fs_path = std::filesystem::path;
+    using json = nlohmann::json;
 
 private:
-    xml_document data{};
+    json data {};
+
 public:
     ConfigCreator() = default;
     ~ConfigCreator() = default;
 
-    void add_node(const xml_node& node) {
+    /**
+     * @brief A method for retrieving a value from the config file that is being
+     *        created.
+     *
+     * @param value_name The name of the field storing the value.
+     */
+    template<class T>
+    T get_value(const std::string& value_name) const {
+        return data[value_name];
+    }
+
+    /**
+     * @brief A method that adds a value to a configuration file.
+     *
+     * @param value_name The name of the field that will store the value.
+     *
+     * @param value The value that will be placed in the configuration file.
+     */
+    template<class T>
+    void set_value(const std::string& value_name, const T& value) {
 
     }
 
-    void add_value(const xml_node& node) {
+    /**
+     * @brief A method to write information to the configuration file.
+     *
+     * @param config_path The path where the configuration file will be located.
+     */
+    void write_to_file(const fs_path& config_path) const {
 
     }
-
-    void write_file(const path& config_path) const {
-
-    }
-
-    const xml_node& get_data() const { return data; }
 };

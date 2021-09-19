@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>xreplacer: My Personal Index Page</title>
+<title>xreplacer: xReplacer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,17 +63,44 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">My Personal Index Page </div>  </div>
+<div class="title">xReplacer </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
 Introduction</h1>
-<p>This is the introduction.</p>
-<h1><a class="anchor" id="install_sec"></a>
-Installation</h1>
-<h2><a class="anchor" id="step1"></a>
-Step 1: Opening the box</h2>
-<p>etc... </p>
+<p>This program was developed in December 2020 as a test job for everypixel. Xreplacer is capable of multithreading the file tree of any nesting and making replacements according to the configuration file. Now in Sep 2021 I am updating this project to correct the existing flaws.</p>
+<h1><a class="anchor" id="description"></a>
+Software description</h1>
+<p>This program is designed for multi-threaded recursive information replacement in files. Everything is extremely simple: <br  />
+ 1) Specify in the configuration file the root directory, the required number of threads and replacement pairs (what to replace); <br  />
+ 2) Run; <br  />
+ 3) Done, information in files was been replaced.</p>
+<h2><a class="anchor" id="Required"></a>
+Required</h2>
+<p>The <b>nlohmann_json</b> library version <b>3.20</b> or higher is required to build the program. <br  />
+ To build the program, <b>cmake</b> version <b>3.20</b> was used and operation on lower versions is not guaranteed. <br  />
+ To build tests you need <b>gtest</b> version <b>1.10</b> or higher. <br  />
+ To build the documentation you will need <b>doxygen</b>.</p>
+<h2><a class="anchor" id="Building"></a>
+Building</h2>
+<p>There are several options for building an application: <br  />
+ <b>XREPLACER_BUILD_SHARED</b> - Compiles the program libraries dynamically. <br  />
+ <b>XREPLACER_BUILD_DOCS</b> - Whether to collect documentation when building the program. <br  />
+ <b>XREPLACER_BUILD_TESTS</b> - whether to collect tests when building the program.</p>
+<p>To build the program, run the following set of commands from the directory with the source files: </p><div class="fragment"><div class="line">mkdir build</div>
+<div class="line">cd build</div>
+<div class="line">cmake ..</div>
+<div class="line">cmake --build .</div>
+</div><!-- fragment --><p>After that you will find all the necessary program files in the build/bin directory.</p>
+<p>If you want to change one of the above options, specify the "-D" key to the cmake file preparation command: </p><div class="fragment"><div class="line">cmake .. -DXREPLACER_BUILD_DOCS=ON</div>
+</div><!-- fragment --><p>Also, if you have built a program with tests, you can test it with CTest. To do this, from the build directory call the command: </p><div class="fragment"><div class="line">ctest</div>
+</div><!-- fragment --><p>The tests themselves are located in the build/tests directory.</p>
+<h1><a class="anchor" id="configuration"></a>
+Configuration</h1>
+<p>An example configuration file can be found in the conf directory and is additionally copied into the build/bin directory when building. <br  />
+ <b>root_dir</b> is the root directory within which all files will be recursively processed. <br  />
+ <b>thread_count</b> is a value that sets the number of handler threads that will be used when the program runs. If you don't know how many threads your computer supports at the same time, specify e.g. 100. In cases where you specify more threads than your computer supports, the optimal number of threads will be used instead. <br  />
+ <b>pairs</b> - pairs of values "from" -&gt; "to", indicating what to replace. Not only direct values are supported here, but also regular expressions in ECMAScript language. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

@@ -8,6 +8,7 @@
 #include <fstream>
 #include <regex>
 #include <thread>
+#include <cmath>
 
 #include "interface/ireplacer.hpp"
 #include "exception.hpp"
@@ -35,7 +36,7 @@ public:
      *
      * @param config_thread_count Number of file handler threads.
      */
-    FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count);
+    FileDataReplacer(pairs_map config_pairs, int config_thread_count);
     ~FileDataReplacer() override = default ;
 
     /**
@@ -44,7 +45,7 @@ public:
      * @param object Container with a list of files that will be processed by
      *        the application.
      */
-    void replase(std::vector<fs_path>& object) const override;
+    void replace(std::vector<fs_path>& object) const override;
 
 private:
     /**

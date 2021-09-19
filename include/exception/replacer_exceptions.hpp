@@ -5,12 +5,23 @@
 namespace xrep::exception::replacer {
 
 /**
- * @brief The IncorrectThreadsCount class
+ * @brief Exception for when the number of handler threads <= 0.
  */
 class IncorrectThreadsCount final : non_FatalException {
 public:
     const char* what() const noexcept override {
         return "The configuration file specifies an incorrect number of threads to run";
+    }
+};
+
+//------------------------------------------------------------------------------
+/**
+ * @brief Exception for cases where no replacement pairs have been received.
+ */
+class NoPairs final : non_FatalException {
+public:
+    const char* what() const noexcept override {
+        return "Replacer did not get the pairs to replace.";
     }
 };
 

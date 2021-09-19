@@ -1,9 +1,10 @@
 <map id="xrep::exception::FatalException" name="xrep::exception::FatalException">
-<area shape="rect" id="node1" title="The FatalException is a base class for exceptions that require program termination." alt="" coords="412,111,639,138"/>
+<area shape="rect" id="node1" title="The FatalException is a base class for exceptions that require program termination." alt="" coords="412,143,639,170"/>
 <area shape="rect" id="node4" href="$classxrep_1_1exception_1_1configurator_1_1IncorrectConfigFile.html" title="Exception thrown in case of an invalid configuration file." alt="" coords="687,5,896,47"/>
 <area shape="rect" id="node5" href="$classxrep_1_1exception_1_1configurator_1_1ReadingError.html" title="Exception thrown in case of an error when reading a file." alt="" coords="687,71,896,112"/>
 <area shape="rect" id="node6" href="$classxrep_1_1exception_1_1parser_1_1FileSearchError.html" title="Exception thrown in case of a file search error." alt="" coords="705,136,877,177"/>
 <area shape="rect" id="node7" href="$classxrep_1_1exception_1_1parser_1_1NoObjects.html" title="Exception thrown if no files are found in the specified root path." alt="" coords="705,201,877,243"/>
-<area shape="rect" id="node2" href="$classxrep_1_1exception_1_1xReplacerException.html" title="The xReplacerException is a base class for all exceptions used in the application." alt="" coords="168,104,364,145"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,111,120,138"/>
+<area shape="rect" id="node8" href="$classxrep_1_1exception_1_1parser_1_1UnCorrectRootDir.html" title="Exception thrown if no files are found in the specified root path." alt="" coords="705,267,877,308"/>
+<area shape="rect" id="node2" href="$classxrep_1_1exception_1_1xReplacerException.html" title="The xReplacerException is a base class for all exceptions used in the application." alt="" coords="168,136,364,177"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,143,120,170"/>
 </map>

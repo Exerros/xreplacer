@@ -20,10 +20,9 @@ project(xreplacer
 # need.
 
 option(XREPLACER_BUILD_SHARED
-           "Assemble the program library as a dynamic library" ON)
+           "Assemble the program library as a dynamic library" OFF)
 option(XREPLACER_BUILD_DOCS "Build documentation when assembling a project" ON)
 option(XREPLACER_BUILD_TESTS "Build tests when building a project." ON)
-option(XREPLACER_COVERAGE "Checking code coverage with tests." ON)
 
 
 ################################################################################
@@ -69,8 +68,8 @@ set_target_properties(xrep PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
     BUILD_TYPE RELEASE
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/libs"
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/libs")
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
 
 target_compile_features(xrep
     INTERFACE
@@ -85,7 +84,7 @@ target_compile_options(xrep
         -Wextra
         -Wpedantic)
 
-target_link_libraries(xrep nlohmann_json::nlohmann_json stdc++fs pthread )
+target_link_libraries(xrep nlohmann_json::nlohmann_json stdc++fs pthread)
 
 
 ################################################################################
@@ -102,6 +101,9 @@ set_target_properties(xreplacer PROPERTIES
     BUILD_TYPE RELEASE
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/conf/xrep_conf.json"
+               "${CMAKE_CURRENT_BINARY_DIR}/bin/xrep_conf.json"
+               COPYONLY)
 
 ################################################################################
 #
@@ -109,15 +111,22 @@ set_target_properties(xreplacer PROPERTIES
 # module.
 
 if(XREPLACER_BUILD_TESTS)
-    include(CTest)
-    enable_testing()
+    find_package(GTest REQUIRED)
 
-    set(TEST_HAS_PTHREAD 1)
-    add_subdirectory("${XREPLACER_THIRD_PARTY_DIR}/gtest")
-    set(LIBS_TO_LINK xrep gtest)
+    if(GTest_FOUND)
+        include(CTest)
+        enable_testing()
 
-    include("${XREPLACER_CMAKE_MODULES_DIR}/functions/test_builder.cmake")
-    build_tests(${XREPLACER_TESTS_DIR} ${LIBS_TO_LINK})
+        set(CTEST_SOURCE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/tests")
+
+        set(TEST_HAS_PTHREAD 1)
+        set(LIBS_TO_LINK xrep gtest)
+
+        include("${XREPLACER_CMAKE_MODULES_DIR}/functions/test_builder.cmake")
+        build_tests(${XREPLACER_TESTS_DIR} ${LIBS_TO_LINK})
+    else()
+        message("GTest not found")
+    endif()
 endif()
 
 
@@ -143,20 +152,8 @@ if(XREPLACER_BUILD_DOCS)
             "${CMAKE_CURRENT_SOURCE_DIR}/doxyfiles"
             ALL
             COMMENT "Generate docs")
-    endif(DOXYGEN_FOUND)
+    else()
+        message("Doxygen not found")
+    endif()
 
 endif(XREPLACER_BUILD_DOCS)
-
-
-################################################################################
-#
-# This section is responsible for installing the application on the system.
-
-# TODO install
-
-
-################################################################################
-#
-# This section is responsible for installing the application on the system.
-
-# TODO cpack

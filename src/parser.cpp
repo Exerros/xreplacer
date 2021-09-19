@@ -5,7 +5,11 @@ namespace xrep {
 FileSystemParser::FileSystemParser(const fs_path& conf_root_dir)
     : root_dir(conf_root_dir)
     , objects()
-    { }
+{
+    if((root_dir == "") || (std::filesystem::is_directory(root_dir) == false)) {
+        throw exception::parser::UnCorrectRootDir();
+    }
+}
 
 //------------------------------------------------------------------------------
 void FileSystemParser::search_objects_to_replase() {

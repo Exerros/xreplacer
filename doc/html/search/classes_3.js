@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonconfigurator_59',['JsonConfigurator',['../classxrep_1_1JsonConfigurator.html',1,'xrep']]]
+  ['jsonconfigurator_61',['JsonConfigurator',['../classxrep_1_1JsonConfigurator.html',1,'xrep']]]
 ];

@@ -77,79 +77,51 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ace82fadd949cebac80fccb7c90d251d6"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:ace82fadd949cebac80fccb7c90d251d6"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#ace82fadd949cebac80fccb7c90d251d6">get_value</a> (const std::string &amp;value_name) const</td></tr>
-<tr class="memdesc:ace82fadd949cebac80fccb7c90d251d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method for retrieving a value from the config file that is being created.  <a href="classConfigCreator.html#ace82fadd949cebac80fccb7c90d251d6">More...</a><br /></td></tr>
-<tr class="separator:ace82fadd949cebac80fccb7c90d251d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a386ca3080acfa003fe5a87782e394d55"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:a386ca3080acfa003fe5a87782e394d55"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#a386ca3080acfa003fe5a87782e394d55">set_value</a> (const std::string &amp;value_name, const T &amp;value)</td></tr>
-<tr class="memdesc:a386ca3080acfa003fe5a87782e394d55"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that adds a value to a configuration file.  <a href="classConfigCreator.html#a386ca3080acfa003fe5a87782e394d55">More...</a><br /></td></tr>
-<tr class="separator:a386ca3080acfa003fe5a87782e394d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe629522c55ad16a0e24f3f84234fb71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#afe629522c55ad16a0e24f3f84234fb71">write_to_file</a> (const fs_path &amp;config_path) const</td></tr>
 <tr class="memdesc:afe629522c55ad16a0e24f3f84234fb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method to write information to the configuration file.  <a href="classConfigCreator.html#afe629522c55ad16a0e24f3f84234fb71">More...</a><br /></td></tr>
 <tr class="separator:afe629522c55ad16a0e24f3f84234fb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb309039e5b09636f31c2848049e668c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#afb309039e5b09636f31c2848049e668c">set_root_dir</a> (const std::string &amp;value)</td></tr>
+<tr class="memdesc:afb309039e5b09636f31c2848049e668c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method that sets the root directory.  <a href="classConfigCreator.html#afb309039e5b09636f31c2848049e668c">More...</a><br /></td></tr>
+<tr class="separator:afb309039e5b09636f31c2848049e668c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bb92319f418c2958eb8354ac4fd0693"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#a8bb92319f418c2958eb8354ac4fd0693">set_thread_count</a> (const int value)</td></tr>
+<tr class="memdesc:a8bb92319f418c2958eb8354ac4fd0693"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that sets the number of handler threads.  <a href="classConfigCreator.html#a8bb92319f418c2958eb8354ac4fd0693">More...</a><br /></td></tr>
+<tr class="separator:a8bb92319f418c2958eb8354ac4fd0693"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d40c8174a7d877967524c2dc7eea95b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#a6d40c8174a7d877967524c2dc7eea95b">add_pair</a> (const std::string &amp;v_from, const std::string &amp;v_to)</td></tr>
+<tr class="memdesc:a6d40c8174a7d877967524c2dc7eea95b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that adds a pair for replacement.  <a href="classConfigCreator.html#a6d40c8174a7d877967524c2dc7eea95b">More...</a><br /></td></tr>
+<tr class="separator:a6d40c8174a7d877967524c2dc7eea95b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105e402c75d26ec00c28adcebd94dbc6"><td class="memItemLeft" align="right" valign="top">const fs_path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#a105e402c75d26ec00c28adcebd94dbc6">get_root_dir</a> () const</td></tr>
+<tr class="memdesc:a105e402c75d26ec00c28adcebd94dbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the value of the root directory.  <a href="classConfigCreator.html#a105e402c75d26ec00c28adcebd94dbc6">More...</a><br /></td></tr>
+<tr class="separator:a105e402c75d26ec00c28adcebd94dbc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d589c2dae61bbc9b3d0df5101e81dc3"><td class="memItemLeft" align="right" valign="top">const int &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#a6d589c2dae61bbc9b3d0df5101e81dc3">get_thread_count</a> () const</td></tr>
+<tr class="memdesc:a6d589c2dae61bbc9b3d0df5101e81dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the value of the number of handler threads.  <a href="classConfigCreator.html#a6d589c2dae61bbc9b3d0df5101e81dc3">More...</a><br /></td></tr>
+<tr class="separator:a6d589c2dae61bbc9b3d0df5101e81dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8149798d242e9697ae1eaccff342fb3"><td class="memItemLeft" align="right" valign="top">const pairs_map &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigCreator.html#af8149798d242e9697ae1eaccff342fb3">get_pairs</a> () const</td></tr>
+<tr class="memdesc:af8149798d242e9697ae1eaccff342fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the container with replacement pairs.  <a href="classConfigCreator.html#af8149798d242e9697ae1eaccff342fb3">More...</a><br /></td></tr>
+<tr class="separator:af8149798d242e9697ae1eaccff342fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An auxiliary class for creating configuration files for tests. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ace82fadd949cebac80fccb7c90d251d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace82fadd949cebac80fccb7c90d251d6">&#9670;&nbsp;</a></span>get_value()</h2>
+<a id="a6d40c8174a7d877967524c2dc7eea95b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d40c8174a7d877967524c2dc7eea95b">&#9670;&nbsp;</a></span>add_pair()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T ConfigCreator::get_value </td>
+          <td class="memname">void ConfigCreator::add_pair </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>value_name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A method for retrieving a value from the config file that is being created. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value_name</td><td>The name of the field storing the value. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a386ca3080acfa003fe5a87782e394d55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a386ca3080acfa003fe5a87782e394d55">&#9670;&nbsp;</a></span>set_value()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ConfigCreator::set_value </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>value_name</em>, </td>
+          <td class="paramname"><em>v_from</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>v_to</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -164,11 +136,163 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>A method that adds a value to a configuration file. </p>
+<p>A method that adds a pair for replacement. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value_name</td><td>The name of the field that will store the value.</td></tr>
-    <tr><td class="paramname">value</td><td>The value that will be placed in the configuration file. </td></tr>
+    <tr><td class="paramname">v_from</td><td>The meaning of what will be replaced. </td></tr>
+    <tr><td class="paramname">v_to</td><td>The value by which the replacement will be made. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af8149798d242e9697ae1eaccff342fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8149798d242e9697ae1eaccff342fb3">&#9670;&nbsp;</a></span>get_pairs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const pairs_map&amp; ConfigCreator::get_pairs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the container with replacement pairs. </p>
+<dl class="section return"><dt>Returns</dt><dd>Container with replacement pairs. </dd></dl>
+
+</div>
+</div>
+<a id="a105e402c75d26ec00c28adcebd94dbc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105e402c75d26ec00c28adcebd94dbc6">&#9670;&nbsp;</a></span>get_root_dir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const fs_path&amp; ConfigCreator::get_root_dir </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the value of the root directory. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference to the value of the root directory. </dd></dl>
+
+</div>
+</div>
+<a id="a6d589c2dae61bbc9b3d0df5101e81dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d589c2dae61bbc9b3d0df5101e81dc3">&#9670;&nbsp;</a></span>get_thread_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int&amp; ConfigCreator::get_thread_count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the value of the number of handler threads. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of worker threads. </dd></dl>
+
+</div>
+</div>
+<a id="afb309039e5b09636f31c2848049e668c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb309039e5b09636f31c2848049e668c">&#9670;&nbsp;</a></span>set_root_dir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConfigCreator::set_root_dir </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Method that sets the root directory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Path to the root directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8bb92319f418c2958eb8354ac4fd0693"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb92319f418c2958eb8354ac4fd0693">&#9670;&nbsp;</a></span>set_thread_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConfigCreator::set_thread_count </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method that sets the number of handler threads. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value of the number of threads. </td></tr>
   </table>
   </dd>
 </dl>

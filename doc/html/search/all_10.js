@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['_7eloggerhelper_46',['~LoggerHelper',['../classxrep_1_1LoggerHelper.html#abd5c231df0983e26fcd81ea2a5836f96',1,'xrep::LoggerHelper']]]
+  ['xreplacer_45',['xReplacer',['../index.html',1,'']]],
+  ['xreplacercore_46',['XReplacerCore',['../classxrep_1_1XReplacerCore.html',1,'xrep']]],
+  ['xreplacerexception_47',['xReplacerException',['../classxrep_1_1exception_1_1xReplacerException.html',1,'xrep::exception']]]
 ];

@@ -80,47 +80,48 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;regex&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;interface/ireplacer.hpp&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;exception.hpp&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;logger.hpp&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>xrep {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#pragma pack(push, 4)</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classxrep_1_1FileDataReplacer.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classxrep_1_1FileDataReplacer.html">FileDataReplacer</a> final : <span class="keyword">public</span> <a class="code" href="classxrep_1_1interface_1_1ReplacerInterface.html">interface::ReplacerInterface</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">using</span> pairs_map = std::unordered_map&lt;std::string, std::string&gt;;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">using</span> fs_path = std::filesystem::path;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    pairs_map pairs;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> thread_count;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classxrep_1_1FileDataReplacer.html#a317ccc543b76d265e46b39542998bd61">FileDataReplacer</a>(pairs_map config_pairs, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> config_thread_count);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    ~<a class="code" href="classxrep_1_1FileDataReplacer.html">FileDataReplacer</a>() <span class="keyword">override</span> = default ;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classxrep_1_1FileDataReplacer.html#aec509ac8f1fc522fa20e60785019de9d">replase</a>(std::vector&lt;fs_path&gt;&amp; <span class="keywordtype">object</span>) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">static</span> std::string get_buffer_from(<span class="keyword">const</span> fs_path&amp; filePath);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    write_buffer_to_file(<span class="keyword">const</span> std::string&amp; buffer, <span class="keyword">const</span> fs_path&amp; filePath);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> replace_in_files(</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keyword">const</span> std::vector&lt;fs_path&gt;&amp; files_paths,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keyword">const</span> pairs_map&amp; pairs);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::vector&lt;std::vector&lt;fs_path&gt;&gt;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    chop_objects_container(std::vector&lt;fs_path&gt;&amp; container) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#pragma pack(pop)</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace xrep</span></div>
-<div class="ttc" id="aclassxrep_1_1FileDataReplacer_html"><div class="ttname"><a href="classxrep_1_1FileDataReplacer.html">xrep::FileDataReplacer</a></div><div class="ttdoc">A class for replacing information in files.</div><div class="ttdef"><b>Definition:</b> replacer.hpp:22</div></div>
-<div class="ttc" id="aclassxrep_1_1FileDataReplacer_html_a317ccc543b76d265e46b39542998bd61"><div class="ttname"><a href="classxrep_1_1FileDataReplacer.html#a317ccc543b76d265e46b39542998bd61">xrep::FileDataReplacer::FileDataReplacer</a></div><div class="ttdeci">FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count)</div><div class="ttdoc">Designer replaser getting information from the configurator.</div><div class="ttdef"><b>Definition:</b> replacer.cpp:6</div></div>
-<div class="ttc" id="aclassxrep_1_1FileDataReplacer_html_aec509ac8f1fc522fa20e60785019de9d"><div class="ttname"><a href="classxrep_1_1FileDataReplacer.html#aec509ac8f1fc522fa20e60785019de9d">xrep::FileDataReplacer::replase</a></div><div class="ttdeci">void replase(std::vector&lt; fs_path &gt; &amp;object) const override</div><div class="ttdoc">A method that starts file processing.</div><div class="ttdef"><b>Definition:</b> replacer.cpp:22</div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;interface/ireplacer.hpp&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;exception.hpp&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;logger.hpp&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>xrep {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#pragma pack(push, 4)</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classxrep_1_1FileDataReplacer.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classxrep_1_1FileDataReplacer.html">FileDataReplacer</a> final : <span class="keyword">public</span> <a class="code" href="classxrep_1_1interface_1_1ReplacerInterface.html">interface::ReplacerInterface</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">using</span> pairs_map = std::unordered_map&lt;std::string, std::string&gt;;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">using</span> fs_path = std::filesystem::path;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    pairs_map pairs;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> thread_count;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="classxrep_1_1FileDataReplacer.html#a5e0bcbce7e2b4e267266fea8f42bfb8b">FileDataReplacer</a>(pairs_map config_pairs, <span class="keywordtype">int</span> config_thread_count);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ~<a class="code" href="classxrep_1_1FileDataReplacer.html">FileDataReplacer</a>() <span class="keyword">override</span> = default ;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classxrep_1_1FileDataReplacer.html#a1e3ca18c7a55af425be807b29c170309">replace</a>(std::vector&lt;fs_path&gt;&amp; <span class="keywordtype">object</span>) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">static</span> std::string get_buffer_from(<span class="keyword">const</span> fs_path&amp; filePath);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    write_buffer_to_file(<span class="keyword">const</span> std::string&amp; buffer, <span class="keyword">const</span> fs_path&amp; filePath);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> replace_in_files(</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keyword">const</span> std::vector&lt;fs_path&gt;&amp; files_paths,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keyword">const</span> pairs_map&amp; pairs);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    std::vector&lt;std::vector&lt;fs_path&gt;&gt;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    chop_objects_container(std::vector&lt;fs_path&gt;&amp; container) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#pragma pack(pop)</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace xrep</span></div>
+<div class="ttc" id="aclassxrep_1_1FileDataReplacer_html"><div class="ttname"><a href="classxrep_1_1FileDataReplacer.html">xrep::FileDataReplacer</a></div><div class="ttdoc">A class for replacing information in files.</div><div class="ttdef"><b>Definition:</b> replacer.hpp:23</div></div>
+<div class="ttc" id="aclassxrep_1_1FileDataReplacer_html_a1e3ca18c7a55af425be807b29c170309"><div class="ttname"><a href="classxrep_1_1FileDataReplacer.html#a1e3ca18c7a55af425be807b29c170309">xrep::FileDataReplacer::replace</a></div><div class="ttdeci">void replace(std::vector&lt; fs_path &gt; &amp;object) const override</div><div class="ttdoc">A method that starts file processing.</div><div class="ttdef"><b>Definition:</b> replacer.cpp:24</div></div>
+<div class="ttc" id="aclassxrep_1_1FileDataReplacer_html_a5e0bcbce7e2b4e267266fea8f42bfb8b"><div class="ttname"><a href="classxrep_1_1FileDataReplacer.html#a5e0bcbce7e2b4e267266fea8f42bfb8b">xrep::FileDataReplacer::FileDataReplacer</a></div><div class="ttdeci">FileDataReplacer(pairs_map config_pairs, int config_thread_count)</div><div class="ttdoc">Designer replaser getting information from the configurator.</div><div class="ttdef"><b>Definition:</b> replacer.cpp:6</div></div>
 <div class="ttc" id="aclassxrep_1_1interface_1_1ReplacerInterface_html"><div class="ttname"><a href="classxrep_1_1interface_1_1ReplacerInterface.html">xrep::interface::ReplacerInterface</a></div><div class="ttdoc">The interface of the class producing replacements according to the configuration in the passed object...</div><div class="ttdef"><b>Definition:</b> ireplacer.hpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

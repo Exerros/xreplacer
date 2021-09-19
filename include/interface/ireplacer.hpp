@@ -24,7 +24,7 @@ public:
      * @param container Сontainer with the objects in which the replacement will
      *        be made.
      */
-    virtual void replase(std::vector<fs_path>& container) const = 0;
+    virtual void replace(std::vector<fs_path>& container) const = 0;
 };
 
 } // namespace xrep::interface

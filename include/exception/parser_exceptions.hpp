@@ -8,6 +8,17 @@ namespace xrep::exception::parser {
 /**
  * @brief Exception thrown if no files are found in the specified root path.
  */
+class UnCorrectRootDir final : public FatalException {
+public:
+    const char* what() const noexcept override {
+        return "Incorrect value for the root directory.";
+    }
+};
+
+//------------------------------------------------------------------------------
+/**
+ * @brief Exception thrown if no files are found in the specified root path.
+ */
 class NoObjects final : public FatalException {
 public:
     const char* what() const noexcept override {

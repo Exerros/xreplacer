@@ -3,15 +3,17 @@
 namespace xrep {
 
 FileDataReplacer::
-FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count)
+FileDataReplacer(pairs_map config_pairs, int config_thread_count)
     : pairs(config_pairs)
-    , thread_count(std::thread::hardware_concurrency())
+    , thread_count()
 {
     LOG(info) << "Configuring the Replacer";
-    if (config_thread_count >= 1)
-        thread_count = static_cast<unsigned int>(config_thread_count);
-    else
-        throw exception::replacer::IncorrectThreadsCount();
+    if (config_thread_count >= 1) {
+        thread_count = std::min(static_cast<unsigned int>(config_thread_count),
+                                std::thread::hardware_concurrency());
+    } else { throw exception::replacer::IncorrectThreadsCount(); }
+
+    if (pairs.empty() == true) { throw exception::replacer::NoPairs(); }
 
     LOG(info) << "Replaser configuration was successful"
               << NEXT_LINE_CONTINUE << thread_count << " streams will be used"
@@ -19,7 +21,7 @@ FileDataReplacer(pairs_map config_pairs, unsigned int config_thread_count)
 }
 
 //------------------------------------------------------------------------------
-void FileDataReplacer::replase(std::vector<fs_path>& objects) const {
+void FileDataReplacer::replace(std::vector<fs_path>& objects) const {
     std::vector<std::unique_ptr<std::thread>> treads {};
     auto separated_files = chop_objects_container(objects);
 

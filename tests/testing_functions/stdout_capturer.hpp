@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 
+namespace tests {
 /**
  * @brief This class is designed to intercept information sent to STDOUT.
  */
@@ -34,3 +35,5 @@ public:
         return ss.str();
     }
 };
+
+} // namespace tests

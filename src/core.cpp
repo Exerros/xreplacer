@@ -46,7 +46,7 @@ int XReplacerCore::run() {
         parser->search_objects_to_replase();
 
         if (parser->has_objects_to_replace()) {
-            replacer->replase(parser->get_objects_to_replase());
+            replacer->replace(parser->get_objects_to_replase());
 
         } else throw exception::parser::NoObjects();
 

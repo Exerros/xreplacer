@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonconfigurator_85',['JsonConfigurator',['../classxrep_1_1JsonConfigurator.html#a003b712eece66d0280db7858a13c3b5a',1,'xrep::JsonConfigurator']]]
+  ['init_87',['init',['../classxrep_1_1XReplacerCore.html#ae404143b14c6d824115c1c79a745ba45',1,'xrep::XReplacerCore']]]
 ];

@@ -74,38 +74,67 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classConfigCreator.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classConfigCreator.html">ConfigCreator</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">using</span> fs_path = std::filesystem::path;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">using</span> json = nlohmann::json;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    json data {};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classConfigCreator.html">ConfigCreator</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ~<a class="code" href="classConfigCreator.html">ConfigCreator</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classConfigCreator.html#ace82fadd949cebac80fccb7c90d251d6">   29</a></span>&#160;    T <a class="code" href="classConfigCreator.html#ace82fadd949cebac80fccb7c90d251d6">get_value</a>(<span class="keyword">const</span> std::string&amp; value_name)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> data[value_name];</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classConfigCreator.html#a386ca3080acfa003fe5a87782e394d55">   41</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classConfigCreator.html#a386ca3080acfa003fe5a87782e394d55">set_value</a>(<span class="keyword">const</span> std::string&amp; value_name, <span class="keyword">const</span> T&amp; value) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classConfigCreator.html#afe629522c55ad16a0e24f3f84234fb71">   50</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classConfigCreator.html#afe629522c55ad16a0e24f3f84234fb71">write_to_file</a>(<span class="keyword">const</span> fs_path&amp; config_path)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
-<div class="ttc" id="aclassConfigCreator_html"><div class="ttname"><a href="classConfigCreator.html">ConfigCreator</a></div><div class="ttdoc">An auxiliary class for creating configuration files for tests.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:11</div></div>
-<div class="ttc" id="aclassConfigCreator_html_a386ca3080acfa003fe5a87782e394d55"><div class="ttname"><a href="classConfigCreator.html#a386ca3080acfa003fe5a87782e394d55">ConfigCreator::set_value</a></div><div class="ttdeci">void set_value(const std::string &amp;value_name, const T &amp;value)</div><div class="ttdoc">A method that adds a value to a configuration file.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:41</div></div>
-<div class="ttc" id="aclassConfigCreator_html_ace82fadd949cebac80fccb7c90d251d6"><div class="ttname"><a href="classConfigCreator.html#ace82fadd949cebac80fccb7c90d251d6">ConfigCreator::get_value</a></div><div class="ttdeci">T get_value(const std::string &amp;value_name) const</div><div class="ttdoc">A method for retrieving a value from the config file that is being created.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:29</div></div>
-<div class="ttc" id="aclassConfigCreator_html_afe629522c55ad16a0e24f3f84234fb71"><div class="ttname"><a href="classConfigCreator.html#afe629522c55ad16a0e24f3f84234fb71">ConfigCreator::write_to_file</a></div><div class="ttdeci">void write_to_file(const fs_path &amp;config_path) const</div><div class="ttdoc">A method to write information to the configuration file.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:50</div></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>tests {</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classtests_1_1ConfigCreator.html">ConfigCreator</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">using</span> fs_path = std::filesystem::path;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">using</span> json = nlohmann::json;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">using</span> pairs_map = std::unordered_map&lt;std::string, std::string&gt;;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    json data {};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    fs_path root_dir {};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">int</span> thread_count {};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    pairs_map pairs {};</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classtests_1_1ConfigCreator.html">ConfigCreator</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    ~<a class="code" href="classtests_1_1ConfigCreator.html">ConfigCreator</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#a8921fcfc20dd7fb01f4dfb8fb1f504c2">   34</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classtests_1_1ConfigCreator.html#a8921fcfc20dd7fb01f4dfb8fb1f504c2">write_to_file</a>(<span class="keyword">const</span> fs_path&amp; config_path)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        std::ofstream file(config_path, std::ios::out | std::ios::trunc);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        file &lt;&lt; std::setw(4) &lt;&lt; data &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        file.close();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#a4c4818f1f25890f0782a31504c6deb48">   46</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classtests_1_1ConfigCreator.html#a4c4818f1f25890f0782a31504c6deb48">set_root_dir</a>(<span class="keyword">const</span> std::string&amp; value) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        data[<span class="stringliteral">&quot;parser&quot;</span>][<span class="stringliteral">&quot;root_dir&quot;</span>] = value;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        root_dir = value;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#a133e4b52708669f0c4cc14ac31fa7fa2">   55</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classtests_1_1ConfigCreator.html#a133e4b52708669f0c4cc14ac31fa7fa2">set_thread_count</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        data[<span class="stringliteral">&quot;replaser&quot;</span>][<span class="stringliteral">&quot;thread_count&quot;</span>] = value;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        thread_count = value;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#ac266ed516702ff6ad962e5cf68184be7">   65</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classtests_1_1ConfigCreator.html#ac266ed516702ff6ad962e5cf68184be7">add_pair</a>(<span class="keyword">const</span> std::string&amp; v_from, <span class="keyword">const</span> std::string&amp; v_to) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        data[<span class="stringliteral">&quot;replaser&quot;</span>][<span class="stringliteral">&quot;pairs&quot;</span>][v_from] = v_to;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        pairs.insert(std::pair(v_from, v_to));</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#a12fc44e9993be80668a81fde3b52150f">   74</a></span>&#160;    <span class="keyword">const</span> fs_path&amp; <a class="code" href="classtests_1_1ConfigCreator.html#a12fc44e9993be80668a81fde3b52150f">get_root_dir</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> root_dir; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#aa579ca1fe2a7784295e66cf3b7aa2a25">   80</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; <a class="code" href="classtests_1_1ConfigCreator.html#aa579ca1fe2a7784295e66cf3b7aa2a25">get_thread_count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> thread_count; }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classtests_1_1ConfigCreator.html#a2344543cdf44a1c583eec2674d76ab15">   86</a></span>&#160;    <span class="keyword">const</span> pairs_map&amp; <a class="code" href="classtests_1_1ConfigCreator.html#a2344543cdf44a1c583eec2674d76ab15">get_pairs</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pairs; }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace tests</span></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html"><div class="ttname"><a href="classtests_1_1ConfigCreator.html">tests::ConfigCreator</a></div><div class="ttdoc">An auxiliary class for creating configuration files for tests.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:14</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_a12fc44e9993be80668a81fde3b52150f"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#a12fc44e9993be80668a81fde3b52150f">tests::ConfigCreator::get_root_dir</a></div><div class="ttdeci">const fs_path &amp; get_root_dir() const</div><div class="ttdoc">Returns a reference to the value of the root directory.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:74</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_a133e4b52708669f0c4cc14ac31fa7fa2"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#a133e4b52708669f0c4cc14ac31fa7fa2">tests::ConfigCreator::set_thread_count</a></div><div class="ttdeci">void set_thread_count(const int value)</div><div class="ttdoc">A method that sets the number of handler threads.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:55</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_a2344543cdf44a1c583eec2674d76ab15"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#a2344543cdf44a1c583eec2674d76ab15">tests::ConfigCreator::get_pairs</a></div><div class="ttdeci">const pairs_map &amp; get_pairs() const</div><div class="ttdoc">Returns the container with replacement pairs.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:86</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_a4c4818f1f25890f0782a31504c6deb48"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#a4c4818f1f25890f0782a31504c6deb48">tests::ConfigCreator::set_root_dir</a></div><div class="ttdeci">void set_root_dir(const std::string &amp;value)</div><div class="ttdoc">Method that sets the root directory.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:46</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_a8921fcfc20dd7fb01f4dfb8fb1f504c2"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#a8921fcfc20dd7fb01f4dfb8fb1f504c2">tests::ConfigCreator::write_to_file</a></div><div class="ttdeci">void write_to_file(const fs_path &amp;config_path) const</div><div class="ttdoc">A method to write information to the configuration file.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:34</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_aa579ca1fe2a7784295e66cf3b7aa2a25"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#aa579ca1fe2a7784295e66cf3b7aa2a25">tests::ConfigCreator::get_thread_count</a></div><div class="ttdeci">const int &amp; get_thread_count() const</div><div class="ttdoc">Returns a reference to the value of the number of handler threads.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:80</div></div>
+<div class="ttc" id="aclasstests_1_1ConfigCreator_html_ac266ed516702ff6ad962e5cf68184be7"><div class="ttname"><a href="classtests_1_1ConfigCreator.html#ac266ed516702ff6ad962e5cf68184be7">tests::ConfigCreator::add_pair</a></div><div class="ttdeci">void add_pair(const std::string &amp;v_from, const std::string &amp;v_to)</div><div class="ttdoc">A method that adds a pair for replacement.</div><div class="ttdef"><b>Definition:</b> config_creator.hpp:65</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

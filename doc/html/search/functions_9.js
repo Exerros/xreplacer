@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['verify_5fconfig_93',['verify_config',['../classxrep_1_1JsonConfigurator.html#a490a66d29086b1d830f5e9e4904bf2c0',1,'xrep::JsonConfigurator::verify_config()'],['../classxrep_1_1interface_1_1ConfiguratorInterface.html#a9afd523c143e74f256929467a1d0833e',1,'xrep::interface::ConfiguratorInterface::verify_config()']]]
+  ['search_5fobjects_5fto_5freplase_94',['search_objects_to_replase',['../classxrep_1_1interface_1_1ParserInterface.html#aee233e6cdf31b1866712408b3a53f982',1,'xrep::interface::ParserInterface::search_objects_to_replase()'],['../classxrep_1_1FileSystemParser.html#a1d54ed32deaf0acc1ebcbb0b8a5e0415',1,'xrep::FileSystemParser::search_objects_to_replase()']]],
+  ['set_5froot_5fdir_95',['set_root_dir',['../classtests_1_1ConfigCreator.html#a4c4818f1f25890f0782a31504c6deb48',1,'tests::ConfigCreator']]],
+  ['set_5fthread_5fcount_96',['set_thread_count',['../classtests_1_1ConfigCreator.html#a133e4b52708669f0c4cc14ac31fa7fa2',1,'tests::ConfigCreator']]]
 ];

@@ -75,31 +75,34 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classSTDOUT__Capturer.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSTDOUT__Capturer.html">STDOUT_Capturer</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">using</span> <span class="keywordtype">string</span> = std::string;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">using</span> ostringstream = std::ostringstream;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">using</span> streambuf = std::basic_streambuf&lt;char&gt;;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    ostringstream ss;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    streambuf *old_buf;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classSTDOUT__Capturer.html">STDOUT_Capturer</a>()</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        : ss()</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        , old_buf()</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        { old_buf = std::cout.rdbuf(ss.rdbuf()); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    ~<a class="code" href="classSTDOUT__Capturer.html">STDOUT_Capturer</a>() {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::cout.rdbuf(old_buf);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classSTDOUT__Capturer.html#ab90397dd7214e0a0e75a88db7a16ec9e">   33</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="classSTDOUT__Capturer.html#ab90397dd7214e0a0e75a88db7a16ec9e">get_str</a>() {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
-<div class="ttc" id="aclassSTDOUT__Capturer_html"><div class="ttname"><a href="classSTDOUT__Capturer.html">STDOUT_Capturer</a></div><div class="ttdoc">This class is designed to intercept information sent to STDOUT.</div><div class="ttdef"><b>Definition:</b> stdout_capturer.hpp:9</div></div>
-<div class="ttc" id="aclassSTDOUT__Capturer_html_ab90397dd7214e0a0e75a88db7a16ec9e"><div class="ttname"><a href="classSTDOUT__Capturer.html#ab90397dd7214e0a0e75a88db7a16ec9e">STDOUT_Capturer::get_str</a></div><div class="ttdeci">string get_str()</div><div class="ttdoc">A method that returns the information sent to STDOUT as a string.</div><div class="ttdef"><b>Definition:</b> stdout_capturer.hpp:33</div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>tests {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classtests_1_1STDOUT__Capturer.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classtests_1_1STDOUT__Capturer.html">STDOUT_Capturer</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">using</span> <span class="keywordtype">string</span> = std::string;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">using</span> ostringstream = std::ostringstream;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">using</span> streambuf = std::basic_streambuf&lt;char&gt;;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    ostringstream ss;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    streambuf *old_buf;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classtests_1_1STDOUT__Capturer.html">STDOUT_Capturer</a>()</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        : ss()</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        , old_buf()</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        { old_buf = std::cout.rdbuf(ss.rdbuf()); }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    ~<a class="code" href="classtests_1_1STDOUT__Capturer.html">STDOUT_Capturer</a>() {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        std::cout.rdbuf(old_buf);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classtests_1_1STDOUT__Capturer.html#a74ee567b2dd75593a77c8dd37e5fc19a">   34</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="classtests_1_1STDOUT__Capturer.html#a74ee567b2dd75593a77c8dd37e5fc19a">get_str</a>() {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> ss.str();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace tests</span></div>
+<div class="ttc" id="aclasstests_1_1STDOUT__Capturer_html"><div class="ttname"><a href="classtests_1_1STDOUT__Capturer.html">tests::STDOUT_Capturer</a></div><div class="ttdoc">This class is designed to intercept information sent to STDOUT.</div><div class="ttdef"><b>Definition:</b> stdout_capturer.hpp:10</div></div>
+<div class="ttc" id="aclasstests_1_1STDOUT__Capturer_html_a74ee567b2dd75593a77c8dd37e5fc19a"><div class="ttname"><a href="classtests_1_1STDOUT__Capturer.html#a74ee567b2dd75593a77c8dd37e5fc19a">tests::STDOUT_Capturer::get_str</a></div><div class="ttdeci">string get_str()</div><div class="ttdoc">A method that returns the information sent to STDOUT as a string.</div><div class="ttdef"><b>Definition:</b> stdout_capturer.hpp:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

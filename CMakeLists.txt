@@ -21,8 +21,8 @@ project(xreplacer
 
 option(XREPLACER_BUILD_SHARED
            "Assemble the program library as a dynamic library" OFF)
-option(XREPLACER_BUILD_DOCS "Build documentation when assembling a project" ON)
-option(XREPLACER_BUILD_TESTS "Build tests when building a project." ON)
+option(XREPLACER_BUILD_DOCS "Build documentation when assembling a project" OFF)
+option(XREPLACER_BUILD_TESTS "Build tests when building a project." OFF)
 
 
 ################################################################################
@@ -67,7 +67,7 @@ target_include_directories(xrep
 set_target_properties(xrep PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
-    BUILD_TYPE RELEASE
+    BUILD_TYPE MINSIZEREL
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
 
